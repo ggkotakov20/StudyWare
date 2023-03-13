@@ -1,1 +1,6 @@
-﻿  StudyWare.vcxproj -> D:\programming\Projects\StudyWare\StudyWare\x64\Debug\StudyWare.exe
+﻿  Menu.cpp
+D:\programming\Projects\StudyWare\StudyWare\StudyWare\Menu.cpp(57,34): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
+D:\programming\Projects\StudyWare\StudyWare\StudyWare\Menu.cpp(57,34): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\programming\Projects\StudyWare\StudyWare\StudyWare\Menu.cpp(69,91): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+D:\programming\Projects\StudyWare\StudyWare\StudyWare\Menu.cpp(97,91): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  StudyWare.vcxproj -> D:\programming\Projects\StudyWare\StudyWare\x64\Debug\StudyWare.exe
