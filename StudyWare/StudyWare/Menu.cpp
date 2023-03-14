@@ -2,6 +2,7 @@
 #include "raylib.h"
 
 #include "Menu.h"
+#include "TestMode.h"
 
 enum Status {
 	Menu,
@@ -36,12 +37,12 @@ void backBtn(Font font) {
 
 }
 
-void testBtn(Font font) {
+void testBtn(Vector2 screen, Font font) {
 	Rectangle testText;
 	testText.width = 400;
 	testText.height = 40;
-	testText.x = GetScreenWidth() - testText.width;
-	testText.y = GetScreenHeight() - testText.height - 10;
+	testText.x = screen.x - testText.width;
+	testText.y = screen.y - testText.height - 10;
 	Vector2 testTextPos = { testText.x, testText.y };
 
 	DrawRectangleRec(testText, RAYWHITE);
@@ -65,8 +66,8 @@ void menu(Vector2 screen, Font font) {
 			case 0:
 				gameMenu[i].width = 580;
 				gameMenu[i].height = 100;
-				gameMenu[i].x = GetScreenWidth() / 2 - gameMenu[i].width / 2;
-				gameMenu[i].y = GetScreenHeight() / 2 - gameMenu[i].height - gameMenu[i].height * 0.5 - 5;
+				gameMenu[i].x = screen.x / 2 - gameMenu[i].width / 2;
+				gameMenu[i].y = screen.y / 2 - gameMenu[i].height - gameMenu[i].height * 0.5 - 5;
 
 				DrawRectangleRec(gameMenu[i], RAYWHITE);
 				if (CheckCollisionPointRec(GetMousePosition(), gameMenu[i]) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
@@ -79,8 +80,8 @@ void menu(Vector2 screen, Font font) {
 			case 1:
 				gameMenu[i].width = 270;
 				gameMenu[i].height = 100;
-				gameMenu[i].x = GetScreenWidth() / 2 - gameMenu[i].width / 2;
-				gameMenu[i].y = GetScreenHeight() / 2 - (gameMenu[i].height / 2);
+				gameMenu[i].x = screen.x / 2 - gameMenu[i].width / 2;
+				gameMenu[i].y = screen.y / 2 - (gameMenu[i].height / 2);
 
 				if (CheckCollisionPointRec(GetMousePosition(), gameMenu[i]) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
 					gameStatus = Rules;
@@ -93,8 +94,8 @@ void menu(Vector2 screen, Font font) {
 			case 2:
 				gameMenu[i].width = 200;
 				gameMenu[i].height = 100;
-				gameMenu[i].x = GetScreenWidth() / 2 - gameMenu[i].width / 2;
-				gameMenu[i].y = GetScreenHeight() / 2 + gameMenu[i].height - gameMenu[i].height * 0.5 + 5;
+				gameMenu[i].x = screen.x / 2 - gameMenu[i].width / 2;
+				gameMenu[i].y = screen.y / 2 + gameMenu[i].height - gameMenu[i].height * 0.5 + 5;
 
 				if (CheckCollisionPointRec(GetMousePosition(), gameMenu[i]) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
 					gameStatus = Quit;
@@ -111,10 +112,11 @@ void menu(Vector2 screen, Font font) {
 	}
 	else if (gameStatus == Learning) {
 		backBtn(font);
-		testBtn(font);
+		testBtn(screen,font);
 	}
 	else if (gameStatus == Test) {
 		backBtn(font);
+		questions(screen, font);
 	}
 	else if (gameStatus == Rules) {
 		backBtn(font);
