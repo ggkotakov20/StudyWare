@@ -20,6 +20,6 @@ struct Questions {
 	Color color;
 };
 void popAlertForEnd(Vector2 screen, Font font);
-void resultOfTest(Vector2 screen, Font font, float score);
 void buttons(Vector2 screen, Font font);
+void resultOfTest(Vector2 screen, Font font, float score);
 void questions(Vector2 screen, Font font);

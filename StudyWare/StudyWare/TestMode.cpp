@@ -52,6 +52,138 @@ void popAlertForEnd(Vector2 screen, Font font) {
 
 }
 
+void buttons(Vector2 screen, Font font) {
+	if (!questionTurn[0]) {
+		Button previousBtn;
+
+		if (questionTurn[4])
+			previousBtn.bounds = { (float)screen.x / 2 - 155, (float)screen.y - 75, 150, 50 };
+		else
+			previousBtn.bounds = { (float)screen.x / 2 - 75 - 4 * 40, (float)screen.y - 75, 150, 50 };
+
+		previousBtn.rounding = 1;
+		previousBtn.hovering = CheckCollisionPointRec(GetMousePosition(), previousBtn.bounds);
+		previousBtn.text = "Previous";
+		previousBtn.color = GRAY;
+
+		if (previousBtn.hovering) previousBtn.color = DARKGRAY;
+		DrawRectangleRounded(previousBtn.bounds, previousBtn.rounding, previousBtn.rounding, previousBtn.color);
+		DrawText(previousBtn.text, previousBtn.bounds.x + previousBtn.bounds.width / 2 - MeasureText(previousBtn.text, 20) / 2, previousBtn.bounds.y + 15, 20, BLACK);
+
+		if (CheckCollisionPointRec(GetMousePosition(), previousBtn.bounds) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+			if (questionTurn[1]) {
+				questionTurn[0] = true;
+				questionTurn[1] = false;
+				questionTurn[2] = false;
+				questionTurn[3] = false;
+				questionTurn[4] = false;
+			}
+			else if (questionTurn[2]) {
+				questionTurn[0] = false;
+				questionTurn[1] = true;
+				questionTurn[2] = false;
+				questionTurn[3] = false;
+				questionTurn[4] = false;
+			}
+			else if (questionTurn[3]) {
+				questionTurn[0] = false;
+				questionTurn[1] = false;
+				questionTurn[2] = true;
+				questionTurn[3] = false;
+				questionTurn[4] = false;
+			}
+			else if (questionTurn[4]) {
+				questionTurn[0] = false;
+				questionTurn[1] = false;
+				questionTurn[2] = false;
+				questionTurn[3] = true;
+				questionTurn[4] = false;
+			}
+		}
+	}
+
+	if (!questionTurn[4]) {
+		Button nextBtn;
+
+		if (questionTurn[0])
+			nextBtn.bounds = { (float)screen.x / 2 - 155, (float)screen.y - 75, 150, 50 };
+		else
+			nextBtn.bounds = { (float)screen.x / 2 - 75, (float)screen.y - 75, 150, 50 };
+
+		nextBtn.rounding = 1;
+		nextBtn.hovering = CheckCollisionPointRec(GetMousePosition(), nextBtn.bounds);
+		nextBtn.text = "Next";
+		nextBtn.color = GRAY;
+
+		if (nextBtn.hovering) nextBtn.color = DARKGRAY;
+		DrawRectangleRounded(nextBtn.bounds, nextBtn.rounding, nextBtn.rounding, nextBtn.color);
+		DrawText(nextBtn.text, nextBtn.bounds.x + nextBtn.bounds.width / 2 - MeasureText(nextBtn.text, 20) / 2, nextBtn.bounds.y + 15, 20, BLACK);
+
+		if (CheckCollisionPointRec(GetMousePosition(), nextBtn.bounds) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+			if (questionTurn[0]) {
+				questionTurn[0] = false;
+				questionTurn[1] = true;
+				questionTurn[2] = false;
+				questionTurn[3] = false;
+				questionTurn[4] = false;
+			}
+			else if (questionTurn[1]) {
+				questionTurn[0] = false;
+				questionTurn[1] = false;
+				questionTurn[2] = true;
+				questionTurn[3] = false;
+				questionTurn[4] = false;
+			}
+			else if (questionTurn[2]) {
+				questionTurn[0] = false;
+				questionTurn[1] = false;
+				questionTurn[2] = false;
+				questionTurn[3] = true;
+				questionTurn[4] = false;
+			}
+			else if (questionTurn[3]) {
+				questionTurn[0] = false;
+				questionTurn[1] = false;
+				questionTurn[2] = false;
+				questionTurn[3] = false;
+				questionTurn[4] = true;
+			}
+		}
+	}
+
+
+	Button finishBtn;
+
+	if (questionTurn[0] || questionTurn[4])
+		finishBtn.bounds = { (float)screen.x / 2 + 5, (float)screen.y - 75, 150, 50 };
+	else
+		finishBtn.bounds = { (float)screen.x / 2 - 75 + 4 * 40, (float)screen.y - 75, 150, 50 };
+
+	finishBtn.rounding = 1;
+	finishBtn.hovering = CheckCollisionPointRec(GetMousePosition(), finishBtn.bounds);
+	finishBtn.text = "Finish";
+	finishBtn.color = GRAY;
+
+	if (finishBtn.hovering) finishBtn.color = DARKGRAY;
+
+	DrawRectangleRounded(finishBtn.bounds, finishBtn.rounding, finishBtn.rounding, finishBtn.color);
+	DrawText(finishBtn.text, finishBtn.bounds.x + finishBtn.bounds.width / 2 - MeasureText(finishBtn.text, 20) / 2, finishBtn.bounds.y + 15, 20, BLACK);
+
+	if (CheckCollisionPointRec(GetMousePosition(), finishBtn.bounds) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+		if (isTesting) {
+			showAlert = true;
+			questionTurn[0] = true;
+			questionTurn[1] = false;
+			questionTurn[2] = false;
+			questionTurn[3] = false;
+			questionTurn[4] = false;
+		}
+		
+	}
+
+
+}
+
 void resultOfTest(Vector2 screen, Font font, float score) {
 	if (!isTesting) {
 		char scoreText[10];
@@ -81,13 +213,20 @@ void resultOfTest(Vector2 screen, Font font, float score) {
 						clickRecPos.y = question[i].ans[j].pos.y;
 						clickRecPos.width = 200;
 						clickRecPos.height = 30;
-						
 
-						if (question[i].ans[j].checked) {
+						if (j + 1 == question[i].currectAns) {
 							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
-							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, GREEN);
 						}
-						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+						else {
+							if (question[i].ans[j].checked) {
+								DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+								DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, RED);
+							}
+							else {
+								DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							}
+						}
 
 
 						DrawTextEx(font, question[i].ans[j].text, question[i].ans[j].pos, 30, 1, question[i].color);
@@ -101,18 +240,20 @@ void resultOfTest(Vector2 screen, Font font, float score) {
 						clickRecPos.y = question[i].ans[j].pos.y;
 						clickRecPos.width = 200;
 						clickRecPos.height = 30;
-						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-							question[i].ans[0].checked = false;
-							question[i].ans[1].checked = true;
-							question[i].ans[2].checked = false;
-							question[i].ans[3].checked = false;
-						}
 
-						if (question[i].ans[j].checked) {
+						if (j + 1 == question[i].currectAns) {
 							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
-							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, GREEN);
 						}
-						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+						else {
+							if (question[i].ans[j].checked) {
+								DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+								DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, RED);
+							}
+							else {
+								DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							}
+						}
 
 						DrawTextEx(font, question[i].ans[j].text, question[i].ans[j].pos, 30, 1, question[i].color);
 						break;
@@ -125,18 +266,20 @@ void resultOfTest(Vector2 screen, Font font, float score) {
 						clickRecPos.y = question[i].ans[j].pos.y;
 						clickRecPos.width = 200;
 						clickRecPos.height = 30;
-						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-							question[i].ans[0].checked = false;
-							question[i].ans[1].checked = false;
-							question[i].ans[2].checked = true;
-							question[i].ans[3].checked = false;
-						}
 
-						if (question[i].ans[j].checked) {
+						if (j + 1 == question[i].currectAns) {
 							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
-							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, GREEN);
 						}
-						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+						else {
+							if (question[i].ans[j].checked) {
+								DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+								DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, RED);
+							}
+							else {
+								DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							}
+						}
 
 						DrawTextEx(font, question[i].ans[j].text, question[i].ans[j].pos, 30, 1, question[i].color);
 						break;
@@ -149,18 +292,20 @@ void resultOfTest(Vector2 screen, Font font, float score) {
 						clickRecPos.y = question[i].ans[j].pos.y;
 						clickRecPos.width = 200;
 						clickRecPos.height = 30;
-						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-							question[i].ans[0].checked = false;
-							question[i].ans[1].checked = false;
-							question[i].ans[2].checked = false;
-							question[i].ans[3].checked = true;
-						}
 
-						if (question[i].ans[j].checked) {
+						if (j + 1 == question[i].currectAns) {
 							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
-							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, GREEN);
 						}
-						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+						else {
+							if (question[i].ans[j].checked) {
+								DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+								DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, RED);
+							}
+							else {
+								DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							}
+						}
 
 						DrawTextEx(font, question[i].ans[j].text, question[i].ans[j].pos, 30, 1, question[i].color);
 						break;
@@ -190,18 +335,20 @@ void resultOfTest(Vector2 screen, Font font, float score) {
 						clickRecPos.y = question[i].ans[j].pos.y;
 						clickRecPos.width = 200;
 						clickRecPos.height = 30;
-						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-							question[i].ans[0].checked = true;
-							question[i].ans[1].checked = false;
-							question[i].ans[2].checked = false;
-							question[i].ans[3].checked = false;
-						}
 
-						if (question[i].ans[j].checked) {
+						if (j + 1 == question[i].currectAns) {
 							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
-							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, GREEN);
 						}
-						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+						else {
+							if (question[i].ans[j].checked) {
+								DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+								DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, RED);
+							}
+							else {
+								DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							}
+						}
 
 						DrawTextEx(font, question[i].ans[j].text, question[i].ans[j].pos, 30, 1, question[i].color);
 						break;
@@ -214,18 +361,20 @@ void resultOfTest(Vector2 screen, Font font, float score) {
 						clickRecPos.y = question[i].ans[j].pos.y;
 						clickRecPos.width = 200;
 						clickRecPos.height = 30;
-						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-							question[i].ans[0].checked = false;
-							question[i].ans[1].checked = true;
-							question[i].ans[2].checked = false;
-							question[i].ans[3].checked = false;
-						}
-
-						if (question[i].ans[j].checked) {
+						
+						if (j + 1 == question[i].currectAns) {
 							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
-							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, GREEN);
 						}
-						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+						else {
+							if (question[i].ans[j].checked) {
+								DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+								DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, RED);
+							}
+							else {
+								DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							}
+						}
 
 						DrawTextEx(font, question[i].ans[j].text, question[i].ans[j].pos, 30, 1, question[i].color);
 						break;
@@ -238,18 +387,20 @@ void resultOfTest(Vector2 screen, Font font, float score) {
 						clickRecPos.y = question[i].ans[j].pos.y;
 						clickRecPos.width = 200;
 						clickRecPos.height = 30;
-						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-							question[i].ans[0].checked = false;
-							question[i].ans[1].checked = false;
-							question[i].ans[2].checked = true;
-							question[i].ans[3].checked = false;
-						}
-
-						if (question[i].ans[j].checked) {
+						
+						if (j + 1 == question[i].currectAns) {
 							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
-							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, GREEN);
 						}
-						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+						else {
+							if (question[i].ans[j].checked) {
+								DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+								DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, RED);
+							}
+							else {
+								DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							}
+						}
 
 						DrawTextEx(font, question[i].ans[j].text, question[i].ans[j].pos, 30, 1, question[i].color);
 						break;
@@ -262,18 +413,20 @@ void resultOfTest(Vector2 screen, Font font, float score) {
 						clickRecPos.y = question[i].ans[j].pos.y;
 						clickRecPos.width = 200;
 						clickRecPos.height = 30;
-						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-							question[i].ans[0].checked = false;
-							question[i].ans[1].checked = false;
-							question[i].ans[2].checked = false;
-							question[i].ans[3].checked = true;
-						}
-
-						if (question[i].ans[j].checked) {
+						
+						if (j + 1 == question[i].currectAns) {
 							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
-							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, GREEN);
 						}
-						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+						else {
+							if (question[i].ans[j].checked) {
+								DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+								DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, RED);
+							}
+							else {
+								DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							}
+						}
 
 						DrawTextEx(font, question[i].ans[j].text, question[i].ans[j].pos, 30, 1, question[i].color);
 						break;
@@ -303,18 +456,20 @@ void resultOfTest(Vector2 screen, Font font, float score) {
 						clickRecPos.y = question[i].ans[j].pos.y;
 						clickRecPos.width = 200;
 						clickRecPos.height = 30;
-						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-							question[i].ans[0].checked = true;
-							question[i].ans[1].checked = false;
-							question[i].ans[2].checked = false;
-							question[i].ans[3].checked = false;
-						}
 
-						if (question[i].ans[j].checked) {
+						if (j + 1 == question[i].currectAns) {
 							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
-							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, GREEN);
 						}
-						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+						else {
+							if (question[i].ans[j].checked) {
+								DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+								DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, RED);
+							}
+							else {
+								DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							}
+						}
 
 						DrawTextEx(font, question[i].ans[j].text, question[i].ans[j].pos, 30, 1, question[i].color);
 						break;
@@ -327,18 +482,20 @@ void resultOfTest(Vector2 screen, Font font, float score) {
 						clickRecPos.y = question[i].ans[j].pos.y;
 						clickRecPos.width = 200;
 						clickRecPos.height = 30;
-						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-							question[i].ans[0].checked = false;
-							question[i].ans[1].checked = true;
-							question[i].ans[2].checked = false;
-							question[i].ans[3].checked = false;
-						}
 
-						if (question[i].ans[j].checked) {
+						if (j + 1 == question[i].currectAns) {
 							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
-							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, GREEN);
 						}
-						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+						else {
+							if (question[i].ans[j].checked) {
+								DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+								DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, RED);
+							}
+							else {
+								DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							}
+						}
 
 						DrawTextEx(font, question[i].ans[j].text, question[i].ans[j].pos, 30, 1, question[i].color);
 						break;
@@ -351,18 +508,20 @@ void resultOfTest(Vector2 screen, Font font, float score) {
 						clickRecPos.y = question[i].ans[j].pos.y;
 						clickRecPos.width = 200;
 						clickRecPos.height = 30;
-						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-							question[i].ans[0].checked = false;
-							question[i].ans[1].checked = false;
-							question[i].ans[2].checked = true;
-							question[i].ans[3].checked = false;
-						}
-
-						if (question[i].ans[j].checked) {
+						
+						if (j + 1 == question[i].currectAns) {
 							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
-							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, GREEN);
 						}
-						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+						else {
+							if (question[i].ans[j].checked) {
+								DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+								DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, RED);
+							}
+							else {
+								DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							}
+						}
 
 						DrawTextEx(font, question[i].ans[j].text, question[i].ans[j].pos, 30, 1, question[i].color);
 						break;
@@ -375,18 +534,20 @@ void resultOfTest(Vector2 screen, Font font, float score) {
 						clickRecPos.y = question[i].ans[j].pos.y;
 						clickRecPos.width = 200;
 						clickRecPos.height = 30;
-						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-							question[i].ans[0].checked = false;
-							question[i].ans[1].checked = false;
-							question[i].ans[2].checked = false;
-							question[i].ans[3].checked = true;
-						}
-
-						if (question[i].ans[j].checked) {
+						
+						if (j + 1 == question[i].currectAns) {
 							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
-							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, GREEN);
 						}
-						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+						else {
+							if (question[i].ans[j].checked) {
+								DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+								DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, RED);
+							}
+							else {
+								DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							}
+						}
 
 						DrawTextEx(font, question[i].ans[j].text, question[i].ans[j].pos, 30, 1, question[i].color);
 						break;
@@ -416,18 +577,20 @@ void resultOfTest(Vector2 screen, Font font, float score) {
 						clickRecPos.y = question[i].ans[j].pos.y;
 						clickRecPos.width = 200;
 						clickRecPos.height = 30;
-						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-							question[i].ans[0].checked = true;
-							question[i].ans[1].checked = false;
-							question[i].ans[2].checked = false;
-							question[i].ans[3].checked = false;
-						}
-
-						if (question[i].ans[j].checked) {
+						
+						if (j + 1 == question[i].currectAns) {
 							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
-							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, GREEN);
 						}
-						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+						else {
+							if (question[i].ans[j].checked) {
+								DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+								DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, RED);
+							}
+							else {
+								DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							}
+						}
 
 						DrawTextEx(font, question[i].ans[j].text, question[i].ans[j].pos, 30, 1, question[i].color);
 						break;
@@ -440,18 +603,20 @@ void resultOfTest(Vector2 screen, Font font, float score) {
 						clickRecPos.y = question[i].ans[j].pos.y;
 						clickRecPos.width = 200;
 						clickRecPos.height = 30;
-						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-							question[i].ans[0].checked = false;
-							question[i].ans[1].checked = true;
-							question[i].ans[2].checked = false;
-							question[i].ans[3].checked = false;
-						}
-
-						if (question[i].ans[j].checked) {
+						
+						if (j + 1 == question[i].currectAns) {
 							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
-							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, GREEN);
 						}
-						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+						else {
+							if (question[i].ans[j].checked) {
+								DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+								DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, RED);
+							}
+							else {
+								DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							}
+						}
 
 						DrawTextEx(font, question[i].ans[j].text, question[i].ans[j].pos, 30, 1, question[i].color);
 						break;
@@ -464,18 +629,20 @@ void resultOfTest(Vector2 screen, Font font, float score) {
 						clickRecPos.y = question[i].ans[j].pos.y;
 						clickRecPos.width = 200;
 						clickRecPos.height = 30;
-						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-							question[i].ans[0].checked = false;
-							question[i].ans[1].checked = false;
-							question[i].ans[2].checked = true;
-							question[i].ans[3].checked = false;
-						}
-
-						if (question[i].ans[j].checked) {
+						
+						if (j + 1 == question[i].currectAns) {
 							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
-							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, GREEN);
 						}
-						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+						else {
+							if (question[i].ans[j].checked) {
+								DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+								DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, RED);
+							}
+							else {
+								DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							}
+						}
 
 						DrawTextEx(font, question[i].ans[j].text, question[i].ans[j].pos, 30, 1, question[i].color);
 						break;
@@ -488,18 +655,20 @@ void resultOfTest(Vector2 screen, Font font, float score) {
 						clickRecPos.y = question[i].ans[j].pos.y;
 						clickRecPos.width = 200;
 						clickRecPos.height = 30;
-						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-							question[i].ans[0].checked = false;
-							question[i].ans[1].checked = false;
-							question[i].ans[2].checked = false;
-							question[i].ans[3].checked = true;
-						}
-
-						if (question[i].ans[j].checked) {
+						
+						if (j + 1 == question[i].currectAns) {
 							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
-							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, GREEN);
 						}
-						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+						else {
+							if (question[i].ans[j].checked) {
+								DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+								DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, RED);
+							}
+							else {
+								DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							}
+						}
 
 						DrawTextEx(font, question[i].ans[j].text, question[i].ans[j].pos, 30, 1, question[i].color);
 						break;
@@ -529,18 +698,20 @@ void resultOfTest(Vector2 screen, Font font, float score) {
 						clickRecPos.y = question[i].ans[j].pos.y;
 						clickRecPos.width = 200;
 						clickRecPos.height = 30;
-						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-							question[i].ans[0].checked = true;
-							question[i].ans[1].checked = false;
-							question[i].ans[2].checked = false;
-							question[i].ans[3].checked = false;
-						}
-
-						if (question[i].ans[j].checked) {
+						
+						if (j + 1 == question[i].currectAns) {
 							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
-							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, GREEN);
 						}
-						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+						else {
+							if (question[i].ans[j].checked) {
+								DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+								DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, RED);
+							}
+							else {
+								DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							}
+						}
 
 						DrawTextEx(font, question[i].ans[j].text, question[i].ans[j].pos, 30, 1, question[i].color);
 						break;
@@ -553,18 +724,20 @@ void resultOfTest(Vector2 screen, Font font, float score) {
 						clickRecPos.y = question[i].ans[j].pos.y;
 						clickRecPos.width = 200;
 						clickRecPos.height = 30;
-						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-							question[i].ans[0].checked = false;
-							question[i].ans[1].checked = true;
-							question[i].ans[2].checked = false;
-							question[i].ans[3].checked = false;
-						}
-
-						if (question[i].ans[j].checked) {
+						
+						if (j + 1 == question[i].currectAns) {
 							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
-							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, GREEN);
 						}
-						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+						else {
+							if (question[i].ans[j].checked) {
+								DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+								DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, RED);
+							}
+							else {
+								DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							}
+						}
 
 						DrawTextEx(font, question[i].ans[j].text, question[i].ans[j].pos, 30, 1, question[i].color);
 						break;
@@ -577,18 +750,20 @@ void resultOfTest(Vector2 screen, Font font, float score) {
 						clickRecPos.y = question[i].ans[j].pos.y;
 						clickRecPos.width = 200;
 						clickRecPos.height = 30;
-						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-							question[i].ans[0].checked = false;
-							question[i].ans[1].checked = false;
-							question[i].ans[2].checked = true;
-							question[i].ans[3].checked = false;
-						}
-
-						if (question[i].ans[j].checked) {
+						
+						if (j + 1 == question[i].currectAns) {
 							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
-							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, GREEN);
 						}
-						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+						else {
+							if (question[i].ans[j].checked) {
+								DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+								DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, RED);
+							}
+							else {
+								DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							}
+						}
 
 						DrawTextEx(font, question[i].ans[j].text, question[i].ans[j].pos, 30, 1, question[i].color);
 						break;
@@ -601,18 +776,20 @@ void resultOfTest(Vector2 screen, Font font, float score) {
 						clickRecPos.y = question[i].ans[j].pos.y;
 						clickRecPos.width = 200;
 						clickRecPos.height = 30;
-						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-							question[i].ans[0].checked = false;
-							question[i].ans[1].checked = false;
-							question[i].ans[2].checked = false;
-							question[i].ans[3].checked = true;
-						}
-
-						if (question[i].ans[j].checked) {
+						
+						if (j + 1 == question[i].currectAns) {
 							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
-							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, GREEN);
 						}
-						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+						else {
+							if (question[i].ans[j].checked) {
+								DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+								DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, RED);
+							}
+							else {
+								DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							}
+						}
 
 						DrawTextEx(font, question[i].ans[j].text, question[i].ans[j].pos, 30, 1, question[i].color);
 						break;
@@ -622,129 +799,7 @@ void resultOfTest(Vector2 screen, Font font, float score) {
 				DrawTextEx(font, question[i].question, question[i].pos, 30, 1, question[i].color);
 			}
 		}
-	}
-}
-
-void buttons(Vector2 screen, Font font) {
-	if (isTesting) {
-		if (!questionTurn[0]) {
-			Button previousBtn;
-
-			if (questionTurn[4])
-				previousBtn.bounds = { (float)screen.x / 2 - 155, (float)screen.y - 75, 150, 50 };
-			else
-				previousBtn.bounds = { (float)screen.x / 2 - 75 - 4 * 40, (float)screen.y - 75, 150, 50 };
-
-			previousBtn.rounding = 1;
-			previousBtn.hovering = CheckCollisionPointRec(GetMousePosition(), previousBtn.bounds);
-			previousBtn.text = "Previous";
-			previousBtn.color = GRAY;
-
-			if (previousBtn.hovering) previousBtn.color = DARKGRAY;
-			DrawRectangleRounded(previousBtn.bounds, previousBtn.rounding, previousBtn.rounding, previousBtn.color);
-			DrawText(previousBtn.text, previousBtn.bounds.x + previousBtn.bounds.width / 2 - MeasureText(previousBtn.text, 20) / 2, previousBtn.bounds.y + 15, 20, BLACK);
-
-			if (CheckCollisionPointRec(GetMousePosition(), previousBtn.bounds) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-				if (questionTurn[1]) {
-					questionTurn[0] = true;
-					questionTurn[1] = false;
-					questionTurn[2] = false;
-					questionTurn[3] = false;
-					questionTurn[4] = false;
-				}
-				else if (questionTurn[2]) {
-					questionTurn[0] = false;
-					questionTurn[1] = true;
-					questionTurn[2] = false;
-					questionTurn[3] = false;
-					questionTurn[4] = false;
-				}
-				else if (questionTurn[3]) {
-					questionTurn[0] = false;
-					questionTurn[1] = false;
-					questionTurn[2] = true;
-					questionTurn[3] = false;
-					questionTurn[4] = false;
-				}
-				else if (questionTurn[4]) {
-					questionTurn[0] = false;
-					questionTurn[1] = false;
-					questionTurn[2] = false;
-					questionTurn[3] = true;
-					questionTurn[4] = false;
-				}
-			}
-		}
-
-		if (!questionTurn[4]) {
-			Button nextBtn;
-
-			if (questionTurn[0])
-				nextBtn.bounds = { (float)screen.x / 2 - 155, (float)screen.y - 75, 150, 50 };
-			else
-				nextBtn.bounds = { (float)screen.x / 2 - 75, (float)screen.y - 75, 150, 50 };
-
-			nextBtn.rounding = 1;
-			nextBtn.hovering = CheckCollisionPointRec(GetMousePosition(), nextBtn.bounds);
-			nextBtn.text = "Next";
-			nextBtn.color = GRAY;
-
-			if (nextBtn.hovering) nextBtn.color = DARKGRAY;
-			DrawRectangleRounded(nextBtn.bounds, nextBtn.rounding, nextBtn.rounding, nextBtn.color);
-			DrawText(nextBtn.text, nextBtn.bounds.x + nextBtn.bounds.width / 2 - MeasureText(nextBtn.text, 20) / 2, nextBtn.bounds.y + 15, 20, BLACK);
-
-			if (CheckCollisionPointRec(GetMousePosition(), nextBtn.bounds) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-				if (questionTurn[0]) {
-					questionTurn[0] = false;
-					questionTurn[1] = true;
-					questionTurn[2] = false;
-					questionTurn[3] = false;
-					questionTurn[4] = false;
-				}
-				else if (questionTurn[1]) {
-					questionTurn[0] = false;
-					questionTurn[1] = false;
-					questionTurn[2] = true;
-					questionTurn[3] = false;
-					questionTurn[4] = false;
-				}
-				else if (questionTurn[2]) {
-					questionTurn[0] = false;
-					questionTurn[1] = false;
-					questionTurn[2] = false;
-					questionTurn[3] = true;
-					questionTurn[4] = false;
-				}
-				else if (questionTurn[3]) {
-					questionTurn[0] = false;
-					questionTurn[1] = false;
-					questionTurn[2] = false;
-					questionTurn[3] = false;
-					questionTurn[4] = true;
-				}
-			}
-		}
-
-
-		Button finishBtn;
-
-		if (questionTurn[0] || questionTurn[4])
-			finishBtn.bounds = { (float)screen.x / 2 + 5, (float)screen.y - 75, 150, 50 };
-		else
-			finishBtn.bounds = { (float)screen.x / 2 - 75 + 4 * 40, (float)screen.y - 75, 150, 50 };
-
-		finishBtn.rounding = 1;
-		finishBtn.hovering = CheckCollisionPointRec(GetMousePosition(), finishBtn.bounds);
-		finishBtn.text = "Finish";
-		finishBtn.color = GRAY;
-
-		if (finishBtn.hovering) finishBtn.color = DARKGRAY;
-
-		DrawRectangleRounded(finishBtn.bounds, finishBtn.rounding, finishBtn.rounding, finishBtn.color);
-		DrawText(finishBtn.text, finishBtn.bounds.x + finishBtn.bounds.width / 2 - MeasureText(finishBtn.text, 20) / 2, finishBtn.bounds.y + 15, 20, BLACK);
-
-		if (CheckCollisionPointRec(GetMousePosition(), finishBtn.bounds) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
-			showAlert = true;
+		buttons(screen, font);
 	}
 }
 
