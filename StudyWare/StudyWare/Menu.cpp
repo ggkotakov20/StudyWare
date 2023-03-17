@@ -115,7 +115,6 @@ void menu(Vector2 screen, Font font) {
 		testBtn(screen,font);
 	}
 	else if (gameStatus == Test) {
-		backBtn(font);
 		questions(screen, font);
 	}
 	else if (gameStatus == Rules) {

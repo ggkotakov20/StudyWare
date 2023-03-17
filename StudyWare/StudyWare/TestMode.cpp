@@ -8,8 +8,9 @@
 Questions question[5];
 Rectangle field;
 
-
 bool questionTurn[5] = { true, false, false, false, false };
+int questionNum = 5;
+
 bool isTesting = true;
 bool showAlert = false;
 
@@ -57,6 +58,570 @@ void resultOfTest(Vector2 screen, Font font, float score) {
 		sprintf_s(scoreText, "Score : ", score, "%");
 
 		DrawText(scoreText, 0, 0, 20, BLACK);
+
+		for (int i = 0; i < questionNum; i++) {
+			if (i == 0 && questionTurn[i]) {
+				question[i].question = "Question 1";
+				question[i].pos.x = field.x + 30;
+				question[i].pos.y = field.y + 15;
+				question[i].currectAns = 1;
+				question[i].color = BLACK;
+
+				for (int j = 0; j < 4; j++) {
+					Vector2 checkBoxPos;
+					Rectangle clickRecPos;
+					switch (j) {
+					case 0:
+						question[i].ans[j].text = "Answer 1";
+						question[i].ans[j].pos = { question[i].pos.x + 30, question[i].pos.y + 70 };
+
+
+						checkBoxPos = { question[i].pos.x + 10, question[i].ans[j].pos.y + 15 };
+						clickRecPos.x = question[i].pos.x;
+						clickRecPos.y = question[i].ans[j].pos.y;
+						clickRecPos.width = 200;
+						clickRecPos.height = 30;
+						
+
+						if (question[i].ans[j].checked) {
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+						}
+						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+
+
+						DrawTextEx(font, question[i].ans[j].text, question[i].ans[j].pos, 30, 1, question[i].color);
+						break;
+					case 1:
+						question[i].ans[j].text = "Answer 2";
+						question[i].ans[j].pos = { question[i].pos.x + 30, question[i].pos.y + 120 };
+
+						checkBoxPos = { question[i].pos.x + 10, question[i].ans[j].pos.y + 15 };
+						clickRecPos.x = question[i].pos.x;
+						clickRecPos.y = question[i].ans[j].pos.y;
+						clickRecPos.width = 200;
+						clickRecPos.height = 30;
+						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+							question[i].ans[0].checked = false;
+							question[i].ans[1].checked = true;
+							question[i].ans[2].checked = false;
+							question[i].ans[3].checked = false;
+						}
+
+						if (question[i].ans[j].checked) {
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+						}
+						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+
+						DrawTextEx(font, question[i].ans[j].text, question[i].ans[j].pos, 30, 1, question[i].color);
+						break;
+					case 2:
+						question[i].ans[j].text = "Answer 3";
+						question[i].ans[j].pos = { question[i].pos.x + 30, question[i].pos.y + 170 };
+
+						checkBoxPos = { question[i].pos.x + 10, question[i].ans[j].pos.y + 15 };
+						clickRecPos.x = question[i].pos.x;
+						clickRecPos.y = question[i].ans[j].pos.y;
+						clickRecPos.width = 200;
+						clickRecPos.height = 30;
+						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+							question[i].ans[0].checked = false;
+							question[i].ans[1].checked = false;
+							question[i].ans[2].checked = true;
+							question[i].ans[3].checked = false;
+						}
+
+						if (question[i].ans[j].checked) {
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+						}
+						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+
+						DrawTextEx(font, question[i].ans[j].text, question[i].ans[j].pos, 30, 1, question[i].color);
+						break;
+					case 3:
+						question[i].ans[j].text = "Answer 4";
+						question[i].ans[j].pos = { question[i].pos.x + 30, question[i].pos.y + 220 };
+
+						checkBoxPos = { question[i].pos.x + 10, question[i].ans[j].pos.y + 15 };
+						clickRecPos.x = question[i].pos.x;
+						clickRecPos.y = question[i].ans[j].pos.y;
+						clickRecPos.width = 200;
+						clickRecPos.height = 30;
+						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+							question[i].ans[0].checked = false;
+							question[i].ans[1].checked = false;
+							question[i].ans[2].checked = false;
+							question[i].ans[3].checked = true;
+						}
+
+						if (question[i].ans[j].checked) {
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+						}
+						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+
+						DrawTextEx(font, question[i].ans[j].text, question[i].ans[j].pos, 30, 1, question[i].color);
+						break;
+					}
+				}
+
+				DrawTextEx(font, question[i].question, question[i].pos, 30, 1, question[i].color);
+			}
+			else if (i == 1 && questionTurn[i]) {
+				question[i].question = "Question 2";
+				question[i].pos.x = field.x + 30;
+				question[i].pos.y = field.y + 15;
+				question[i].currectAns = 2;
+				question[i].color = BLACK;
+
+				for (int j = 0; j < 4; j++) {
+					Vector2 checkBoxPos;
+					Rectangle clickRecPos;
+					switch (j) {
+					case 0:
+						question[i].ans[j].text = "Answer 1";
+						question[i].ans[j].pos = { question[i].pos.x + 30, question[i].pos.y + 70 };
+
+
+						checkBoxPos = { question[i].pos.x + 10, question[i].ans[j].pos.y + 15 };
+						clickRecPos.x = question[i].pos.x;
+						clickRecPos.y = question[i].ans[j].pos.y;
+						clickRecPos.width = 200;
+						clickRecPos.height = 30;
+						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+							question[i].ans[0].checked = true;
+							question[i].ans[1].checked = false;
+							question[i].ans[2].checked = false;
+							question[i].ans[3].checked = false;
+						}
+
+						if (question[i].ans[j].checked) {
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+						}
+						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+
+						DrawTextEx(font, question[i].ans[j].text, question[i].ans[j].pos, 30, 1, question[i].color);
+						break;
+					case 1:
+						question[i].ans[j].text = "Answer 2";
+						question[i].ans[j].pos = { question[i].pos.x + 30, question[i].pos.y + 120 };
+
+						checkBoxPos = { question[i].pos.x + 10, question[i].ans[j].pos.y + 15 };
+						clickRecPos.x = question[i].pos.x;
+						clickRecPos.y = question[i].ans[j].pos.y;
+						clickRecPos.width = 200;
+						clickRecPos.height = 30;
+						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+							question[i].ans[0].checked = false;
+							question[i].ans[1].checked = true;
+							question[i].ans[2].checked = false;
+							question[i].ans[3].checked = false;
+						}
+
+						if (question[i].ans[j].checked) {
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+						}
+						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+
+						DrawTextEx(font, question[i].ans[j].text, question[i].ans[j].pos, 30, 1, question[i].color);
+						break;
+					case 2:
+						question[i].ans[j].text = "Answer 3";
+						question[i].ans[j].pos = { question[i].pos.x + 30, question[i].pos.y + 170 };
+
+						checkBoxPos = { question[i].pos.x + 10, question[i].ans[j].pos.y + 15 };
+						clickRecPos.x = question[i].pos.x;
+						clickRecPos.y = question[i].ans[j].pos.y;
+						clickRecPos.width = 200;
+						clickRecPos.height = 30;
+						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+							question[i].ans[0].checked = false;
+							question[i].ans[1].checked = false;
+							question[i].ans[2].checked = true;
+							question[i].ans[3].checked = false;
+						}
+
+						if (question[i].ans[j].checked) {
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+						}
+						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+
+						DrawTextEx(font, question[i].ans[j].text, question[i].ans[j].pos, 30, 1, question[i].color);
+						break;
+					case 3:
+						question[i].ans[j].text = "Answer 4";
+						question[i].ans[j].pos = { question[i].pos.x + 30, question[i].pos.y + 220 };
+
+						checkBoxPos = { question[i].pos.x + 10, question[i].ans[j].pos.y + 15 };
+						clickRecPos.x = question[i].pos.x;
+						clickRecPos.y = question[i].ans[j].pos.y;
+						clickRecPos.width = 200;
+						clickRecPos.height = 30;
+						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+							question[i].ans[0].checked = false;
+							question[i].ans[1].checked = false;
+							question[i].ans[2].checked = false;
+							question[i].ans[3].checked = true;
+						}
+
+						if (question[i].ans[j].checked) {
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+						}
+						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+
+						DrawTextEx(font, question[i].ans[j].text, question[i].ans[j].pos, 30, 1, question[i].color);
+						break;
+					}
+				}
+
+				DrawTextEx(font, question[i].question, question[i].pos, 30, 1, question[i].color);
+			}
+			else if (i == 2 && questionTurn[i]) {
+				question[i].question = "Question 3";
+				question[i].pos.x = field.x + 30;
+				question[i].pos.y = field.y + 15;
+				question[i].currectAns = 3;
+				question[i].color = BLACK;
+
+				for (int j = 0; j < 4; j++) {
+					Vector2 checkBoxPos;
+					Rectangle clickRecPos;
+					switch (j) {
+					case 0:
+						question[i].ans[j].text = "Answer 1";
+						question[i].ans[j].pos = { question[i].pos.x + 30, question[i].pos.y + 70 };
+
+
+						checkBoxPos = { question[i].pos.x + 10, question[i].ans[j].pos.y + 15 };
+						clickRecPos.x = question[i].pos.x;
+						clickRecPos.y = question[i].ans[j].pos.y;
+						clickRecPos.width = 200;
+						clickRecPos.height = 30;
+						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+							question[i].ans[0].checked = true;
+							question[i].ans[1].checked = false;
+							question[i].ans[2].checked = false;
+							question[i].ans[3].checked = false;
+						}
+
+						if (question[i].ans[j].checked) {
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+						}
+						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+
+						DrawTextEx(font, question[i].ans[j].text, question[i].ans[j].pos, 30, 1, question[i].color);
+						break;
+					case 1:
+						question[i].ans[j].text = "Answer 2";
+						question[i].ans[j].pos = { question[i].pos.x + 30, question[i].pos.y + 120 };
+
+						checkBoxPos = { question[i].pos.x + 10, question[i].ans[j].pos.y + 15 };
+						clickRecPos.x = question[i].pos.x;
+						clickRecPos.y = question[i].ans[j].pos.y;
+						clickRecPos.width = 200;
+						clickRecPos.height = 30;
+						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+							question[i].ans[0].checked = false;
+							question[i].ans[1].checked = true;
+							question[i].ans[2].checked = false;
+							question[i].ans[3].checked = false;
+						}
+
+						if (question[i].ans[j].checked) {
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+						}
+						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+
+						DrawTextEx(font, question[i].ans[j].text, question[i].ans[j].pos, 30, 1, question[i].color);
+						break;
+					case 2:
+						question[i].ans[j].text = "Answer 3";
+						question[i].ans[j].pos = { question[i].pos.x + 30, question[i].pos.y + 170 };
+
+						checkBoxPos = { question[i].pos.x + 10, question[i].ans[j].pos.y + 15 };
+						clickRecPos.x = question[i].pos.x;
+						clickRecPos.y = question[i].ans[j].pos.y;
+						clickRecPos.width = 200;
+						clickRecPos.height = 30;
+						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+							question[i].ans[0].checked = false;
+							question[i].ans[1].checked = false;
+							question[i].ans[2].checked = true;
+							question[i].ans[3].checked = false;
+						}
+
+						if (question[i].ans[j].checked) {
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+						}
+						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+
+						DrawTextEx(font, question[i].ans[j].text, question[i].ans[j].pos, 30, 1, question[i].color);
+						break;
+					case 3:
+						question[i].ans[j].text = "Answer 4";
+						question[i].ans[j].pos = { question[i].pos.x + 30, question[i].pos.y + 220 };
+
+						checkBoxPos = { question[i].pos.x + 10, question[i].ans[j].pos.y + 15 };
+						clickRecPos.x = question[i].pos.x;
+						clickRecPos.y = question[i].ans[j].pos.y;
+						clickRecPos.width = 200;
+						clickRecPos.height = 30;
+						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+							question[i].ans[0].checked = false;
+							question[i].ans[1].checked = false;
+							question[i].ans[2].checked = false;
+							question[i].ans[3].checked = true;
+						}
+
+						if (question[i].ans[j].checked) {
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+						}
+						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+
+						DrawTextEx(font, question[i].ans[j].text, question[i].ans[j].pos, 30, 1, question[i].color);
+						break;
+					}
+				}
+
+				DrawTextEx(font, question[i].question, question[i].pos, 30, 1, question[i].color);
+			}
+			else if (i == 3 && questionTurn[i]) {
+				question[i].question = "Question 4";
+				question[i].pos.x = field.x + 30;
+				question[i].pos.y = field.y + 15;
+				question[i].currectAns = 4;
+				question[i].color = BLACK;
+
+				for (int j = 0; j < 4; j++) {
+					Vector2 checkBoxPos;
+					Rectangle clickRecPos;
+					switch (j) {
+					case 0:
+						question[i].ans[j].text = "Answer 1";
+						question[i].ans[j].pos = { question[i].pos.x + 30, question[i].pos.y + 70 };
+
+
+						checkBoxPos = { question[i].pos.x + 10, question[i].ans[j].pos.y + 15 };
+						clickRecPos.x = question[i].pos.x;
+						clickRecPos.y = question[i].ans[j].pos.y;
+						clickRecPos.width = 200;
+						clickRecPos.height = 30;
+						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+							question[i].ans[0].checked = true;
+							question[i].ans[1].checked = false;
+							question[i].ans[2].checked = false;
+							question[i].ans[3].checked = false;
+						}
+
+						if (question[i].ans[j].checked) {
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+						}
+						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+
+						DrawTextEx(font, question[i].ans[j].text, question[i].ans[j].pos, 30, 1, question[i].color);
+						break;
+					case 1:
+						question[i].ans[j].text = "Answer 2";
+						question[i].ans[j].pos = { question[i].pos.x + 30, question[i].pos.y + 120 };
+
+						checkBoxPos = { question[i].pos.x + 10, question[i].ans[j].pos.y + 15 };
+						clickRecPos.x = question[i].pos.x;
+						clickRecPos.y = question[i].ans[j].pos.y;
+						clickRecPos.width = 200;
+						clickRecPos.height = 30;
+						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+							question[i].ans[0].checked = false;
+							question[i].ans[1].checked = true;
+							question[i].ans[2].checked = false;
+							question[i].ans[3].checked = false;
+						}
+
+						if (question[i].ans[j].checked) {
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+						}
+						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+
+						DrawTextEx(font, question[i].ans[j].text, question[i].ans[j].pos, 30, 1, question[i].color);
+						break;
+					case 2:
+						question[i].ans[j].text = "Answer 3";
+						question[i].ans[j].pos = { question[i].pos.x + 30, question[i].pos.y + 170 };
+
+						checkBoxPos = { question[i].pos.x + 10, question[i].ans[j].pos.y + 15 };
+						clickRecPos.x = question[i].pos.x;
+						clickRecPos.y = question[i].ans[j].pos.y;
+						clickRecPos.width = 200;
+						clickRecPos.height = 30;
+						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+							question[i].ans[0].checked = false;
+							question[i].ans[1].checked = false;
+							question[i].ans[2].checked = true;
+							question[i].ans[3].checked = false;
+						}
+
+						if (question[i].ans[j].checked) {
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+						}
+						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+
+						DrawTextEx(font, question[i].ans[j].text, question[i].ans[j].pos, 30, 1, question[i].color);
+						break;
+					case 3:
+						question[i].ans[j].text = "Answer 4";
+						question[i].ans[j].pos = { question[i].pos.x + 30, question[i].pos.y + 220 };
+
+						checkBoxPos = { question[i].pos.x + 10, question[i].ans[j].pos.y + 15 };
+						clickRecPos.x = question[i].pos.x;
+						clickRecPos.y = question[i].ans[j].pos.y;
+						clickRecPos.width = 200;
+						clickRecPos.height = 30;
+						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+							question[i].ans[0].checked = false;
+							question[i].ans[1].checked = false;
+							question[i].ans[2].checked = false;
+							question[i].ans[3].checked = true;
+						}
+
+						if (question[i].ans[j].checked) {
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+						}
+						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+
+						DrawTextEx(font, question[i].ans[j].text, question[i].ans[j].pos, 30, 1, question[i].color);
+						break;
+					}
+				}
+
+				DrawTextEx(font, question[i].question, question[i].pos, 30, 1, question[i].color);
+			}
+			else if (i == 4 && questionTurn[i]) {
+				question[i].question = "Question 5";
+				question[i].pos.x = field.x + 30;
+				question[i].pos.y = field.y + 15;
+				question[i].currectAns = 4;
+				question[i].color = BLACK;
+
+				for (int j = 0; j < 4; j++) {
+					Vector2 checkBoxPos;
+					Rectangle clickRecPos;
+					switch (j) {
+					case 0:
+						question[i].ans[j].text = "Answer 1";
+						question[i].ans[j].pos = { question[i].pos.x + 30, question[i].pos.y + 70 };
+
+
+						checkBoxPos = { question[i].pos.x + 10, question[i].ans[j].pos.y + 15 };
+						clickRecPos.x = question[i].pos.x;
+						clickRecPos.y = question[i].ans[j].pos.y;
+						clickRecPos.width = 200;
+						clickRecPos.height = 30;
+						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+							question[i].ans[0].checked = true;
+							question[i].ans[1].checked = false;
+							question[i].ans[2].checked = false;
+							question[i].ans[3].checked = false;
+						}
+
+						if (question[i].ans[j].checked) {
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+						}
+						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+
+						DrawTextEx(font, question[i].ans[j].text, question[i].ans[j].pos, 30, 1, question[i].color);
+						break;
+					case 1:
+						question[i].ans[j].text = "Answer 2";
+						question[i].ans[j].pos = { question[i].pos.x + 30, question[i].pos.y + 120 };
+
+						checkBoxPos = { question[i].pos.x + 10, question[i].ans[j].pos.y + 15 };
+						clickRecPos.x = question[i].pos.x;
+						clickRecPos.y = question[i].ans[j].pos.y;
+						clickRecPos.width = 200;
+						clickRecPos.height = 30;
+						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+							question[i].ans[0].checked = false;
+							question[i].ans[1].checked = true;
+							question[i].ans[2].checked = false;
+							question[i].ans[3].checked = false;
+						}
+
+						if (question[i].ans[j].checked) {
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+						}
+						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+
+						DrawTextEx(font, question[i].ans[j].text, question[i].ans[j].pos, 30, 1, question[i].color);
+						break;
+					case 2:
+						question[i].ans[j].text = "Answer 3";
+						question[i].ans[j].pos = { question[i].pos.x + 30, question[i].pos.y + 170 };
+
+						checkBoxPos = { question[i].pos.x + 10, question[i].ans[j].pos.y + 15 };
+						clickRecPos.x = question[i].pos.x;
+						clickRecPos.y = question[i].ans[j].pos.y;
+						clickRecPos.width = 200;
+						clickRecPos.height = 30;
+						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+							question[i].ans[0].checked = false;
+							question[i].ans[1].checked = false;
+							question[i].ans[2].checked = true;
+							question[i].ans[3].checked = false;
+						}
+
+						if (question[i].ans[j].checked) {
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+						}
+						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+
+						DrawTextEx(font, question[i].ans[j].text, question[i].ans[j].pos, 30, 1, question[i].color);
+						break;
+					case 3:
+						question[i].ans[j].text = "Answer 4";
+						question[i].ans[j].pos = { question[i].pos.x + 30, question[i].pos.y + 220 };
+
+						checkBoxPos = { question[i].pos.x + 10, question[i].ans[j].pos.y + 15 };
+						clickRecPos.x = question[i].pos.x;
+						clickRecPos.y = question[i].ans[j].pos.y;
+						clickRecPos.width = 200;
+						clickRecPos.height = 30;
+						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+							question[i].ans[0].checked = false;
+							question[i].ans[1].checked = false;
+							question[i].ans[2].checked = false;
+							question[i].ans[3].checked = true;
+						}
+
+						if (question[i].ans[j].checked) {
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+						}
+						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+
+						DrawTextEx(font, question[i].ans[j].text, question[i].ans[j].pos, 30, 1, question[i].color);
+						break;
+					}
+				}
+
+				DrawTextEx(font, question[i].question, question[i].pos, 30, 1, question[i].color);
+			}
+		}
 	}
 }
 
@@ -192,7 +757,6 @@ void questions(Vector2 screen, Font font) {
 	float currectAnswers = 0;
 	float score = 0;
 
-	int questionNum = 5; // Number of questions
 	if (!showAlert && isTesting) {
 		DrawRectangleRec(field, GRAY);
 		for (int i = 0; i < questionNum; i++) {
