@@ -132,12 +132,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AppManage.cpp" />
     <ClCompile Include="AppStatus.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="TestMode.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AppManage.hpp" />
     <ClInclude Include="AppStatus.hpp" />
     <ClInclude Include="Menu.hpp" />
     <ClInclude Include="TestMode.hpp" />

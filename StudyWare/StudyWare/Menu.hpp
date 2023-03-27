@@ -2,17 +2,6 @@
 #include "AppStatus.hpp"
 
 class Menu {
-public:
-	float sWidth;
-	float sHeight;
-
-	Menu();
-	~Menu();
-
-	void drawMenu(Font font);
-
-	static std::shared_ptr<Menu> getInstant();
-
 private:
 	static std::shared_ptr<Menu> instant;
 
@@ -23,4 +12,14 @@ private:
 
 	Vector2 gameMenuPos;
 	Vector2 mousePosition;
+public:
+	float sWidth;
+	float sHeight;
+
+	Menu();
+	~Menu();
+
+	void drawMenu(Font font);
+
+	static std::shared_ptr<Menu> getInstant();
 };

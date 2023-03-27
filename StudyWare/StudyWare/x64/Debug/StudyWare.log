@@ -1,8 +1,8 @@
 ﻿  Menu.cpp
-D:\programming\Projects\StudyWare\StudyWare\StudyWare\Menu.cpp(133,25): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-D:\programming\Projects\StudyWare\StudyWare\StudyWare\Menu.cpp(134,27): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-D:\programming\Projects\StudyWare\StudyWare\StudyWare\Menu.cpp(138,21): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-D:\programming\Projects\StudyWare\StudyWare\StudyWare\Menu.cpp(145,78): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-D:\programming\Projects\StudyWare\StudyWare\StudyWare\Menu.cpp(172,49): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-D:\programming\Projects\StudyWare\StudyWare\StudyWare\Menu.cpp(179,42): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\programming\Projects\StudyWare\StudyWare\StudyWare\Menu.cpp(6,25): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+D:\programming\Projects\StudyWare\StudyWare\StudyWare\Menu.cpp(7,27): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+D:\programming\Projects\StudyWare\StudyWare\StudyWare\Menu.cpp(11,21): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+D:\programming\Projects\StudyWare\StudyWare\StudyWare\Menu.cpp(18,78): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+D:\programming\Projects\StudyWare\StudyWare\StudyWare\Menu.cpp(45,49): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\programming\Projects\StudyWare\StudyWare\StudyWare\Menu.cpp(51,42): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
   StudyWare.vcxproj -> D:\programming\Projects\StudyWare\StudyWare\x64\Debug\StudyWare.exe

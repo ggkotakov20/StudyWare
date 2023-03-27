@@ -41,18 +41,16 @@ void Menu::drawMenu(Font font) {
 		switch (i)
 		{
 		case 0:
-			DrawRectangleRec(gameMenu[i], /*RAYWHITE*/GREEN);
+			DrawRectangleRec(gameMenu[i], RAYWHITE);
 			DrawTextEx(font, "Start learn", gameMenuPos, fontSize, 5, BLACK);
 			if (CheckCollisionPointRec(GetMousePosition(), gameMenu[i]) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
 				manage->status = AppStatus::Status::Learning;
-			std::cout << manage << std::endl;
 			break;
 		case 1:
-			DrawRectangleRec(gameMenu[i], /*RAYWHITE*/BLUE);
+			DrawRectangleRec(gameMenu[i], RAYWHITE);
 			DrawTextEx(font, "Quit", gameMenuPos, fontSize, 5, BLACK);
 			if (CheckCollisionPointRec(GetMousePosition(), gameMenu[i]) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
 				manage->status = AppStatus::Status::Quit;
-				std::cout << manage << std::endl;
 			}
 			break;
 		}
