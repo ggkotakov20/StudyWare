@@ -6,15 +6,15 @@
 class AppStatus {
 public:
 	enum class Status {
-		Menu,
-		Learning,
-		Test,
-		Quit
+		MENU,
+		LEARNING,
+		TEST,
+		QUIT
 	};
 
-	Status status = Status::Menu;
+	Status status = Status::MENU;
 
-	static std::shared_ptr<AppStatus> getInstant();
+	static std::shared_ptr<AppStatus> getInstance();
 private:
-	static std::shared_ptr<AppStatus> instant;
+	static std::shared_ptr<AppStatus> instance;
 };

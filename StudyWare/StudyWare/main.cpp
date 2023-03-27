@@ -3,7 +3,7 @@
 
 int main() {
 
-    AppManage* manage = AppManage::getInstant();
+    AppManage* manage = AppManage::getInstance();
     manage->appManage();
     delete manage;
 }

@@ -3,7 +3,7 @@
 
 class Menu {
 private:
-	static std::shared_ptr<Menu> instant;
+	static std::shared_ptr<Menu> instance;
 
 	int gameMenuOptions = 2;
 	int fontSize;
@@ -21,5 +21,5 @@ public:
 
 	void drawMenu(Font font);
 
-	static std::shared_ptr<Menu> getInstant();
+	static std::shared_ptr<Menu> getInstance();
 };

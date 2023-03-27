@@ -30,6 +30,9 @@
     <ClCompile Include="AppManage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Body.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Menu.hpp">
@@ -42,6 +45,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="AppManage.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Body.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

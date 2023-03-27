@@ -1,20 +1,22 @@
 #include "AppStatus.hpp"
 #include "Menu.hpp"
+#include "Body.hpp"
 
 class AppManage {
 private:
-	static AppManage* instant;
-	std::shared_ptr<Menu> menu;
-	
-public:
 	float sWidth;
 	float sHeight;
 
+	static AppManage* instance;
+	std::shared_ptr<Menu> menu;
+	std::shared_ptr<Body> app;
+	
+public:
 	AppManage();
 	~AppManage();
 	void appManage();
 
 	Font fontRomulus;
 
-	static AppManage* getInstant();
+	static AppManage* getInstance();
 };

@@ -1,5 +1,5 @@
 #include "Menu.hpp"
-std::shared_ptr<Menu> Menu::instant = nullptr;
+std::shared_ptr<Menu> Menu::instance = nullptr;
 
 Menu::Menu() {
 
@@ -27,14 +27,14 @@ Menu::Menu() {
 Menu::~Menu() {
 	delete[] gameMenu;
 }
-std::shared_ptr<Menu> Menu::getInstant() {
+std::shared_ptr<Menu> Menu::getInstance() {
 
-	if (instant == nullptr) instant = std::shared_ptr<Menu>(new Menu);
+	if (instance == nullptr) instance = std::shared_ptr<Menu>(new Menu);
 
-	return instant;
+	return instance;
 }
 void Menu::drawMenu(Font font) {
-	auto manage = AppStatus::getInstant();
+	auto manage = AppStatus::getInstance();
 
 	for (int i = 0; i < gameMenuOptions; i++) {
 		gameMenuPos = { gameMenu[i].x, gameMenu[i].y };
@@ -44,13 +44,13 @@ void Menu::drawMenu(Font font) {
 			DrawRectangleRec(gameMenu[i], RAYWHITE);
 			DrawTextEx(font, "Start learn", gameMenuPos, fontSize, 5, BLACK);
 			if (CheckCollisionPointRec(GetMousePosition(), gameMenu[i]) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
-				manage->status = AppStatus::Status::Learning;
+				manage->status = AppStatus::Status::LEARNING;
 			break;
 		case 1:
 			DrawRectangleRec(gameMenu[i], RAYWHITE);
 			DrawTextEx(font, "Quit", gameMenuPos, fontSize, 5, BLACK);
 			if (CheckCollisionPointRec(GetMousePosition(), gameMenu[i]) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-				manage->status = AppStatus::Status::Quit;
+				manage->status = AppStatus::Status::QUIT;
 			}
 			break;
 		}

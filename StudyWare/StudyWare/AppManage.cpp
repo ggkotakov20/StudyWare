@@ -1,10 +1,9 @@
 #include "AppManage.hpp"
 
-AppManage* AppManage::instant = nullptr;
+AppManage* AppManage::instance = nullptr;
 
 AppManage::AppManage() {
     InitWindow(1920, 1080, "StudyWare");
-    ToggleFullscreen();
 
     fontRomulus = LoadFont("../font/romulus.png");
 }
@@ -12,13 +11,13 @@ AppManage::~AppManage() {
     UnloadFont(fontRomulus);
     CloseWindow();
 }
-AppManage* AppManage::getInstant() {
-    if (instant == nullptr) instant = new AppManage();
+AppManage* AppManage::getInstance() {
+    if (instance == nullptr) instance = new AppManage();
 
-    return instant;
+    return instance;
 }
 void AppManage::appManage() {
-    std::shared_ptr<AppStatus> manage = AppStatus::getInstant();
+    std::shared_ptr<AppStatus> manage = AppStatus::getInstance();
 
     while (!WindowShouldClose()) {
         BeginDrawing();
@@ -26,13 +25,15 @@ void AppManage::appManage() {
 
         switch (manage->status)
         {
-        case AppStatus::Status::Menu:
-            menu = Menu::getInstant();
+        case AppStatus::Status::MENU:
+            menu = Menu::getInstance();
             menu->drawMenu(fontRomulus);
             break;
-        case AppStatus::Status::Learning:
+        case AppStatus::Status::LEARNING:
+            app = Body::getInstance();
+            app->drawBody();
             break;
-        case AppStatus::Status::Quit:
+        case AppStatus::Status::QUIT:
             exit(0);
             break;
         }
