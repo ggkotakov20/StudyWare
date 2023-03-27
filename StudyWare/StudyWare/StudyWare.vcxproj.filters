@@ -24,12 +24,18 @@
     <ClCompile Include="TestMode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="AppStatus.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Menu.h">
+    <ClInclude Include="Menu.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TestMode.h">
+    <ClInclude Include="TestMode.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AppStatus.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

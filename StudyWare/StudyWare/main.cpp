@@ -1,5 +1,7 @@
+#include<iostream>
+
 #include "raylib.h"
-#include "Menu.h"
+#include "Menu.hpp"
 
 Vector2 screen = { 1920, 1080 };
 
@@ -8,17 +10,18 @@ int main() {
     ToggleFullscreen();
 
     Font fontRomulus = LoadFont("../font/romulus.png");
+    Menu menu;
+
+    //biologyBody(screen);
 
     while (!WindowShouldClose()) {
         BeginDrawing();
         ClearBackground(RAYWHITE);
 
-        menu(screen, fontRomulus);
+
+        menu.drawMenu(fontRomulus);
 
         EndDrawing();
     }
-
-    CloseWindow();
-
     return 0;
 }

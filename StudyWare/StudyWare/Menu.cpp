@@ -1,125 +1,60 @@
-#include <iostream>
-#include "raylib.h"
+#include "Menu.hpp"
+std::shared_ptr<Menu> Menu::instant = nullptr;
 
-#include "Menu.h"
-#include "TestMode.h"
+Menu::Menu() {
 
-enum Status {
-	Menu,
-	Learning,
-	Test,
-	Rules,
-	Quit
-};
+	sWidth = GetScreenWidth();
+	sHeight = GetScreenHeight();
 
-Status gameStatus = Menu;
-int gameMenuOptions = 3;
-Rectangle* gameMenu = new Rectangle[gameMenuOptions];
+	mousePosition = GetMousePosition();
+
+	fontSize = sHeight / 11;
 
 
-float appNameSize = 150;
-int count = 240;
-
-void backBtn(Font font) {
-	Rectangle backBtn;
-	backBtn.width = 125;
-	backBtn.height = 45;
-	backBtn.x = 10;
-	backBtn.y = 0;
-	Vector2 backBtnPos = { backBtn.x, backBtn.y };
-
-	DrawRectangleRec(backBtn, RAYWHITE);
-	DrawTextEx(font, "Back", backBtnPos, 50, 5, BLACK);
-	if (CheckCollisionPointRec(GetMousePosition(), backBtn) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-		if (gameStatus == Test) gameStatus = Learning;
-		else gameStatus = Menu;
-	}
+	// Set Learning button position
+	gameMenu[0].width = 580;
+	gameMenu[0].height = 100; 
+	gameMenu[0].x = sWidth / 2 - gameMenu[0].width / 2;
+	gameMenu[0].y = sHeight / 2 - gameMenu[0].height - gameMenu[0].height * 0.5 - 5;
+	
+	// Set Quit button position
+	gameMenu[1].width = 200;
+	gameMenu[1].height = 100;
+	gameMenu[1].x = sWidth / 2 - gameMenu[1].width / 2;
+	gameMenu[1].y = sHeight / 2 - (gameMenu[1].height / 2);
 
 }
-
-void testBtn(Vector2 screen, Font font) {
-	Rectangle testText;
-	testText.width = 400;
-	testText.height = 40;
-	testText.x = screen.x - testText.width;
-	testText.y = screen.y - testText.height - 10;
-	Vector2 testTextPos = { testText.x, testText.y };
-
-	DrawRectangleRec(testText, RAYWHITE);
-	DrawTextEx(font, "Test your self", testTextPos, 50, 5, BLACK);
-	if (CheckCollisionPointRec(GetMousePosition(), testText) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-		gameStatus = Test;
-	}
+Menu::~Menu() {
+	delete[] gameMenu;
 }
+std::shared_ptr<Menu> Menu::getInstant() {
 
-void menu(Vector2 screen, Font font) {
+	if (instant == nullptr) instant = std::shared_ptr<Menu>(new Menu);
 
-	Vector2 gameMenuPos;
-	Vector2 appNamePos = { screen.x / 3.3, screen.y / 6 - 40 };
+	return instant;
+}
+void Menu::drawMenu(Font font) {
+	auto manage = AppStatus::getInstant();
 
-	if (gameStatus == Menu) {
-		DrawTextEx(font, "StudyWare", appNamePos, appNameSize, 5, MAROON);
-
-		for (size_t i = 0; i < gameMenuOptions; i++) {
-			gameMenuPos = { gameMenu[i].x, gameMenu[i].y };
-			switch (i) {
-			case 0:
-				gameMenu[i].width = 580;
-				gameMenu[i].height = 100;
-				gameMenu[i].x = screen.x / 2 - gameMenu[i].width / 2;
-				gameMenu[i].y = screen.y / 2 - gameMenu[i].height - gameMenu[i].height * 0.5 - 5;
-
-				DrawRectangleRec(gameMenu[i], RAYWHITE);
-				if (CheckCollisionPointRec(GetMousePosition(), gameMenu[i]) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-					gameStatus = Learning;
-				}
-				DrawTextEx(font, "Start learn", gameMenuPos, 100, 5, BLACK);
-
-				break;
-
-			case 1:
-				gameMenu[i].width = 270;
-				gameMenu[i].height = 100;
-				gameMenu[i].x = screen.x / 2 - gameMenu[i].width / 2;
-				gameMenu[i].y = screen.y / 2 - (gameMenu[i].height / 2);
-
-				if (CheckCollisionPointRec(GetMousePosition(), gameMenu[i]) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-					gameStatus = Rules;
-				}
-
-				DrawRectangleRec(gameMenu[i], RAYWHITE);
-				DrawTextEx(font, "Rules", gameMenuPos, 100, 5, BLACK);
-				break;
-
-			case 2:
-				gameMenu[i].width = 200;
-				gameMenu[i].height = 100;
-				gameMenu[i].x = screen.x / 2 - gameMenu[i].width / 2;
-				gameMenu[i].y = screen.y / 2 + gameMenu[i].height - gameMenu[i].height * 0.5 + 5;
-
-				if (CheckCollisionPointRec(GetMousePosition(), gameMenu[i]) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-					gameStatus = Quit;
-				}
-
-				DrawRectangleRec(gameMenu[i], RAYWHITE);
-				DrawTextEx(font, "Quit", gameMenuPos, 100, 5, BLACK);
-				break;
+	for (int i = 0; i < gameMenuOptions; i++) {
+		gameMenuPos = { gameMenu[i].x, gameMenu[i].y };
+		switch (i)
+		{
+		case 0:
+			DrawRectangleRec(gameMenu[i], /*RAYWHITE*/GREEN);
+			DrawTextEx(font, "Start learn", gameMenuPos, fontSize, 5, BLACK);
+			if (CheckCollisionPointRec(GetMousePosition(), gameMenu[i]) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+				manage->status = AppStatus::Status::Learning;
+			std::cout << manage << std::endl;
+			break;
+		case 1:
+			DrawRectangleRec(gameMenu[i], /*RAYWHITE*/BLUE);
+			DrawTextEx(font, "Quit", gameMenuPos, fontSize, 5, BLACK);
+			if (CheckCollisionPointRec(GetMousePosition(), gameMenu[i]) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+				manage->status = AppStatus::Status::Quit;
+				std::cout << manage << std::endl;
 			}
-
+			break;
 		}
-
-
 	}
-	else if (gameStatus == Learning) {
-		backBtn(font);
-		testBtn(screen,font);
-	}
-	else if (gameStatus == Test) {
-		questions(screen, font);
-	}
-	else if (gameStatus == Rules) {
-		backBtn(font);
-	}
-	else if (gameStatus == Quit) exit(0);
-
 }

@@ -3,7 +3,7 @@
 #include <sstream>
 
 #include "raylib.h"
-#include "TestMode.h"
+#include "TestMode.hpp"
 
 Questions question[5];
 Rectangle field;
@@ -52,7 +52,7 @@ void popAlertForEnd(Vector2 screen, Font font) {
 
 }
 
-void buttons(Vector2 screen, Font font) {
+void testButtons(Vector2 screen, Font font) {
 	if (!questionTurn[0]) {
 		Button previousBtn;
 
@@ -799,7 +799,7 @@ void resultOfTest(Vector2 screen, Font font, float score) {
 				DrawTextEx(font, question[i].question, question[i].pos, 30, 1, question[i].color);
 			}
 		}
-		buttons(screen, font);
+		testButtons(screen, font);
 	}
 }
 
@@ -1383,7 +1383,7 @@ void questions(Vector2 screen, Font font) {
 
 			if (question[i].ans[question[i].currectAns - 1].checked) currectAnswers++;
 		}
-		buttons(screen, font);
+		testButtons(screen, font);
 
 		score = (currectAnswers / questionNum) * 100;
 	}
