@@ -30,8 +30,8 @@ void AppManage::appManage() {
             menu->drawMenu(fontRomulus);
             break;
         case AppStatus::Status::LEARNING:
-            app = Body::getInstance();
-            app->drawBody();
+            body = Body::getInstance();
+            body->drawBody();
             break;
         case AppStatus::Status::QUIT:
             exit(0);

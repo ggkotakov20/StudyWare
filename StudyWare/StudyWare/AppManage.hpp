@@ -9,7 +9,7 @@ private:
 
 	static AppManage* instance;
 	std::shared_ptr<Menu> menu;
-	std::shared_ptr<Body> app;
+	std::shared_ptr<Body> body;
 	
 public:
 	AppManage();

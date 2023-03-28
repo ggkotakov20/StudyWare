@@ -3,12 +3,19 @@
 
 class Body {
 public:
-	enum class Type {
+	enum class TypeBody {
 		ORGANS,
 		NERVES,
 		SKELETON
 	};
-	Type typeBody = Type::ORGANS;
+	TypeBody typeBody = TypeBody::SKELETON;
+
+	enum class CurrentOrgan {
+		NONE,
+		BRAIN,
+	};
+	CurrentOrgan currentOrgan = CurrentOrgan::BRAIN;
+
 	struct Button {
 		Rectangle bounds;
 		int rounding;
@@ -20,22 +27,31 @@ public:
 
 	Body();
 	~Body();
+	void drawBrain();
 	void drawBody();
-	void switchBodyBtn();
+	//void switchBodyBtn();
 
 	static std::shared_ptr<Body> getInstance();
 private:
 	static std::shared_ptr<Body> instance;
 
+
 	float sWidth;
 	float sHeight;
 	float bodySize;
+	float organSize;
+
+	bool brainIsActive;
 
 	Vector2 mousePosition;
+	Vector2 bodyPos;
+	Vector2 brainPos;
 
+	Rectangle brainRec;
 
 	Texture2D bodyCurrent;
-	Texture2D bodyOrgans;
-	Texture2D bodyNerves;
-	Texture2D bodySkeleton;
+	Texture2D brain;
+	//Texture2D bodyOrgans;
+	//Texture2D bodyNerves;
+	//Texture2D bodySkeleton;
 };
