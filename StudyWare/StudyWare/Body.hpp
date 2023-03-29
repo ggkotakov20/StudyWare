@@ -24,6 +24,8 @@ public:
 
 	void drawBrain();
 	void drawLungs();
+	void drawLiver();
+	void drawHeart();
 	void drawBody();
 
 	static std::shared_ptr<Body> getInstance();
@@ -41,20 +43,30 @@ private:
 
 	bool brainIsActive;
 	bool lungsIsActive;
+	bool liverIsActive;
+	bool heartIsActive;
 
 	const char* brainInfo;
 	const char* lungsInfo;
+	const char* liverInfo;
+	const char* heartInfo;
 
 	Vector2 mousePosition;
 	Vector2 bodyPos;
 	Vector2 brainPos;
 	Vector2 lungsPos;
+	Vector2 liverPos;
+	Vector2 heartPos;
 	Vector2 infoPos;
 
 	Rectangle brainRec;
 	Rectangle lungsRec;
+	Rectangle liverRec;
+	Rectangle heartRec;
 
 	Texture2D body;
 	Texture2D brain;
 	Texture2D lungs;
+	Texture2D liver;
+	Texture2D heart;
 };
