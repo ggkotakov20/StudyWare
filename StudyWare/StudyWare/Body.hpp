@@ -10,12 +10,6 @@ public:
 	};
 	TypeBody typeBody = TypeBody::SKELETON;
 
-	enum class CurrentOrgan {
-		NONE,
-		BRAIN,
-	};
-	CurrentOrgan currentOrgan = CurrentOrgan::BRAIN;
-
 	struct Button {
 		Rectangle bounds;
 		int rounding;
@@ -27,7 +21,9 @@ public:
 
 	Body();
 	~Body();
+
 	void drawBrain();
+	void drawLungs();
 	void drawBody();
 
 	static std::shared_ptr<Body> getInstance();
@@ -44,16 +40,21 @@ private:
 	int fontSize;
 
 	bool brainIsActive;
+	bool lungsIsActive;
 
 	const char* brainInfo;
+	const char* lungsInfo;
 
 	Vector2 mousePosition;
 	Vector2 bodyPos;
 	Vector2 brainPos;
+	Vector2 lungsPos;
 	Vector2 infoPos;
 
 	Rectangle brainRec;
+	Rectangle lungsRec;
 
 	Texture2D body;
 	Texture2D brain;
+	Texture2D lungs;
 };
