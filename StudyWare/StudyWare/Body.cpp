@@ -20,6 +20,9 @@ Body::Body() {
 	kidney = LoadTexture("../Images/organs/kidney.png");
 	stomach = LoadTexture("../Images/organs/stomach.png");
 	intestines = LoadTexture("../Images/organs/intestines.png");
+	reproductiveSM = LoadTexture("../Images/organs/reproductive_system-male.png");
+	nerves = LoadTexture("../Images/organs/nerves.png");
+	muscle = LoadTexture("../Images/organs/muscle.png");
 
 	bodySize = 2.5;
 	organSize = 2.5;
@@ -40,6 +43,12 @@ Body::Body() {
 	stomach.height /= organSize;
 	intestines.width /= organSize;
 	intestines.height /= organSize;
+	reproductiveSM.width /= organSize;
+	reproductiveSM.height /= organSize;
+	nerves.width /= organSize;
+	nerves.height /= organSize;
+	muscle.width /= organSize;
+	muscle.height /= organSize;
 
 	bodyPos = { sWidth / 2 - body.width / 2, sHeight / 2 - body.height / 2 };
 	brainPos = { sWidth / 2 - brain.width / 2 - 1, sHeight / 2 - brain.height / 2  - body.height / 2 + 35};
@@ -49,6 +58,9 @@ Body::Body() {
 	kidneyPos = { sWidth / 2 - lungs.width / 4 + 7, sHeight / 2 - lungs.height / 2 - body.height / 7 + 20};
 	stomachPos = { sWidth / 2 - stomach.width / 2 + 5, sHeight / 2 - stomach.height / 2 - body.height / 7 - 20};
 	intestinesPos = { sWidth / 2 - intestines.width / 2 , sHeight / 2 - intestines.height / 2 - body.height / 23 - 20};
+	reproductiveSMPos = { sWidth / 2 - reproductiveSM.width / 2  - 1, sHeight / 2 - reproductiveSM.height / 2 - body.height / 23  - 2};
+	nervesPos = { sWidth / 2 - nerves.width / 2 + body.width / 4 + 15,sHeight / 2 - nerves.height / 2  - body.height / 8 + 25};
+	musclePos = { sWidth / 2 - muscle.width / 2 + body.width / 4 ,sHeight / 2 - muscle.height / 2  - body.height / 4 + 15};
 	infoPos = { 75, sHeight / 2 - body.height / 3 };
 
 	brainRec.x = sWidth / 2 - brain.width + 140;
@@ -79,6 +91,18 @@ Body::Body() {
 	intestinesRec.y = sHeight / 2 - intestines.height / 2 - body.height / 23 + 27;
 	intestinesRec.width = 130;
 	intestinesRec.height = 120;
+	reproductiveSMRec.x = sWidth / 2 - reproductiveSM.width / 2 + 22;
+	reproductiveSMRec.y = sHeight / 2 - reproductiveSM.height / 2 - body.height / 23 + 5;
+	reproductiveSMRec.width = 130;
+	reproductiveSMRec.height = 120;
+	nervesRec.x = sWidth / 2 - nerves.width / 2 + body.width / 3 + 45;
+	nervesRec.y = sHeight / 2 - nerves.height / 2 - body.height / 14 + 25;
+	nervesRec.width = 50;
+	nervesRec.height = 110;
+	muscleRec.x = sWidth / 2 - nerves.width / 2 + body.width / 3 + 30;
+	muscleRec.y = sHeight / 2 - nerves.height / 2 - body.height / 5 + 10;
+	muscleRec.width = 50;
+	muscleRec.height = 150;
 
 	brainIsActive = false;
 	lungsIsActive = false;
@@ -87,6 +111,9 @@ Body::Body() {
 	kidneyIsActive = false;
 	stomachIsActive = false;
 	intestinesIsActive = false;
+	reproductiveSMIsActive = false;
+	nervesIsActive = false;
+	muscleIsActive = true;
 
 	brainInfo = "B R A I N\nThe brain is the most complex and vital organ in the human body,\nresponsible for controllingand coordinating all bodily functions,\nthoughts, emotions, and sensations. It is composed of more than\n100 billion neurons and trillions of synapses, which form complex\nnetworks that allow us to think, feel, and move.\nCommon brain diseases include:\nAlzheimer's disease, Parkinson's disease, multiple sclerosis,\nepilepsy, migraines, and traumatic brain injury. Alzheimer's disease\nis a progressive neurodegenerative disease that affects memory,\nthinking, and behavior, while Parkinson's disease is a degenerative\ndisorder that affects movement, balance, and coordination.\nMultiple sclerosis is an autoimmune disease that affects\nthe central nervous system, while epilepsy is a neurological\ndisorder that causes seizures. Migraines are a type of headache that\ncan be debilitatingand recurring, while traumatic brin injury can result\nfrom a blow or jolt to the head, leading to cognitive, emotional,\nand physical impairment.";
 
@@ -101,6 +128,12 @@ Body::Body() {
 	stomachInfo = "S T O M A C H\nThe stomach is a muscular sac located in the upper left abdomen,\nbetween the esophagus and the small intestine. It plays a crucial role\nin the digestive system by breaking down food into smaller particles\nand mixing it with gastric acid and enzymes. Common stomach diseases\ninclude gastroesophageal reflux disease(GERD), peptic ulcers,\ngastritis, and stomach cancer.GERD is a chronic condition in which\nthe stomach acid flows back into the esophagus, causing\nheartburnand damage to the esophageal lining. Peptic ulcers are\nopen sores that form in the lining of the stomach or small\nintestine, often caused by a bacterial infection or the long\n- term use of certain medications. Gastritis is an inflammation of\nthe stomach lining, which can be caused by infections, alcohol,\nstress, or the use of certain medications.Stomach cancer is\na type of cancer that begins in the cells lining the stomach and can\nspread to other parts of the body. Other common digestive issues\nthat can affect the stomach include irritable bowel syndrome(IBS), celiac\ndisease and food intolerances or allergies.IBS is a chronic condition that\naffects the large intestine and can cause abdominal pain, bloating\nand changes in bowel movements.Celiac disease is an autoimmune disorder\nin which the body reacts to gluten, a protein found in wheat, causing\ndamage to the small intestine.Food intolerances or allergies can cause\na range of digestive symptoms, including stomach pain, bloating, diarrhea\nor constipation.";
 
 	intestinesInfo = "I N T E S T I O N E S\nThe human intestine, also known as the bowel, is part of the digestive\nsystem responsible for absorbing nutrients from food and eliminating\nwaste from the body. The small intestine is the longest part of the\ndigestive tract, where most nutrient absorption occurs.\nThe large intestine, or colon, absorbs water and electrolytes from\nundigested food and stores waste until elimination.\nCommon diseases of the intestines include inflammatory bowel\ndisease(IBD), irritable bowel syndrome(IBS), diverticulitis\nand colon cancer. IBD is a chronic inflammation of the digestive\ntract that includes Crohn's disease and ulcerative colitis.\nIBS is a functional disorder that causes abdominal pain, bloating\nand changes in bowel habits. Diverticulitis is the inflammation\nor infection of small pouches in the lining of the colon, while\ncolon cancer is the growth of cancerous cells in the colon or rectum.";
+
+	reproductiveSMInfo = "R E P R O D U C T I V E  S Y S T E M  M A L E\nThe male reproductive system consists of organs that are involved\nin the production, storage, and transportation of sperm.\nThese organs include the testes, epididymis, vas deferens,\nseminal vesicles, prostate gland, and urethra. The testes produce\nsperm and testosterone,while the epididymis stores and transports\nsperm to the vas deferens, which carries sperm from the epididymis\nto the urethra. The seminal vesicles and prostate gland produce\nseminal fluid, which nourishes and transports sperm during\nejaculation. Common diseases that can affect the male reproductive\nsystem include prostate cancer, testicular cancer, erectile\ndysfunction, and infertility.Prostate cancer is a cancer that\naffects the prostate glandand can cause problems with\nurinationand sexual function.Testicular cancer is a cancer that\naffects the testiclesand can cause pain, swelling and lumps\nin the scrotum.Erectile dysfunction is a condition where a man is unable\nto achieve or maintain an erection sufficient for sexual activity.\nInfertility is a condition where a man is unable to father a child due\nto problems with sperm production or transportation.";
+
+	nervesInfo = "N E R V E S\nThe PNS can be further divided into the somatic nervous system and\nthe autonomic nervous system. The somatic nervous system is\nresponsible for voluntary movements and is involved in sensory\nperception, while the autonomic nervous system controls involuntary\nfunctions like heart rate, breathing, and digestion.The human body\ncontains millions of individual nerve cells called neurons,\nwhich transmit electrical signals throughout the body.\nNeurons are composed of a cell body, dendrites, and an axon.\nThe dendrites receive signals from other neurons, while the axon\nsends signals to other neurons or to muscles and glands.\nDamage to nerves can result in a variety of conditions, such as\nneuropathies, which are characterized by pain, numbness \nor weakness in the affected area. Examples of neuropathies\ninclude carpal tunnel syndrome, diabetic neuropathy\nand peripheral neuropathy.";
+
+	muscleInfo = "M U S C L E\nHuman muscles are the collection of tissues in the body responsible\nfor movement, maintaining posture, and generating heat.\nThere are three main types of muscles in the human body:\nskeletal, smooth, and cardiac muscles. Skeletal muscles are attached\nto the bones and are responsible for voluntary movement.\nThey are striated muscles and are under conscious control.\nSmooth muscles are found in the walls of internal organs such as\nthe stomach, intestines, and blood vessels, and they are\nresponsible for involuntary movements such as peristalsis.\nCardiac muscles are found only in the heart and are responsible\nfor pumping blood throughout the body. \nCommon muscle diseases include: muscular dystrophy,\nmyasthenia gravis, fibromyalgia, and polymyositis.\nMuscular dystrophy is a group of genetic disorders that cause\nprogressive muscle weakness and loss of muscle mass.\nMyasthenia gravis is a neuromuscular disorder that causes muscle\nweakness and fatigue, particularly in the eyes, face, throat, andlimbs.\nFibromyalgia is a chronic pain disorder that affects muscles, tendons\nand ligaments, causing widespread pain, fatigue and sleep disturbances.\nPolymyositis is an autoimmune disease that causes inflammation and\nweakness in the muscles, particularly in the hips, thighs, shoulders, and neck.";
 }
 Body::~Body() {
 	UnloadTexture(body);
@@ -111,6 +144,9 @@ Body::~Body() {
 	UnloadTexture(kidney);
 	UnloadTexture(stomach);
 	UnloadTexture(intestines);
+	UnloadTexture(reproductiveSM);
+	UnloadTexture(nerves);
+	UnloadTexture(muscle);
 	UnloadFont(font);
 }
 std::shared_ptr<Body> Body::getInstance() {
@@ -147,19 +183,41 @@ std::shared_ptr<Body> Body::getInstance() {
 //		}
 //	}
 //}
+void Body::cancelBtn(float posX, float posY) {
+	cancel.bounds = { posX, posY, 125, 40};
+	cancel.rounding = 1;
+	cancel.hovering = CheckCollisionPointRec(GetMousePosition(), cancel.bounds);
+	cancel.text = "Cancel";
+	cancel.color = GRAY;
+
+	if (cancel.hovering) cancel.color = DARKGRAY;
+	DrawRectangleRounded(cancel.bounds, cancel.rounding, cancel.rounding, cancel.color);
+	DrawText(cancel.text, cancel.bounds.x + cancel.bounds.width / 2 - MeasureText(cancel.text, 20) / 2, cancel.bounds.y + 11, 20, BLACK);
+	if (cancel.hovering && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+		brainIsActive = false;
+		lungsIsActive = false;
+		liverIsActive = false;
+		heartIsActive = false;
+		kidneyIsActive = false;
+		stomachIsActive = false;
+		intestinesIsActive = false;
+		reproductiveSMIsActive = false;
+		nervesIsActive = false;
+		muscleIsActive = false;
+	}
+}
 
 void Body::drawBrain() {
 
 	DrawRectangleRec(brainRec, BLANK);
-	if(lungsIsActive || liverIsActive || heartIsActive || kidneyIsActive || stomachIsActive || intestinesIsActive && !brainIsActive)
-		DrawTexture(brain, brainPos.x, brainPos.y, BLACK);
+	if(lungsIsActive || liverIsActive || heartIsActive || kidneyIsActive || stomachIsActive || intestinesIsActive || reproductiveSMIsActive || nervesIsActive || muscleIsActive && !brainIsActive)
+		DrawTexture(brain, brainPos.x, brainPos.y, GRAY);
 	else
 		DrawTexture(brain, brainPos.x, brainPos.y, WHITE);
 
 	if (brainIsActive) {
-        //DrawText(brainInfo, 0, 0, fontSize, BLACK);
-		//DrawTextEx(font, brainInfo, infoPos,fontSize, 0,BLACK);
-		DrawText(brainInfo, infoPos.x, infoPos.y, fontSize, BLACK);
+        DrawText(brainInfo, infoPos.x, infoPos.y, fontSize, BLACK);
+		cancelBtn(sWidth / 2 - body.width + 75, sHeight / 2 + body.height / 4 - 60);
 		if (CheckCollisionPointRec(GetMousePosition(), brainRec) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
 			brainIsActive = false;
 			lungsIsActive = false;
@@ -168,6 +226,9 @@ void Body::drawBrain() {
 			kidneyIsActive = false;
 			stomachIsActive = false;
 			intestinesIsActive = false;
+			reproductiveSMIsActive = false;
+			nervesIsActive = false;
+			muscleIsActive = false;
 		}
 	}
 	else {
@@ -179,18 +240,22 @@ void Body::drawBrain() {
 			kidneyIsActive = false;
 			stomachIsActive = false;
 			intestinesIsActive = false;
+			reproductiveSMIsActive = false;
+			nervesIsActive = false;
+			muscleIsActive = false;
 		}
 	}
 }
 void Body::drawLungs() {
 	DrawRectangleRec(lungsRec, BLANK);
-	if(brainIsActive || liverIsActive || heartIsActive || kidneyIsActive || stomachIsActive || intestinesIsActive && !lungsIsActive)
-		DrawTexture(lungs, lungsPos.x, lungsPos.y, BLACK);
+	if(brainIsActive || liverIsActive || heartIsActive || kidneyIsActive || stomachIsActive || intestinesIsActive || reproductiveSMIsActive || nervesIsActive || muscleIsActive && !lungsIsActive)
+		DrawTexture(lungs, lungsPos.x, lungsPos.y, GRAY);
 	else
 		DrawTexture(lungs, lungsPos.x, lungsPos.y, WHITE);
 
 	if (lungsIsActive) {
 		DrawText(lungsInfo, infoPos.x, infoPos.y, fontSize, BLACK);
+		cancelBtn(sWidth / 2 - body.width + 75, sHeight / 2 + body.height / 5 - 100);
 		if (CheckCollisionPointRec(GetMousePosition(), lungsRec) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
 			brainIsActive = false;
 			lungsIsActive = false;
@@ -199,6 +264,9 @@ void Body::drawLungs() {
 			kidneyIsActive = false;
 			stomachIsActive = false;
 			intestinesIsActive = false;
+			reproductiveSMIsActive = false;
+			nervesIsActive = false;
+			muscleIsActive = false;
 		}
 	}
 	else {
@@ -210,18 +278,22 @@ void Body::drawLungs() {
 			kidneyIsActive = false;
 			stomachIsActive = false;
 			intestinesIsActive = false;
+			reproductiveSMIsActive = false;
+			nervesIsActive = false;
+			muscleIsActive = false;
 		}
 	}
 }
 void Body::drawLiver() {
 	DrawRectangleRec(liverRec, BLANK);
-	if (brainIsActive || lungsIsActive || heartIsActive || kidneyIsActive || stomachIsActive || intestinesIsActive && !liverIsActive)
-		DrawTexture(liver, liverPos.x, liverPos.y, BLACK);
+	if (brainIsActive || lungsIsActive || heartIsActive || kidneyIsActive || stomachIsActive || intestinesIsActive || reproductiveSMIsActive || nervesIsActive || muscleIsActive && !liverIsActive)
+		DrawTexture(liver, liverPos.x, liverPos.y, GRAY);
 	else
 		DrawTexture(liver, liverPos.x, liverPos.y, WHITE);
 
 	if (liverIsActive) {
 		DrawText(liverInfo, infoPos.x, infoPos.y, fontSize, BLACK);
+		cancelBtn(sWidth / 2 - body.width + 75, sHeight / 2 + body.height / 7 - 100);
 		if (CheckCollisionPointRec(GetMousePosition(), liverRec) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
 			brainIsActive = false;
 			lungsIsActive = false;
@@ -230,6 +302,9 @@ void Body::drawLiver() {
 			kidneyIsActive = false;
 			stomachIsActive = false;
 			intestinesIsActive = false;
+			reproductiveSMIsActive = false;
+			nervesIsActive = false;
+			muscleIsActive = false;
 		}
 	}
 	else {
@@ -241,18 +316,22 @@ void Body::drawLiver() {
 			kidneyIsActive = false;
 			stomachIsActive = false;
 			intestinesIsActive = false;
+			reproductiveSMIsActive = false;
+			nervesIsActive = false;
+			muscleIsActive = false;
 		}
 	}
 }
 void Body::drawHeart() {
 	DrawRectangleRec(heartRec, BLANK);
-	if (brainIsActive || lungsIsActive || liverIsActive || kidneyIsActive || stomachIsActive  || intestinesIsActive && !heartIsActive)
-		DrawTexture(heart, heartPos.x, heartPos.y, BLACK);
+	if (brainIsActive || lungsIsActive || liverIsActive || kidneyIsActive || stomachIsActive  || intestinesIsActive || reproductiveSMIsActive || nervesIsActive || muscleIsActive && !heartIsActive)
+		DrawTexture(heart, heartPos.x, heartPos.y, GRAY);
 	else
 		DrawTexture(heart, heartPos.x, heartPos.y, WHITE);
 
 	if (heartIsActive) {
 		DrawText(heartInfo, infoPos.x, infoPos.y, fontSize, BLACK);
+		cancelBtn(sWidth / 2 - body.width + 75, sHeight / 2 + body.height / 6 - 100);
 		if (CheckCollisionPointRec(GetMousePosition(), heartRec) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
 			brainIsActive = false;
 			lungsIsActive = false;
@@ -261,6 +340,9 @@ void Body::drawHeart() {
 			kidneyIsActive = false;
 			stomachIsActive = false;
 			intestinesIsActive = false;
+			reproductiveSMIsActive = false;
+			nervesIsActive = false;
+			muscleIsActive = false;
 		}
 	}
 	else {
@@ -272,19 +354,23 @@ void Body::drawHeart() {
 			kidneyIsActive = false;
 			stomachIsActive = false;
 			intestinesIsActive = false;
+			reproductiveSMIsActive = false;
+			nervesIsActive = false;
+			muscleIsActive = false;
 		}
 	}
 
 }
 void Body::drawKidney() {
 	DrawRectangleRec(kidneyRec, BLANK);
-	if (brainIsActive || lungsIsActive || liverIsActive || heartIsActive || stomachIsActive || intestinesIsActive && !kidneyIsActive)
-		DrawTexture(kidney, kidneyPos.x, kidneyPos.y, BLACK);
+	if (brainIsActive || lungsIsActive || liverIsActive || heartIsActive || stomachIsActive || intestinesIsActive || reproductiveSMIsActive || nervesIsActive || muscleIsActive && !kidneyIsActive)
+		DrawTexture(kidney, kidneyPos.x, kidneyPos.y, GRAY);
 	else
 		DrawTexture(kidney, kidneyPos.x, kidneyPos.y, WHITE);
 
 	if (kidneyIsActive) {
 		DrawText(kidneyInfo, infoPos.x, infoPos.y, fontSize, BLACK);
+		cancelBtn(sWidth / 2 - body.width + 75, sHeight / 2 + body.height / 2 - 100);
 		if (CheckCollisionPointRec(GetMousePosition(), kidneyRec) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
 			brainIsActive = false;
 			lungsIsActive = false;
@@ -293,6 +379,9 @@ void Body::drawKidney() {
 			kidneyIsActive = false;
 			stomachIsActive = false;
 			intestinesIsActive = false;
+			reproductiveSMIsActive = false;
+			nervesIsActive = false;
+			muscleIsActive = false;
 		}
 	}
 	else {
@@ -304,18 +393,22 @@ void Body::drawKidney() {
 			kidneyIsActive = true;
 			stomachIsActive = false;
 			intestinesIsActive = false;
+			reproductiveSMIsActive = false;
+			nervesIsActive = false;
+			muscleIsActive = false;
 		}
 	}
 }
 void Body::drawStomach() {
 	DrawRectangleRec(stomachRec, BLANK);
-	if (brainIsActive || lungsIsActive || liverIsActive || heartIsActive || kidneyIsActive || intestinesIsActive && !stomachIsActive)
-		DrawTexture(stomach, stomachPos.x, stomachPos.y, BLACK);
+	if (brainIsActive || lungsIsActive || liverIsActive || heartIsActive || kidneyIsActive || intestinesIsActive || reproductiveSMIsActive || nervesIsActive || muscleIsActive && !stomachIsActive)
+		DrawTexture(stomach, stomachPos.x, stomachPos.y, GRAY);
 	else
 		DrawTexture(stomach, stomachPos.x, stomachPos.y, WHITE);
 
 	if (stomachIsActive) {
 		DrawText(stomachInfo, infoPos.x, infoPos.y, fontSize, BLACK);
+		cancelBtn(sWidth / 2 - body.width + 75, sHeight / 2 + body.height / 2 - 130);
 		if (CheckCollisionPointRec(GetMousePosition(), stomachRec) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
 			brainIsActive = false;
 			lungsIsActive = false;
@@ -324,6 +417,9 @@ void Body::drawStomach() {
 			kidneyIsActive = false;
 			stomachIsActive = false;
 			intestinesIsActive = false;
+			reproductiveSMIsActive = false;
+			nervesIsActive = false;
+			muscleIsActive = false;
 		}
 	}
 	else {
@@ -335,18 +431,22 @@ void Body::drawStomach() {
 			kidneyIsActive = false;
 			stomachIsActive = true;
 			intestinesIsActive = false;
+			reproductiveSMIsActive = false;
+			nervesIsActive = false;
+			muscleIsActive = false;
 		}
 	}
 }
 void Body::drawIntestines() {
 	DrawRectangleRec(intestinesRec, BLANK);
-	if (brainIsActive || lungsIsActive || liverIsActive || heartIsActive || kidneyIsActive || stomachIsActive && !intestinesIsActive)
-		DrawTexture(intestines, intestinesPos.x, intestinesPos.y, BLACK);
+	if (brainIsActive || lungsIsActive || liverIsActive || heartIsActive || kidneyIsActive || stomachIsActive || reproductiveSMIsActive || nervesIsActive || muscleIsActive && !intestinesIsActive)
+		DrawTexture(intestines, intestinesPos.x, intestinesPos.y, GRAY);
 	else
 		DrawTexture(intestines, intestinesPos.x, intestinesPos.y, WHITE);
 
 	if (intestinesIsActive) {
 		DrawText(intestinesInfo, infoPos.x, infoPos.y, fontSize, BLACK);
+		cancelBtn(sWidth / 2 - body.width + 75, sHeight / 2 + body.height / 4 - 120);
 		if (CheckCollisionPointRec(GetMousePosition(), intestinesRec) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
 			brainIsActive = false;
 			lungsIsActive = false;
@@ -355,6 +455,9 @@ void Body::drawIntestines() {
 			kidneyIsActive = false;
 			stomachIsActive = false;
 			intestinesIsActive = false;
+			reproductiveSMIsActive = false;
+			nervesIsActive = false;
+			muscleIsActive = false;
 		}
 	}
 	else {
@@ -366,11 +469,130 @@ void Body::drawIntestines() {
 			kidneyIsActive = false;
 			stomachIsActive = false;
 			intestinesIsActive = true;
+			reproductiveSMIsActive = false;
+			nervesIsActive = false;
+			muscleIsActive = false;
 		}
 	}
 }
+void Body::drawReproductiveSM() {
+	DrawRectangleRec(reproductiveSMRec, BLANK);
+	if (brainIsActive || lungsIsActive || liverIsActive || heartIsActive || kidneyIsActive || stomachIsActive || intestinesIsActive || nervesIsActive || muscleIsActive && !reproductiveSMIsActive)
+		DrawTexture(reproductiveSM, reproductiveSMPos.x, reproductiveSMPos.y, GRAY);
+	else
+		DrawTexture(reproductiveSM, reproductiveSMPos.x, reproductiveSMPos.y, WHITE);
+
+	if (reproductiveSMIsActive) {
+		DrawText(reproductiveSMInfo, infoPos.x, infoPos.y, fontSize, BLACK);
+		cancelBtn(sWidth / 2 - body.width + 75, sHeight / 2 + body.height / 3 - 80);
+		if (CheckCollisionPointRec(GetMousePosition(), reproductiveSMRec) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+			brainIsActive = false;
+			lungsIsActive = false;
+			liverIsActive = false;
+			heartIsActive = false;
+			kidneyIsActive = false;
+			stomachIsActive = false;
+			intestinesIsActive = false;
+			reproductiveSMIsActive = false;
+			nervesIsActive = false;
+			muscleIsActive = false;
+		}
+	}
+	else {
+		if (CheckCollisionPointRec(GetMousePosition(), reproductiveSMRec) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+			brainIsActive = false;
+			lungsIsActive = false;
+			liverIsActive = false;
+			heartIsActive = false;
+			kidneyIsActive = false;
+			stomachIsActive = false;
+			intestinesIsActive = false;
+			reproductiveSMIsActive = true;
+			nervesIsActive = false;
+			muscleIsActive = false;
+		}
+	}
+}
+void Body::drawNerves() {
+	DrawRectangleRec(nervesRec, BLANK);
+	if (brainIsActive || lungsIsActive || liverIsActive || heartIsActive || kidneyIsActive || stomachIsActive || intestinesIsActive || reproductiveSMIsActive || muscleIsActive && !nervesIsActive)
+		DrawTexture(nerves, nervesPos.x, nervesPos.y, GRAY);
+	else
+		DrawTexture(nerves, nervesPos.x, nervesPos.y, WHITE);
+
+	if (nervesIsActive) {
+		DrawText(nervesInfo, infoPos.x, infoPos.y, fontSize, BLACK);
+		cancelBtn(sWidth / 2 - body.width + 75, sHeight / 2 + body.height / 3 - 80);
+		if (CheckCollisionPointRec(GetMousePosition(), nervesRec) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+			brainIsActive = false;
+			lungsIsActive = false;
+			liverIsActive = false;
+			heartIsActive = false;
+			kidneyIsActive = false;
+			stomachIsActive = false;
+			intestinesIsActive = false;
+			reproductiveSMIsActive = false;
+			nervesIsActive = false;
+			muscleIsActive = false;
+		}
+	}
+	else {
+		if (CheckCollisionPointRec(GetMousePosition(), nervesRec) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+			brainIsActive = false;
+			lungsIsActive = false;
+			liverIsActive = false;
+			heartIsActive = false;
+			kidneyIsActive = false;
+			stomachIsActive = false;
+			intestinesIsActive = false;
+			reproductiveSMIsActive = false;
+			nervesIsActive = true;
+			muscleIsActive = false;
+		}
+	}
+}
+void Body::drawMuscle() {
+	DrawRectangleRec(muscleRec, BLANK);
+	if (brainIsActive || lungsIsActive || liverIsActive || heartIsActive || kidneyIsActive || stomachIsActive || intestinesIsActive || reproductiveSMIsActive || nervesIsActive && !muscleIsActive)
+		DrawTexture(muscle, musclePos.x, musclePos.y, GRAY);
+	else
+		DrawTexture(muscle, musclePos.x, musclePos.y, WHITE);
+
+	if (muscleIsActive) {
+		DrawText(muscleInfo, infoPos.x, infoPos.y, fontSize, BLACK);
+		cancelBtn(sWidth / 2 - body.width + 75, sHeight / 2 + body.height / 3 + 10);
+		if (CheckCollisionPointRec(GetMousePosition(), muscleRec) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+			brainIsActive = false;
+			lungsIsActive = false;
+			liverIsActive = false;
+			heartIsActive = false;
+			kidneyIsActive = false;
+			stomachIsActive = false;
+			intestinesIsActive = false;
+			reproductiveSMIsActive = false;
+			nervesIsActive = false;
+			muscleIsActive = false;
+		}
+	}
+	else {
+		if (CheckCollisionPointRec(GetMousePosition(), muscleRec) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+			brainIsActive = false;
+			lungsIsActive = false;
+			liverIsActive = false;
+			heartIsActive = false;
+			kidneyIsActive = false;
+			stomachIsActive = false;
+			intestinesIsActive = false;
+			reproductiveSMIsActive = false;
+			nervesIsActive = false;
+			muscleIsActive = true;
+		}
+	}
+}
+
 void Body::drawBody() {
 	DrawTexture(body,bodyPos.x,bodyPos.y,WHITE);
+
 	if (brainIsActive) {
 		drawLungs();
 		drawLiver();
@@ -378,6 +600,9 @@ void Body::drawBody() {
 		drawKidney();
 		drawStomach();
 		drawIntestines();
+		drawReproductiveSM();
+		drawNerves();
+		drawMuscle();
 		drawBrain();
 	}
 	else if (lungsIsActive) {
@@ -387,6 +612,9 @@ void Body::drawBody() {
 		drawKidney();
 		drawStomach();
 		drawIntestines();
+		drawReproductiveSM();
+		drawNerves();
+		drawMuscle();
 		drawLungs();
 	}
 	else if (liverIsActive) {
@@ -396,6 +624,9 @@ void Body::drawBody() {
 		drawKidney();
 		drawStomach();
 		drawIntestines();
+		drawReproductiveSM();
+		drawNerves();
+		drawMuscle();
 		drawLiver();
 	}
 	else if (heartIsActive) {
@@ -405,6 +636,9 @@ void Body::drawBody() {
 		drawKidney();
 		drawStomach();
 		drawIntestines();
+		drawReproductiveSM();
+		drawNerves();
+		drawMuscle();
 		drawHeart();
 	}
 	else if (kidneyIsActive) {
@@ -414,6 +648,9 @@ void Body::drawBody() {
 		drawHeart();
 		drawStomach();
 		drawIntestines();
+		drawReproductiveSM();
+		drawNerves();
+		drawMuscle();
 		drawKidney();
 	}
 	else if (stomachIsActive) {
@@ -422,8 +659,11 @@ void Body::drawBody() {
 		drawLiver();
 		drawHeart();
 		drawKidney();
-		drawStomach();
 		drawIntestines();
+		drawReproductiveSM();
+		drawNerves();
+		drawMuscle();
+		drawStomach();
 	}
 	else if (intestinesIsActive) {
 		drawBrain();
@@ -432,7 +672,46 @@ void Body::drawBody() {
 		drawKidney();
 		drawStomach();
 		drawHeart();
+		drawReproductiveSM();
+		drawNerves();
+		drawMuscle();
 		drawIntestines();
+	}
+	else if (reproductiveSMIsActive) {
+		drawBrain();
+		drawLungs();
+		drawLiver();
+		drawKidney();
+		drawStomach();
+		drawHeart();
+		drawIntestines();
+		drawNerves();
+		drawMuscle();
+		drawReproductiveSM();
+	}
+	else if (nervesIsActive) {
+		drawBrain();
+		drawLungs();
+		drawLiver();
+		drawKidney();
+		drawStomach();
+		drawHeart();
+		drawIntestines();
+		drawReproductiveSM();
+		drawMuscle();
+		drawNerves();
+	}
+	else if (muscleIsActive) {
+		drawBrain();
+		drawLungs();
+		drawLiver();
+		drawKidney();
+		drawStomach();
+		drawHeart();
+		drawIntestines();
+		drawReproductiveSM();
+		drawNerves();
+		drawMuscle();
 	}
 	else {
 		drawBrain();
@@ -442,6 +721,9 @@ void Body::drawBody() {
 		drawStomach();
 		drawHeart();
 		drawIntestines();
+		drawReproductiveSM();
+		drawNerves();
+		drawMuscle();
 	}
-	
+
 }

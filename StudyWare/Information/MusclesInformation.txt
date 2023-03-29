@@ -1,31 +1,7 @@
 Muscles and Common Muscle Diseases
 
 Information:
-
-Human muscles are the collection of tissues in the body responsible 
-for movement, maintaining posture, and generating heat. There are 
-three main types of muscles in the human body: skeletal, smooth, and 
-cardiac muscles.
-
-Skeletal muscles are attached to the bones and are responsible for 
-voluntary movement. They are striated muscles and are under conscious 
-control. Smooth muscles are found in the walls of internal organs 
-such as the stomach, intestines, and blood vessels, and they are 
-responsible for involuntary movements such as peristalsis. 
-Cardiac muscles are found only in the heart and are responsible for 
-pumping blood throughout the body.
-
-Common muscle diseases include 
-muscular dystrophy, myasthenia gravis, fibromyalgia, and polymyositis. 
-Muscular dystrophy is a group of genetic disorders that cause 
-progressive muscle weakness and loss of muscle mass. 
-Myasthenia gravis is a neuromuscular disorder that causes 
-muscle weakness and fatigue, particularly in the eyes, face, throat, and
-limbs. Fibromyalgia is a chronic pain disorder that affects 
-muscles, tendons, and ligaments, causing widespread pain, fatigue, and 
-sleep disturbances. Polymyositis is an autoimmune disease that causes 
-inflammation and weakness in the muscles, particularly in the 
-hips, thighs, shoulders, and neck.
+Human muscles are the collection of tissues in the body responsible for movement, maintaining posture, and generating heat. There are three main types of muscles in the human body: skeletal, smooth, and cardiac muscles.Skeletal muscles are attached to the bones and are responsible for voluntary movement. They are striated muscles and are under conscious control. Smooth muscles are found in the walls of internal organs such as the stomach, intestines, and blood vessels, and they are responsible for involuntary movements such as peristalsis. Cardiac muscles are found only in the heart and are responsible for pumping blood throughout the body.Common muscle diseases include:muscular dystrophy, myasthenia gravis, fibromyalgia, and polymyositis. Muscular dystrophy is a group of genetic disorders that cause progressive muscle weakness and loss of muscle mass. Myasthenia gravis is a neuromuscular disorder that causes muscle weakness and fatigue, particularly in the eyes, face, throat, andlimbs. Fibromyalgia is a chronic pain disorder that affects muscles, tendons, and ligaments, causing widespread pain, fatigue, and sleep disturbances. Polymyositis is an autoimmune disease that causes inflammation and weakness in the muscles, particularly in the hips, thighs, shoulders, and neck.
 
 Test Questions:
 

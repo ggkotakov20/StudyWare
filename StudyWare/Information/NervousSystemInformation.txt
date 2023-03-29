@@ -9,22 +9,7 @@ nervous system (PNS). The CNS consists of the brain and spinal
 cord, while the PNS includes all the nerves outside of the brain and 
 spinal cord.
 
-The PNS can be further divided into the somatic nervous system and the 
-autonomic nervous system. The somatic nervous system is responsible for 
-voluntary movements and is involved in sensory perception, while the 
-autonomic nervous system controls involuntary functions like 
-heart rate, breathing, and digestion.
-
-The human body contains millions of individual nerve cells called 
-neurons, which transmit electrical signals throughout the body. 
-Neurons are composed of a cell body, dendrites, and an axon. 
-The dendrites receive signals from other neurons, while the axon sends 
-signals to other neurons or to muscles and glands.
-
-Damage to nerves can result in a variety of conditions, such as 
-neuropathies, which are characterized by pain, numbness, or weakness 
-in the affected area. Examples of neuropathies include carpal tunnel 
-syndrome, diabetic neuropathy, and peripheral neuropathy.
+The PNS can be further divided into the somatic nervous system and the autonomic nervous system. The somatic nervous system is responsible for voluntary movements and is involved in sensory perception, while the autonomic nervous system controls involuntary functions like heart rate, breathing, and digestion.The human body contains millions of individual nerve cells called neurons, which transmit electrical signals throughout the body. Neurons are composed of a cell body, dendrites, and an axon. The dendrites receive signals from other neurons, while the axon sends signals to other neurons or to muscles and glands.Damage to nerves can result in a variety of conditions, such as neuropathies, which are characterized by pain, numbness, or weakness in the affected area. Examples of neuropathies include carpal tunnel syndrome, diabetic neuropathy, and peripheral neuropathy.
 
 Test Questions:
 
