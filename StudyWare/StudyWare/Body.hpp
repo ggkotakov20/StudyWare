@@ -27,6 +27,7 @@ public:
 	void drawLiver();
 	void drawHeart();
 	void drawKidney();
+	void drawStomach();
 	void drawBody();
 
 	static std::shared_ptr<Body> getInstance();
@@ -47,12 +48,14 @@ private:
 	bool liverIsActive;
 	bool heartIsActive;
 	bool kidneyIsActive;
+	bool stomachIsActive;
 
 	const char* brainInfo;
 	const char* lungsInfo;
 	const char* liverInfo;
 	const char* heartInfo;
 	const char* kidneyInfo;
+	const char* stomachInfo;
 
 	Vector2 mousePosition;
 	Vector2 bodyPos;
@@ -61,6 +64,7 @@ private:
 	Vector2 liverPos;
 	Vector2 heartPos;
 	Vector2 kidneyPos;
+	Vector2 stomachPos;
 	Vector2 infoPos;
 
 	Rectangle brainRec;
@@ -68,6 +72,7 @@ private:
 	Rectangle liverRec;
 	Rectangle heartRec;
 	Rectangle kidneyRec;
+	Rectangle stomachRec;
 
 	Texture2D body;
 	Texture2D brain;
@@ -75,4 +80,5 @@ private:
 	Texture2D liver;
 	Texture2D heart;
 	Texture2D kidney;
+	Texture2D stomach;
 };

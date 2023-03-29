@@ -18,6 +18,7 @@ Body::Body() {
 	liver = LoadTexture("../Images/organs/liver.png");
 	heart = LoadTexture("../Images/organs/heart.png");
 	kidney = LoadTexture("../Images/organs/kidney.png");
+	stomach = LoadTexture("../Images/organs/stomach.png");
 
 	bodySize = 2.5;
 	organSize = 2.5;
@@ -34,6 +35,8 @@ Body::Body() {
 	heart.height /= organSize;
 	kidney.width /= organSize;
 	kidney.height /= organSize;
+	stomach.width /= organSize;
+	stomach.height /= organSize;
 
 	bodyPos = { sWidth / 2 - body.width / 2, sHeight / 2 - body.height / 2 };
 	brainPos = { sWidth / 2 - brain.width / 2 - 1, sHeight / 2 - brain.height / 2  - body.height / 2 + 35};
@@ -41,6 +44,7 @@ Body::Body() {
 	liverPos = { sWidth / 2 - lungs.width / 2 - 25, sHeight / 2 - lungs.height / 2 - body.height / 5 + 70 };
 	heartPos = { sWidth / 2 - lungs.width / 2 + 7, sHeight / 2 - lungs.height / 2 - body.height / 5 + 7};
 	kidneyPos = { sWidth / 2 - lungs.width / 4 + 7, sHeight / 2 - lungs.height / 2 - body.height / 7 + 20};
+	stomachPos = { sWidth / 2 - stomach.width / 2 + 5, sHeight / 2 - stomach.height / 2 - body.height / 7 - 20};
 	infoPos = { 75, sHeight / 2 - body.height / 3 };
 
 	brainRec.x = sWidth / 2 - brain.width + 140;
@@ -63,15 +67,17 @@ Body::Body() {
 	kidneyRec.y = sHeight / 2 - kidney.height / 2 - body.height / 9 + 25;
 	kidneyRec.width = 40;
 	kidneyRec.height = 60;
+	stomachRec.x = sWidth / 2 - stomach.width / 5 + 17;
+	stomachRec.y = sHeight / 2 - stomachRec.height / 2 - body.height / 5 + 15;
+	stomachRec.width = 70;
+	stomachRec.height = 67;
 
 	brainIsActive = false;
 	lungsIsActive = false;
 	liverIsActive = false;
 	heartIsActive = false;
-	kidneyIsActive = true;
-
-	// With custome font
-	//brainInfo = "BRAIN\nThe brain is the most complex and vital organ in the human body,\nresponsible for controllingand coordinating all bodily functions,\nthoughts, emotions, and sensations.It is composed of more than\n100 billion neurons and trillions of synapses, which form complex\nnetworks that allow us to think, feel, and move.\nCommon brain diseases include:\nAlzheimer's disease, Parkinson's disease, multiple sclerosis, epilepsy,\nmigraines, and traumatic brain injury. Alzheimer's disease is a\nprogressive neurodegenerative disease that affects memory, thinking,\nand behavior, while Parkinson's disease is a degenerative disorder\nthat affects movement, balance, and coordination. Multiple sclerosis\nis an autoimmune disease that affects the central nervous system,\nwhile epilepsy is a neurological disorder that causes seizures.\nMigraines are a type of headache that can be debilitatingand\nrecurring, while traumatic brain injury can result from a blow\nor jolt to the head, leading to cognitive, emotional, and physical impairment.";
+	kidneyIsActive = false;
+	stomachIsActive = false;
 
 	brainInfo = "B R A I N\nThe brain is the most complex and vital organ in the human body,\nresponsible for controllingand coordinating all bodily functions,\nthoughts, emotions, and sensations. It is composed of more than\n100 billion neurons and trillions of synapses, which form complex\nnetworks that allow us to think, feel, and move.\nCommon brain diseases include:\nAlzheimer's disease, Parkinson's disease, multiple sclerosis,\nepilepsy, migraines, and traumatic brain injury. Alzheimer's disease\nis a progressive neurodegenerative disease that affects memory,\nthinking, and behavior, while Parkinson's disease is a degenerative\ndisorder that affects movement, balance, and coordination.\nMultiple sclerosis is an autoimmune disease that affects\nthe central nervous system, while epilepsy is a neurological\ndisorder that causes seizures. Migraines are a type of headache that\ncan be debilitatingand recurring, while traumatic brin injury can result\nfrom a blow or jolt to the head, leading to cognitive, emotional,\nand physical impairment.";
 
@@ -82,6 +88,8 @@ Body::Body() {
 	heartInfo = "H E A R T\nThe heart is a vital organ that pumps blood throughout the body,\nsupplying the organs and tissues with oxygen and nutrients.\nHere are some common heart diseases:\n1. Coronary artery disease : A condition where the arteries that\nsupply blood to the heart become narrowed or blocked.\n2. Arrhythmia : A heart rhythm problem that can cause the heart to\nbeat too fast, too slow, or irregularly.\n3. Heart failure : A condition where the heart cannot pump enough\nblood to meet the body's needs.\n4. Atherosclerosis : A condition where plaque builds up inside the\narteries, causing them to hardenand narrow.\n5. Heart valve disease : A condition where one or more of the\nheart valves do not function properly.";
 
 	kidneyInfo = "K I D N E Y\nThe kidneys are a pair of bean-shaped organs located on either\nside of the spine in the back of the abdominal cavity.They play a\ncrucial role in the body's urinary system and help filter waste\nproducts and excess fluids from the blood. The primary function\nof the kidneys is to produce urine, which is then transported to the\nbladder and eliminated from the body through the urethra. Chronic\nkidney disease is a condition in which the kidneys gradually lose\nfunction over time, usually over the course of months or years.\nIt can lead to a variety of complications, including high blood\npressure, anemia, and nerve damage. Kidney stones are hard,\nmineral deposits that form inside the kidneysand can cause\nintense painand discomfort when they pass through the urinary\ntract.The most common cause of kidney stones is dehydration,\nwhich can cause mineralsand salts to crystallize and form stones.\nUrinary tract infections(UTIs) are caused by bacteria that enter the\nurinary tractand can lead to symptoms such as painful urination, frequent\nurination, and lower abdominal pain. Headache is not typically a symptom of a\nUTI. Several factors can increase the risk of chronic kidney disease,\nincluding high blood pressure, diabetes, smoking, obesity, and a family\nhistory of kidney disease. The most common type of kidney stone is calcium\noxalate, which forms when there is too much calciumand oxalate in the urine.\nThe main treatment for kidney failure is dialysis, which is a process that\nfilters waste productsand excess fluids from the blood when the kidneys\ncan no longer perform this function.";
+
+	stomachInfo = "S T O M A C H\nThe stomach is a muscular sac located in the upper left abdomen,\nbetween the esophagus and the small intestine. It plays a crucial role\nin the digestive system by breaking down food into smaller particles\nand mixing it with gastric acid and enzymes. Common stomach diseases\ninclude gastroesophageal reflux disease(GERD), peptic ulcers,\ngastritis, and stomach cancer.GERD is a chronic condition in which\nthe stomach acid flows back into the esophagus, causing\nheartburnand damage to the esophageal lining. Peptic ulcers are\nopen sores that form in the lining of the stomach or small\nintestine, often caused by a bacterial infection or the long\n- term use of certain medications. Gastritis is an inflammation of\nthe stomach lining, which can be caused by infections, alcohol,\nstress, or the use of certain medications.Stomach cancer is\na type of cancer that begins in the cells lining the stomach and can\nspread to other parts of the body. Other common digestive issues\nthat can affect the stomach include irritable bowel syndrome(IBS), celiac\ndisease and food intolerances or allergies.IBS is a chronic condition that\naffects the large intestine and can cause abdominal pain, bloating\nand changes in bowel movements.Celiac disease is an autoimmune disorder\nin which the body reacts to gluten, a protein found in wheat, causing\ndamage to the small intestine.Food intolerances or allergies can cause\na range of digestive symptoms, including stomach pain, bloating, diarrhea\nor constipation.";
 }
 Body::~Body() {
 	UnloadTexture(body);
@@ -90,6 +98,7 @@ Body::~Body() {
 	UnloadTexture(liver);
 	UnloadTexture(heart);
 	UnloadTexture(kidney);
+	UnloadTexture(stomach);
 	UnloadFont(font);
 }
 std::shared_ptr<Body> Body::getInstance() {
@@ -130,7 +139,7 @@ std::shared_ptr<Body> Body::getInstance() {
 void Body::drawBrain() {
 
 	DrawRectangleRec(brainRec, BLANK);
-	if(lungsIsActive || liverIsActive || heartIsActive || kidneyIsActive && !brainIsActive)
+	if(lungsIsActive || liverIsActive || heartIsActive || kidneyIsActive || stomachIsActive && !brainIsActive)
 		DrawTexture(brain, brainPos.x, brainPos.y, BLACK);
 	else
 		DrawTexture(brain, brainPos.x, brainPos.y, WHITE);
@@ -145,6 +154,7 @@ void Body::drawBrain() {
 			liverIsActive = false;
 			heartIsActive = false;
 			kidneyIsActive = false;
+			stomachIsActive = false;
 		}
 	}
 	else {
@@ -154,12 +164,13 @@ void Body::drawBrain() {
 			liverIsActive = false;
 			heartIsActive = false;
 			kidneyIsActive = false;
+			stomachIsActive = false;
 		}
 	}
 }
 void Body::drawLungs() {
 	DrawRectangleRec(lungsRec, BLANK);
-	if(brainIsActive || liverIsActive || heartIsActive || kidneyIsActive && !lungsIsActive)
+	if(brainIsActive || liverIsActive || heartIsActive || kidneyIsActive || stomachIsActive && !lungsIsActive)
 		DrawTexture(lungs, lungsPos.x, lungsPos.y, BLACK);
 	else
 		DrawTexture(lungs, lungsPos.x, lungsPos.y, WHITE);
@@ -172,6 +183,7 @@ void Body::drawLungs() {
 			liverIsActive = false;
 			heartIsActive = false;
 			kidneyIsActive = false;
+			stomachIsActive = false;
 		}
 	}
 	else {
@@ -181,12 +193,13 @@ void Body::drawLungs() {
 			liverIsActive = false;
 			heartIsActive = false;
 			kidneyIsActive = false;
+			stomachIsActive = false;
 		}
 	}
 }
 void Body::drawLiver() {
 	DrawRectangleRec(liverRec, BLANK);
-	if (brainIsActive || lungsIsActive || heartIsActive || kidneyIsActive && !liverIsActive)
+	if (brainIsActive || lungsIsActive || heartIsActive || kidneyIsActive || stomachIsActive && !liverIsActive)
 		DrawTexture(liver, liverPos.x, liverPos.y, BLACK);
 	else
 		DrawTexture(liver, liverPos.x, liverPos.y, WHITE);
@@ -199,6 +212,7 @@ void Body::drawLiver() {
 			liverIsActive = false;
 			heartIsActive = false;
 			kidneyIsActive = false;
+			stomachIsActive = false;
 		}
 	}
 	else {
@@ -208,12 +222,13 @@ void Body::drawLiver() {
 			liverIsActive = true;
 			heartIsActive = false;
 			kidneyIsActive = false;
+			stomachIsActive = false;
 		}
 	}
 }
 void Body::drawHeart() {
 	DrawRectangleRec(heartRec, BLANK);
-	if (brainIsActive || lungsIsActive || liverIsActive || kidneyIsActive && !heartIsActive)
+	if (brainIsActive || lungsIsActive || liverIsActive || kidneyIsActive || stomachIsActive && !heartIsActive)
 		DrawTexture(heart, heartPos.x, heartPos.y, BLACK);
 	else
 		DrawTexture(heart, heartPos.x, heartPos.y, WHITE);
@@ -226,6 +241,7 @@ void Body::drawHeart() {
 			liverIsActive = false;
 			heartIsActive = false;
 			kidneyIsActive = false;
+			stomachIsActive = false;
 		}
 	}
 	else {
@@ -235,13 +251,14 @@ void Body::drawHeart() {
 			liverIsActive = false;
 			heartIsActive = true;
 			kidneyIsActive = false;
+			stomachIsActive = false;
 		}
 	}
 
 }
 void Body::drawKidney() {
 	DrawRectangleRec(kidneyRec, BLANK);
-	if (brainIsActive || lungsIsActive || liverIsActive || heartIsActive && !kidneyIsActive)
+	if (brainIsActive || lungsIsActive || liverIsActive || heartIsActive || stomachIsActive && !kidneyIsActive)
 		DrawTexture(kidney, kidneyPos.x, kidneyPos.y, BLACK);
 	else
 		DrawTexture(kidney, kidneyPos.x, kidneyPos.y, WHITE);
@@ -254,6 +271,7 @@ void Body::drawKidney() {
 			liverIsActive = false;
 			heartIsActive = false;
 			kidneyIsActive = false;
+			stomachIsActive = false;
 		}
 	}
 	else {
@@ -263,6 +281,36 @@ void Body::drawKidney() {
 			liverIsActive = false;
 			heartIsActive = false;
 			kidneyIsActive = true;
+			stomachIsActive = false;
+		}
+	}
+}
+void Body::drawStomach() {
+	DrawRectangleRec(stomachRec, BLANK);
+	if (brainIsActive || lungsIsActive || liverIsActive || heartIsActive || kidneyIsActive && !stomachIsActive)
+		DrawTexture(stomach, stomachPos.x, stomachPos.y, BLACK);
+	else
+		DrawTexture(stomach, stomachPos.x, stomachPos.y, WHITE);
+
+	if (stomachIsActive) {
+		DrawText(stomachInfo, infoPos.x, infoPos.y, fontSize, BLACK);
+		if (CheckCollisionPointRec(GetMousePosition(), stomachRec) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+			brainIsActive = false;
+			lungsIsActive = false;
+			liverIsActive = false;
+			heartIsActive = false;
+			kidneyIsActive = false;
+			stomachIsActive = false;
+		}
+	}
+	else {
+		if (CheckCollisionPointRec(GetMousePosition(), stomachRec) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+			brainIsActive = false;
+			lungsIsActive = false;
+			liverIsActive = false;
+			heartIsActive = false;
+			kidneyIsActive = false;
+			stomachIsActive = true;
 		}
 	}
 }
@@ -273,6 +321,7 @@ void Body::drawBody() {
 		drawLiver();
 		drawHeart();
 		drawKidney();
+		drawStomach();
 		drawBrain();
 	}
 	else if (lungsIsActive) {
@@ -280,6 +329,7 @@ void Body::drawBody() {
 		drawLiver();
 		drawHeart();
 		drawKidney();
+		drawStomach();
 		drawLungs();
 	}
 	else if (liverIsActive) {
@@ -287,6 +337,7 @@ void Body::drawBody() {
 		drawLungs();
 		drawHeart();
 		drawKidney();
+		drawStomach();
 		drawLiver();
 	}
 	else if (heartIsActive) {
@@ -294,6 +345,7 @@ void Body::drawBody() {
 		drawLungs();
 		drawLiver();
 		drawKidney();
+		drawStomach();
 		drawHeart();
 	}
 	else if (kidneyIsActive) {
@@ -301,14 +353,24 @@ void Body::drawBody() {
 		drawLungs();
 		drawLiver();
 		drawHeart();
+		drawStomach();
 		drawKidney();
 	}
-	else {
+	else if (stomachIsActive) {
 		drawBrain();
 		drawLungs();
 		drawLiver();
 		drawHeart();
 		drawKidney();
+		drawStomach();
+	}
+	else {
+		drawBrain();
+		drawLungs();
+		drawLiver();
+		drawKidney();
+		drawStomach();
+		drawHeart();
 	}
 	
 }
