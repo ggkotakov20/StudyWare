@@ -29,29 +29,31 @@ public:
 	~Body();
 	void drawBrain();
 	void drawBody();
-	//void switchBodyBtn();
 
 	static std::shared_ptr<Body> getInstance();
 private:
 	static std::shared_ptr<Body> instance;
 
+	Font font;
 
 	float sWidth;
 	float sHeight;
 	float bodySize;
 	float organSize;
 
+	int fontSize;
+
 	bool brainIsActive;
+
+	const char* brainInfo;
 
 	Vector2 mousePosition;
 	Vector2 bodyPos;
 	Vector2 brainPos;
+	Vector2 infoPos;
 
 	Rectangle brainRec;
 
-	Texture2D bodyCurrent;
+	Texture2D body;
 	Texture2D brain;
-	//Texture2D bodyOrgans;
-	//Texture2D bodyNerves;
-	//Texture2D bodySkeleton;
 };

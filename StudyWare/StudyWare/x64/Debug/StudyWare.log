@@ -1,15 +1,14 @@
-﻿  AppManage.cpp
-  Body.cpp
+﻿  Body.cpp
 D:\programming\Projects\StudyWare\StudyWare\StudyWare\Body.cpp(6,25): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
 D:\programming\Projects\StudyWare\StudyWare\StudyWare\Body.cpp(7,27): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-D:\programming\Projects\StudyWare\StudyWare\StudyWare\Body.cpp(28,23): warning C4244: '/=': conversion from 'float' to 'int', possible loss of data
-D:\programming\Projects\StudyWare\StudyWare\StudyWare\Body.cpp(29,24): warning C4244: '/=': conversion from 'float' to 'int', possible loss of data
-D:\programming\Projects\StudyWare\StudyWare\StudyWare\Body.cpp(30,17): warning C4244: '/=': conversion from 'float' to 'int', possible loss of data
-D:\programming\Projects\StudyWare\StudyWare\StudyWare\Body.cpp(31,18): warning C4244: '/=': conversion from 'float' to 'int', possible loss of data
-D:\programming\Projects\StudyWare\StudyWare\StudyWare\Body.cpp(86,41): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-D:\programming\Projects\StudyWare\StudyWare\StudyWare\Body.cpp(86,29): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-D:\programming\Projects\StudyWare\StudyWare\StudyWare\Body.cpp(96,43): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-D:\programming\Projects\StudyWare\StudyWare\StudyWare\Body.cpp(96,33): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-  main.cpp
-  Generating Code...
+D:\programming\Projects\StudyWare\StudyWare\StudyWare\Body.cpp(9,21): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+D:\programming\Projects\StudyWare\StudyWare\StudyWare\Body.cpp(21,16): warning C4244: '/=': conversion from 'float' to 'int', possible loss of data
+D:\programming\Projects\StudyWare\StudyWare\StudyWare\Body.cpp(22,17): warning C4244: '/=': conversion from 'float' to 'int', possible loss of data
+D:\programming\Projects\StudyWare\StudyWare\StudyWare\Body.cpp(23,17): warning C4244: '/=': conversion from 'float' to 'int', possible loss of data
+D:\programming\Projects\StudyWare\StudyWare\StudyWare\Body.cpp(24,18): warning C4244: '/=': conversion from 'float' to 'int', possible loss of data
+D:\programming\Projects\StudyWare\StudyWare\StudyWare\Body.cpp(82,41): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\programming\Projects\StudyWare\StudyWare\StudyWare\Body.cpp(82,29): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\programming\Projects\StudyWare\StudyWare\StudyWare\Body.cpp(86,39): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\programming\Projects\StudyWare\StudyWare\StudyWare\Body.cpp(96,36): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\programming\Projects\StudyWare\StudyWare\StudyWare\Body.cpp(96,26): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
   StudyWare.vcxproj -> D:\programming\Projects\StudyWare\StudyWare\x64\Debug\StudyWare.exe

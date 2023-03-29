@@ -26,8 +26,10 @@ void AppManage::appManage() {
         switch (manage->status)
         {
         case AppStatus::Status::MENU:
-            menu = Menu::getInstance();
-            menu->drawMenu(fontRomulus);
+            /*menu = Menu::getInstance();
+            menu->drawMenu(fontRomulus);*/
+            body = Body::getInstance();
+            body->drawBody();
             break;
         case AppStatus::Status::LEARNING:
             body = Body::getInstance();
