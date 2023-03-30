@@ -11,11 +11,22 @@ public:
 		Color color;
 	};
 	Button cancel;
+	Button brainBTN;
+	Button lungsBTN;
+	Button liverBTN;
+	Button heartBTN;
+	Button kidneyBTN;
+	Button stomachBTN;
+	Button intestinesBTN;
+	Button reproductiveSMBTN;
+	Button nervesBTN;
+	Button muscleBTN;
 
 	Body();
 	~Body();
 
 	void cancelBtn(float posX, float posY);
+	void organsBtn();
 
 	void drawBrain();
 	void drawLungs();

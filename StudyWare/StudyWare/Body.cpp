@@ -206,6 +206,230 @@ void Body::cancelBtn(float posX, float posY) {
 		muscleIsActive = false;
 	}
 }
+void Body::organsBtn() {
+	brainBTN.bounds = { sWidth / 2 - body.width / 4 + 350,  sHeight / 2 - 300, 175, 45 };
+	brainBTN.rounding = 1;
+	brainBTN.hovering = CheckCollisionPointRec(GetMousePosition(), brainBTN.bounds);
+	brainBTN.text = "Brain";
+	brainBTN.color = GRAY;
+
+	if (brainBTN.hovering) brainBTN.color = DARKGRAY;
+	DrawRectangleRounded(brainBTN.bounds, brainBTN.rounding, brainBTN.rounding, brainBTN.color);
+	DrawText(brainBTN.text, brainBTN.bounds.x + brainBTN.bounds.width / 2 - MeasureText(brainBTN.text, 20) / 2, brainBTN.bounds.y + 11, 22, BLACK);
+
+	lungsBTN.bounds = { sWidth / 2 - body.width / 4 + 350,  sHeight / 2 - 250, 175, 45 };
+	lungsBTN.rounding = 1;
+	lungsBTN.hovering = CheckCollisionPointRec(GetMousePosition(), lungsBTN.bounds);
+	lungsBTN.text = "Lungs";
+	lungsBTN.color = GRAY;
+
+	if (lungsBTN.hovering) lungsBTN.color = DARKGRAY;
+	DrawRectangleRounded(lungsBTN.bounds, lungsBTN.rounding, lungsBTN.rounding, lungsBTN.color);
+	DrawText(lungsBTN.text, lungsBTN.bounds.x + lungsBTN.bounds.width / 2 - MeasureText(lungsBTN.text, 20) / 2, lungsBTN.bounds.y + 11, 22, BLACK);
+
+	heartBTN.bounds = { sWidth / 2 - body.width / 4 + 350,  sHeight / 2 - 200, 175, 45 };
+	heartBTN.rounding = 1;
+	heartBTN.hovering = CheckCollisionPointRec(GetMousePosition(), heartBTN.bounds);
+	heartBTN.text = "Heart";
+	heartBTN.color = GRAY;
+
+	if (heartBTN.hovering) heartBTN.color = DARKGRAY;
+	DrawRectangleRounded(heartBTN.bounds, heartBTN.rounding, heartBTN.rounding, heartBTN.color);
+	DrawText(heartBTN.text, heartBTN.bounds.x + heartBTN.bounds.width / 2 - MeasureText(heartBTN.text, 20) / 2, heartBTN.bounds.y + 11, 22, BLACK);
+
+	liverBTN.bounds = { sWidth / 2 - body.width / 4 + 350,  sHeight / 2 - 150, 175, 45 };
+	liverBTN.rounding = 1;
+	liverBTN.hovering = CheckCollisionPointRec(GetMousePosition(), liverBTN.bounds);
+	liverBTN.text = "Liver";
+	liverBTN.color = GRAY;
+
+	if (liverBTN.hovering) liverBTN.color = DARKGRAY;
+	DrawRectangleRounded(liverBTN.bounds, liverBTN.rounding, liverBTN.rounding, liverBTN.color);
+	DrawText(liverBTN.text, liverBTN.bounds.x + liverBTN.bounds.width / 2 - MeasureText(liverBTN.text, 20) / 2, liverBTN.bounds.y + 11, 22, BLACK);
+
+	kidneyBTN.bounds = { sWidth / 2 - body.width / 4 + 350,  sHeight / 2 - 100, 175, 45 };
+	kidneyBTN.rounding = 1;
+	kidneyBTN.hovering = CheckCollisionPointRec(GetMousePosition(), kidneyBTN.bounds);
+	kidneyBTN.text = "Kidney";
+	kidneyBTN.color = GRAY;
+
+	if (kidneyBTN.hovering) kidneyBTN.color = DARKGRAY;
+	DrawRectangleRounded(kidneyBTN.bounds, kidneyBTN.rounding, kidneyBTN.rounding, kidneyBTN.color);
+	DrawText(kidneyBTN.text, kidneyBTN.bounds.x + kidneyBTN.bounds.width / 2 - MeasureText(kidneyBTN.text, 20) / 2, kidneyBTN.bounds.y + 11, 22, BLACK);
+
+	stomachBTN.bounds = { sWidth / 2 - body.width / 4 + 350,  sHeight / 2 - 50, 175, 45 };
+	stomachBTN.rounding = 1;
+	stomachBTN.hovering = CheckCollisionPointRec(GetMousePosition(), stomachBTN.bounds);
+	stomachBTN.text = "Stomach";
+	stomachBTN.color = GRAY;
+
+	if (stomachBTN.hovering) stomachBTN.color = DARKGRAY;
+	DrawRectangleRounded(stomachBTN.bounds, stomachBTN.rounding, stomachBTN.rounding, stomachBTN.color);
+	DrawText(stomachBTN.text, stomachBTN.bounds.x + stomachBTN.bounds.width / 2 - MeasureText(stomachBTN.text, 20) / 2, stomachBTN.bounds.y + 11, 22, BLACK);
+
+	intestinesBTN.bounds = { sWidth / 2 - body.width / 4 + 350,  sHeight / 2 , 175, 45 };
+	intestinesBTN.rounding = 1;
+	intestinesBTN.hovering = CheckCollisionPointRec(GetMousePosition(), intestinesBTN.bounds);
+	intestinesBTN.text = "Intestines";
+	intestinesBTN.color = GRAY;
+
+	if (intestinesBTN.hovering) intestinesBTN.color = DARKGRAY;
+	DrawRectangleRounded(intestinesBTN.bounds, intestinesBTN.rounding, intestinesBTN.rounding, intestinesBTN.color);
+	DrawText(intestinesBTN.text, intestinesBTN.bounds.x + intestinesBTN.bounds.width / 2 - MeasureText(intestinesBTN.text, 20) / 2, intestinesBTN.bounds.y + 11, 22, BLACK);
+
+	reproductiveSMBTN.bounds = { sWidth / 2 - body.width / 4 + 300,  sHeight / 2 + 50, 290, 45 };
+	reproductiveSMBTN.rounding = 1;
+	reproductiveSMBTN.hovering = CheckCollisionPointRec(GetMousePosition(), reproductiveSMBTN.bounds);
+	reproductiveSMBTN.text = "Reproductive system";
+	reproductiveSMBTN.color = GRAY;
+
+	if (reproductiveSMBTN.hovering) reproductiveSMBTN.color = DARKGRAY;
+	DrawRectangleRounded(reproductiveSMBTN.bounds, reproductiveSMBTN.rounding, reproductiveSMBTN.rounding, reproductiveSMBTN.color);
+	DrawText(reproductiveSMBTN.text, reproductiveSMBTN.bounds.x + reproductiveSMBTN.bounds.width / 2 - MeasureText(reproductiveSMBTN.text, 20) / 2 - 5, reproductiveSMBTN.bounds.y + 11, 22, BLACK);
+
+	nervesBTN.bounds = { sWidth / 2 - body.width / 4 + 350,  sHeight / 2 + 100, 175, 45 };
+	nervesBTN.rounding = 1;
+	nervesBTN.hovering = CheckCollisionPointRec(GetMousePosition(), nervesBTN.bounds);
+	nervesBTN.text = "Nerves";
+	nervesBTN.color = GRAY;
+
+	if (nervesBTN.hovering) nervesBTN.color = DARKGRAY;
+	DrawRectangleRounded(nervesBTN.bounds, nervesBTN.rounding, nervesBTN.rounding, nervesBTN.color);
+	DrawText(nervesBTN.text, nervesBTN.bounds.x + nervesBTN.bounds.width / 2 - MeasureText(nervesBTN.text, 20) / 2, nervesBTN.bounds.y + 11, 22, BLACK);
+
+	muscleBTN.bounds = { sWidth / 2 - body.width / 4 + 350,  sHeight / 2 + 150, 175, 45 };
+	muscleBTN.rounding = 1;
+	muscleBTN.hovering = CheckCollisionPointRec(GetMousePosition(), muscleBTN.bounds);
+	muscleBTN.text = "Stomach";
+	muscleBTN.color = GRAY;
+
+	if (muscleBTN.hovering) muscleBTN.color = DARKGRAY;
+	DrawRectangleRounded(muscleBTN.bounds, muscleBTN.rounding, muscleBTN.rounding, muscleBTN.color);
+	DrawText(muscleBTN.text, muscleBTN.bounds.x + muscleBTN.bounds.width / 2 - MeasureText(muscleBTN.text, 20) / 2, muscleBTN.bounds.y + 11, 22, BLACK);
+
+	if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+		if (brainBTN.hovering) {
+			brainIsActive = true;
+			lungsIsActive = false;
+			liverIsActive = false;
+			heartIsActive = false;
+			kidneyIsActive = false;
+			stomachIsActive = false;
+			intestinesIsActive = false;
+			reproductiveSMIsActive = false;
+			nervesIsActive = false;
+			muscleIsActive = false;
+		}
+		else if (lungsBTN.hovering) {
+			brainIsActive = false;
+			lungsIsActive = true;
+			liverIsActive = false;
+			heartIsActive = false;
+			kidneyIsActive = false;
+			stomachIsActive = false;
+			intestinesIsActive = false;
+			reproductiveSMIsActive = false;
+			nervesIsActive = false;
+			muscleIsActive = false;
+		}
+		else if (heartBTN.hovering) {
+			brainIsActive = false;
+			lungsIsActive = false;
+			liverIsActive = false;
+			heartIsActive = true;
+			kidneyIsActive = false;
+			stomachIsActive = false;
+			intestinesIsActive = false;
+			reproductiveSMIsActive = false;
+			nervesIsActive = false;
+			muscleIsActive = false;
+		}
+		else if (liverBTN.hovering) {
+			brainIsActive = false;
+			lungsIsActive = false;
+			liverIsActive = true;
+			heartIsActive = false;
+			kidneyIsActive = false;
+			stomachIsActive = false;
+			intestinesIsActive = false;
+			reproductiveSMIsActive = false;
+			nervesIsActive = false;
+			muscleIsActive = false;
+		}
+		else if (kidneyBTN.hovering) {
+			brainIsActive = false;
+			lungsIsActive = false;
+			liverIsActive = false;
+			heartIsActive = false;
+			kidneyIsActive = true;
+			stomachIsActive = false;
+			intestinesIsActive = false;
+			reproductiveSMIsActive = false;
+			nervesIsActive = false;
+			muscleIsActive = false;
+		}
+		else if (stomachBTN.hovering) {
+			brainIsActive = false;
+			lungsIsActive = false;
+			liverIsActive = false;
+			heartIsActive = false;
+			kidneyIsActive = false;
+			stomachIsActive = true;
+			intestinesIsActive = false;
+			reproductiveSMIsActive = false;
+			nervesIsActive = false;
+			muscleIsActive = false;
+		}
+		else if (intestinesBTN.hovering) {
+			brainIsActive = false;
+			lungsIsActive = false;
+			liverIsActive = false;
+			heartIsActive = false;
+			kidneyIsActive = false;
+			stomachIsActive = false;
+			intestinesIsActive = true;
+			reproductiveSMIsActive = false;
+			nervesIsActive = false;
+			muscleIsActive = false;
+		}
+		else if (reproductiveSMBTN.hovering) {
+			brainIsActive = false;
+			lungsIsActive = false;
+			liverIsActive = false;
+			heartIsActive = false;
+			kidneyIsActive = false;
+			stomachIsActive = false;
+			intestinesIsActive = false;
+			reproductiveSMIsActive = true;
+			nervesIsActive = false;
+			muscleIsActive = false;
+		}
+		else if (nervesBTN.hovering) {
+			brainIsActive = false;
+			lungsIsActive = false;
+			liverIsActive = false;
+			heartIsActive = false;
+			kidneyIsActive = false;
+			stomachIsActive = false;
+			intestinesIsActive = false;
+			reproductiveSMIsActive = false;
+			nervesIsActive = true;
+			muscleIsActive = false;
+		}
+		else if (muscleBTN.hovering) {
+			brainIsActive = false;
+			lungsIsActive = false;
+			liverIsActive = false;
+			heartIsActive = false;
+			kidneyIsActive = false;
+			stomachIsActive = false;
+			intestinesIsActive = false;
+			reproductiveSMIsActive = false;
+			nervesIsActive = false;
+			muscleIsActive = true;
+		}
+	}
+}
 
 void Body::drawBrain() {
 
@@ -726,4 +950,5 @@ void Body::drawBody() {
 		drawMuscle();
 	}
 
+	organsBtn();
 }
