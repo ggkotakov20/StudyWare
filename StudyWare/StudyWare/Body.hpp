@@ -40,7 +40,7 @@ public:
 	Body();
 	~Body();
 	void cancelBtn(float posX, float posY);
-	void testBtn(float posX, float posY);
+	void testBtn(float posX, float posY,TestFor test);
 	void organsBtn();
 
 	void drawBrain();
@@ -83,7 +83,7 @@ public:
 	Rectangle field;
 
 
-	bool inTest = true;
+	bool inTest = false;
 	bool showAlert = false;
 
 	static std::shared_ptr<Body> getInstance();

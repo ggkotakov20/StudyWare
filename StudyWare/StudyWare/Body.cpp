@@ -131,7 +131,7 @@ Body::Body() {
 
 	nervesInfo = "N E R V E S\nThe PNS can be further divided into the somatic nervous system and\nthe autonomic nervous system. The somatic nervous system is\nresponsible for voluntary movements and is involved in sensory\nperception, while the autonomic nervous system controls involuntary\nfunctions like heart rate, breathing, and digestion.The human body\ncontains millions of individual nerve cells called neurons,\nwhich transmit electrical signals throughout the body.\nNeurons are composed of a cell body, dendrites, and an axon.\nThe dendrites receive signals from other neurons, while the axon\nsends signals to other neurons or to muscles and glands.\nDamage to nerves can result in a variety of conditions, such as\nneuropathies, which are characterized by pain, numbness \nor weakness in the affected area. Examples of neuropathies\ninclude carpal tunnel syndrome, diabetic neuropathy\nand peripheral neuropathy.";
 
-	muscleInfo = "M U S C L E\nHuman muscles are the collection of tissues in the body responsible\nfor movement, maintaining posture, and generating heat.\nThere are three main types of muscles in the human body:\nskeletal, smooth, and cardiac muscles. Skeletal muscles are attached\nto the bones and are responsible for voluntary movement.\nThey are striated muscles and are under conscious control.\nSmooth muscles are found in the walls of internal organs such as\nthe stomach, intestines, and blood vessels, and they are\nresponsible for involuntary movements such as peristalsis.\nCardiac muscles are found only in the heart and are responsible\nfor pumping blood throughout the body. \nCommon muscle diseases include: muscular dystrophy,\nmyasthenia gravis, fibromyalgia, and polymyositis.\nMuscular dystrophy is a group of genetic disorders that cause\nprogressive muscle weakness and loss of muscle mass.\nMyasthenia gravis is a neuromuscular disorder that causes muscle\nweakness and fatigue, particularly in the eyes, face, throat, andlimbs.\nFibromyalgia is a chronic pain disorder that affects muscles, tendons\nand ligaments, causing widespread pain, fatigue and sleep disturbances.\nPolymyositis is an autoimmune disease that causes inflammation and\nweakness in the muscles, particularly in the hips, thighs, shoulders, and neck.";
+	muscleInfo = "M U S C L E\nHuman muscles are the collection of tissues in the body responsible\nfor movement, maintaining posture, and generating heat.\nThere are three main types of muscles in the human body:\nskeletal, smooth, and cardiac muscles. Skeletal muscles are attached\nto the bones and are responsible for voluntary movement.\nThey are striated muscles and are under conscious control.\nSmooth muscles are found in the walls of internal organs such as\nthe stomach, intestines, and blood vessels, and they are\nresponsible for involuntary movements such as peristalsis.\nCardiac muscles are found only in the heart and are responsible\nfor pumping blood throughout the body. \nCommon muscle diseases include: muscular dystrophy,\nmyasthenia gravis, fibromyalgia, and polymyositis.\nMuscular dystrophy is a group of genetic disorders that cause\nprogressive muscle weakness and loss of muscle mass.\nMyasthenia gravis is a neuromuscular disorder that causes muscle\nweakness and fatigue, particularly in the eyes, face, throat, andlimbs.\nFibromyalgia is a chronic pain disorder that affects muscles, tendons\nand ligaments, causing widespread pain, fatigue and sleep disturbances.\nPolymyositis is an autoimmune disease that causes inflammation and\nweakness in the muscles, particularly in the hips, thighs, shoulders\nand neck.";
 
 	field.width = sWidth / 2 + sWidth / 4;
 	field.height = sHeight / 2 + sHeight / 4;
@@ -183,6 +183,16 @@ void Body::drawAlertForEnd() {
 	if (yesBtn.hovering && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
 		inTest = false;
 		showAlert = false;
+		questionTurn[0] = true;
+		questionTurn[1] = false;
+		questionTurn[2] = false;
+		questionTurn[3] = false;
+		questionTurn[4] = false;
+		questionTurn[5] = false;
+		questionTurn[6] = false;
+		questionTurn[7] = false;
+		questionTurn[8] = false;
+		questionTurn[9] = false;
 	}
 
 	Vector2 noBtnPos = { noBtn.bounds.x + noBtn.bounds.width / 2 - MeasureText(noBtn.text, 20) / 2, noBtn.bounds.y + 15 };
@@ -190,8 +200,9 @@ void Body::drawAlertForEnd() {
 	DrawRectangleRounded(noBtn.bounds, noBtn.rounding, noBtn.rounding, noBtn.color);
 	DrawText(noBtn.text, noBtnPos.x, noBtnPos.y, 20, BLACK);
 
-	if (noBtn.hovering && IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+	if (noBtn.hovering && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
 		showAlert = false;
+	}
 }
 void Body::drawTestButtons() {
 	if (!questionTurn[0]) {
@@ -620,15 +631,25 @@ void Body::drawAnswer(Questions question) {
 		Rectangle clickRecPos;
 		switch (j) {
 		case 0:
-			if(questionTurn[3])
-				question.ans[j].pos = { question.pos.x + 30, question.pos.y + 70+50};
+			if ((questionTurn[3] && testfor == TestFor::BRAIN) ||
+				((questionTurn[0] || questionTurn[1] || questionTurn[3] || questionTurn[4]) && testfor == TestFor::LUNGS)||
+				((questionTurn[0] || questionTurn[1] || questionTurn[2] || questionTurn[3] || questionTurn[4] || questionTurn[6]) && testfor == TestFor::HEART)||
+				((questionTurn[5] || questionTurn[7])&& testfor == TestFor::REPRODUCTIVE)||
+				((questionTurn[1] || questionTurn[5] || questionTurn[9])&& testfor == TestFor::NERVES)||
+				((questionTurn[6] || questionTurn[8]) && testfor == TestFor::MUSCLE))
+				question.ans[j].pos = { question.pos.x + 30, question.pos.y + 120 };
 			else
 				question.ans[j].pos = { question.pos.x + 30, question.pos.y + 70};
+
 			checkBoxPos = { question.pos.x + 10, question.ans[j].pos.y + 15 };
 			clickRecPos.x = question.pos.x;
 			clickRecPos.y = question.ans[j].pos.y;
-			clickRecPos.width = 200;
-			clickRecPos.height = 30;
+			clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
+			if (questionTurn[5] && testfor == TestFor::LIVER) 
+				clickRecPos.height = 70;
+			else
+				clickRecPos.height = 30;
+			/*DrawRectangleRec(clickRecPos, BLACK);*/
 			if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
 				question.ans[0].checked = true;
 				question.ans[1].checked = false;
@@ -645,16 +666,27 @@ void Body::drawAnswer(Questions question) {
 			DrawText(question.ans[j].text, question.ans[j].pos.x, question.ans[j].pos.y, 30, question.color);
 			break;
 		case 1:
-			if (questionTurn[3])
-				question.ans[j].pos = { question.pos.x + 30, question.pos.y + 120 + 50 };
+			if ((questionTurn[3] && testfor == TestFor::BRAIN) ||
+				((questionTurn[0] || questionTurn[1] || questionTurn[3] || questionTurn[4]) && testfor == TestFor::LUNGS) ||
+				((questionTurn[0] || questionTurn[1] || questionTurn[2] || questionTurn[3] || questionTurn[4] || questionTurn[6]) && testfor == TestFor::HEART) ||
+				((questionTurn[5] || questionTurn[7]) && testfor == TestFor::REPRODUCTIVE) ||
+				((questionTurn[1] || questionTurn[5] || questionTurn[9]) && testfor == TestFor::NERVES) ||
+				((questionTurn[6] || questionTurn[8]) && testfor == TestFor::MUSCLE))
+				question.ans[j].pos = { question.pos.x + 30, question.pos.y + 170 };
+			else if (questionTurn[5] && testfor == TestFor::LIVER)
+				question.ans[j].pos = { question.pos.x + 30, question.pos.y + 170 };
 			else
 				question.ans[j].pos = { question.pos.x + 30, question.pos.y + 120 };
 
 			checkBoxPos = { question.pos.x + 10, question.ans[j].pos.y + 15 };
 			clickRecPos.x = question.pos.x;
 			clickRecPos.y = question.ans[j].pos.y;
-			clickRecPos.width = 200;
-			clickRecPos.height = 30;
+			clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
+			if (questionTurn[5] && testfor == TestFor::LIVER)
+				clickRecPos.height = 70;
+			else
+				clickRecPos.height = 30;
+			/*DrawRectangleRec(clickRecPos, BLACK);*/
 			if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
 				question.ans[0].checked = false;
 				question.ans[1].checked = true;
@@ -671,16 +703,27 @@ void Body::drawAnswer(Questions question) {
 			DrawText(question.ans[j].text, question.ans[j].pos.x, question.ans[j].pos.y, 30, question.color);
 			break;
 		case 2:
-			if (questionTurn[3])
-				question.ans[j].pos = { question.pos.x + 30, question.pos.y + 170 + 50 };
+			if ((questionTurn[3] && testfor == TestFor::BRAIN) ||
+				((questionTurn[0] || questionTurn[1] || questionTurn[3] || questionTurn[4]) && testfor == TestFor::LUNGS) ||
+				((questionTurn[0] || questionTurn[1] || questionTurn[2] || questionTurn[3] || questionTurn[4] || questionTurn[6]) && testfor == TestFor::HEART) ||
+				((questionTurn[5] || questionTurn[7]) && testfor == TestFor::REPRODUCTIVE) ||
+				((questionTurn[1] || questionTurn[5] || questionTurn[9]) && testfor == TestFor::NERVES) ||
+				((questionTurn[6] || questionTurn[8]) && testfor == TestFor::MUSCLE))
+				question.ans[j].pos = { question.pos.x + 30, question.pos.y + 220 };
+			else if (questionTurn[5] && testfor == TestFor::LIVER)
+				question.ans[j].pos = { question.pos.x + 30, question.pos.y + 270 };
 			else
 				question.ans[j].pos = { question.pos.x + 30, question.pos.y + 170 };
 
 			checkBoxPos = { question.pos.x + 10, question.ans[j].pos.y + 15 };
 			clickRecPos.x = question.pos.x;
 			clickRecPos.y = question.ans[j].pos.y;
-			clickRecPos.width = 200;
-			clickRecPos.height = 30;
+			clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
+			if ((questionTurn[5] && testfor == TestFor::LIVER) || ((questionTurn[4] || questionTurn[5] || questionTurn[6] || questionTurn[7]) && testfor == TestFor::INTESTINES))
+				clickRecPos.height = 70;
+			else
+				clickRecPos.height = 30;
+			/*DrawRectangleRec(clickRecPos, BLACK);*/
 			if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
 				question.ans[0].checked = false;
 				question.ans[1].checked = false;
@@ -697,16 +740,28 @@ void Body::drawAnswer(Questions question) {
 			DrawText(question.ans[j].text, question.ans[j].pos.x, question.ans[j].pos.y, 30, question.color);
 			break;
 		case 3:
-			if (questionTurn[3])
-				question.ans[j].pos = { question.pos.x + 30, question.pos.y + 220 + 50 };
+			if ((questionTurn[3] && testfor == TestFor::BRAIN) ||
+				((questionTurn[0] || questionTurn[1] || questionTurn[3] || questionTurn[4]) && testfor == TestFor::LUNGS) ||
+				((questionTurn[0] || questionTurn[1] || questionTurn[2] || questionTurn[3] || questionTurn[4] || questionTurn[6]) && testfor == TestFor::HEART) ||
+				((questionTurn[4] || questionTurn[5] || questionTurn[6] || questionTurn[7]) && testfor == TestFor::INTESTINES) ||
+				((questionTurn[5] || questionTurn[7]) && testfor == TestFor::REPRODUCTIVE) ||
+				((questionTurn[1] || questionTurn[5] || questionTurn[9]) && testfor == TestFor::NERVES) ||
+				((questionTurn[6] || questionTurn[8]) && testfor == TestFor::MUSCLE))
+				question.ans[j].pos = { question.pos.x + 30, question.pos.y + 270 };
+			else if (questionTurn[5] && testfor == TestFor::LIVER)
+				question.ans[j].pos = { question.pos.x + 30, question.pos.y + 370 };
 			else
 				question.ans[j].pos = { question.pos.x + 30, question.pos.y + 220 };
 
 			checkBoxPos = { question.pos.x + 10, question.ans[j].pos.y + 15 };
 			clickRecPos.x = question.pos.x;
 			clickRecPos.y = question.ans[j].pos.y;
-			clickRecPos.width = 200;
-			clickRecPos.height = 30;
+			clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
+			if (questionTurn[5] && testfor == TestFor::LIVER)
+				clickRecPos.height = 70;
+			else
+				clickRecPos.height = 30;
+			/*DrawRectangleRec(clickRecPos, BLACK);*/
 			if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
 				question.ans[0].checked = false;
 				question.ans[1].checked = false;
@@ -832,7 +887,7 @@ void Body::cancelBtn(float posX, float posY) {
 		muscleIsActive = false;
 	}
 }
-void Body::testBtn(float posX, float posY) {
+void Body::testBtn(float posX, float posY, TestFor test) {
 	testBTN.bounds = { posX, posY, 125, 40 };
 	testBTN.rounding = 1;
 	testBTN.hovering = CheckCollisionPointRec(GetMousePosition(), testBTN.bounds);
@@ -844,6 +899,7 @@ void Body::testBtn(float posX, float posY) {
 	DrawText(testBTN.text, testBTN.bounds.x + testBTN.bounds.width / 2 - MeasureText(testBTN.text, 20) / 2, testBTN.bounds.y + 11, 20, BLACK);
 	if (testBTN.hovering && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
 		inTest = true;
+		testfor = test;
 	}
 }
 void Body::organsBtn() {
@@ -1082,7 +1138,7 @@ void Body::drawBrain() {
 	if (brainIsActive) {
         DrawText(brainInfo, infoPos.x, infoPos.y, fontSize, BLACK);
 		cancelBtn(sWidth / 2 - body.width - 55, sHeight / 2 + body.height / 4 - 60);
-		testBtn(sWidth / 2 - body.width + 75, sHeight / 2 + body.height / 4 - 60);
+		testBtn(sWidth / 2 - body.width + 75, sHeight / 2 + body.height / 4 - 60, TestFor::BRAIN);
 		if (CheckCollisionPointRec(GetMousePosition(), brainRec) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
 			brainIsActive = false;
 			lungsIsActive = false;
@@ -1120,7 +1176,8 @@ void Body::drawLungs() {
 
 	if (lungsIsActive) {
 		DrawText(lungsInfo, infoPos.x, infoPos.y, fontSize, BLACK);
-		cancelBtn(sWidth / 2 - body.width + 75, sHeight / 2 + body.height / 5 - 100);
+		cancelBtn(sWidth / 2 - body.width - 55, sHeight / 2 + body.height / 5 - 100);
+		testBtn(sWidth / 2 - body.width + 75, sHeight / 2 + body.height / 5 - 100, TestFor::LUNGS);
 		if (CheckCollisionPointRec(GetMousePosition(), lungsRec) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
 			brainIsActive = false;
 			lungsIsActive = false;
@@ -1158,7 +1215,8 @@ void Body::drawLiver() {
 
 	if (liverIsActive) {
 		DrawText(liverInfo, infoPos.x, infoPos.y, fontSize, BLACK);
-		cancelBtn(sWidth / 2 - body.width + 75, sHeight / 2 + body.height / 7 - 100);
+		cancelBtn(sWidth / 2 - body.width - 55, sHeight / 2 + body.height / 7 - 100);
+		testBtn(sWidth / 2 - body.width + 75, sHeight / 2 + body.height / 7 - 100, TestFor::LIVER);
 		if (CheckCollisionPointRec(GetMousePosition(), liverRec) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
 			brainIsActive = false;
 			lungsIsActive = false;
@@ -1196,7 +1254,8 @@ void Body::drawHeart() {
 
 	if (heartIsActive) {
 		DrawText(heartInfo, infoPos.x, infoPos.y, fontSize, BLACK);
-		cancelBtn(sWidth / 2 - body.width + 75, sHeight / 2 + body.height / 6 - 100);
+		cancelBtn(sWidth / 2 - body.width - 55, sHeight / 2 + body.height / 6 - 100);
+		testBtn(sWidth / 2 - body.width + 75, sHeight / 2 + body.height / 6 - 100, TestFor::HEART);
 		if (CheckCollisionPointRec(GetMousePosition(), heartRec) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
 			brainIsActive = false;
 			lungsIsActive = false;
@@ -1235,7 +1294,8 @@ void Body::drawKidney() {
 
 	if (kidneyIsActive) {
 		DrawText(kidneyInfo, infoPos.x, infoPos.y, fontSize, BLACK);
-		cancelBtn(sWidth / 2 - body.width + 75, sHeight / 2 + body.height / 2 - 100);
+		cancelBtn(sWidth / 2 - body.width - 10, sHeight / 2 + body.height / 2 - 100);
+		testBtn(sWidth / 2 - body.width + 120, sHeight / 2 + body.height / 2 - 100, TestFor::KIDNEY);
 		if (CheckCollisionPointRec(GetMousePosition(), kidneyRec) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
 			brainIsActive = false;
 			lungsIsActive = false;
@@ -1273,7 +1333,8 @@ void Body::drawStomach() {
 
 	if (stomachIsActive) {
 		DrawText(stomachInfo, infoPos.x, infoPos.y, fontSize, BLACK);
-		cancelBtn(sWidth / 2 - body.width + 75, sHeight / 2 + body.height / 2 - 130);
+		cancelBtn(sWidth / 2 - body.width - 55, sHeight / 2 + body.height / 2 - 130);
+		testBtn(sWidth / 2 - body.width + 75, sHeight / 2 + body.height / 2 - 130, TestFor::STOMACH);
 		if (CheckCollisionPointRec(GetMousePosition(), stomachRec) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
 			brainIsActive = false;
 			lungsIsActive = false;
@@ -1311,7 +1372,8 @@ void Body::drawIntestines() {
 
 	if (intestinesIsActive) {
 		DrawText(intestinesInfo, infoPos.x, infoPos.y, fontSize, BLACK);
-		cancelBtn(sWidth / 2 - body.width + 75, sHeight / 2 + body.height / 4 - 120);
+		cancelBtn(sWidth / 2 - body.width - 55, sHeight / 2 + body.height / 4 - 120);
+		testBtn(sWidth / 2 - body.width + 75, sHeight / 2 + body.height / 4 - 120, TestFor::INTESTINES);
 		if (CheckCollisionPointRec(GetMousePosition(), intestinesRec) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
 			brainIsActive = false;
 			lungsIsActive = false;
@@ -1349,7 +1411,8 @@ void Body::drawReproductiveSM() {
 
 	if (reproductiveSMIsActive) {
 		DrawText(reproductiveSMInfo, infoPos.x, infoPos.y, fontSize, BLACK);
-		cancelBtn(sWidth / 2 - body.width + 75, sHeight / 2 + body.height / 3 - 80);
+		cancelBtn(sWidth / 2 - body.width - 55, sHeight / 2 + body.height / 3 - 80);
+		testBtn(sWidth / 2 - body.width + 75, sHeight / 2 + body.height / 3 - 80, TestFor::REPRODUCTIVE);
 		if (CheckCollisionPointRec(GetMousePosition(), reproductiveSMRec) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
 			brainIsActive = false;
 			lungsIsActive = false;
@@ -1387,7 +1450,8 @@ void Body::drawNerves() {
 
 	if (nervesIsActive) {
 		DrawText(nervesInfo, infoPos.x, infoPos.y, fontSize, BLACK);
-		cancelBtn(sWidth / 2 - body.width + 75, sHeight / 2 + body.height / 3 - 80);
+		cancelBtn(sWidth / 2 - body.width - 55, sHeight / 2 + body.height / 5 - 70);
+		testBtn(sWidth / 2 - body.width + 75, sHeight / 2 + body.height / 5 - 70, TestFor::NERVES);
 		if (CheckCollisionPointRec(GetMousePosition(), nervesRec) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
 			brainIsActive = false;
 			lungsIsActive = false;
@@ -1425,7 +1489,8 @@ void Body::drawMuscle() {
 
 	if (muscleIsActive) {
 		DrawText(muscleInfo, infoPos.x, infoPos.y, fontSize, BLACK);
-		cancelBtn(sWidth / 2 - body.width + 75, sHeight / 2 + body.height / 3 + 10);
+		cancelBtn(sWidth / 2 - body.width - 55, sHeight / 2 + body.height / 3 + 10);
+		testBtn(sWidth / 2 - body.width + 75, sHeight / 2 + body.height / 3 + 10, TestFor::MUSCLE);
 		if (CheckCollisionPointRec(GetMousePosition(), muscleRec) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
 			brainIsActive = false;
 			lungsIsActive = false;
@@ -1661,14 +1726,14 @@ void Body::drawBody() {
 			break;
 
 		case Body::TestFor::LUNGS:
-			questions[0].Questions::question = "What is the name of the chronic lung condition that causes inflammation and narrowing of the airways, making it difficult to breathe ? ";
+			questions[0].Questions::question = "What is the name of the chronic lung condition that causes inflammation and narrowing\nof the airways, making it difficult to breathe ? ";
 			questions[0].Questions::currectAns = 2;
 			questions[0].Questions::ans[0].text = "Pneumonia";
 			questions[0].Questions::ans[1].text = "Lung cancer";
 			questions[0].Questions::ans[2].text = "Asthma";
 			questions[0].Questions::ans[3].text = "Tuberculosis";
 
-			questions[1].Questions::question = "What is the name of the group of lung diseases that make it hard to breathe due to damage to the airways and/or air sacs in the lungs?";
+			questions[1].Questions::question = "What is the name of the group of lung diseases that make it hard to breathe due to\ndamage to the airways and/or air sacs in the lungs?";
 			questions[1].Questions::currectAns = 2;
 			questions[1].Questions::ans[0].text = "Asthma";
 			questions[1].Questions::ans[1].text = "Lung cancer";
@@ -1682,14 +1747,14 @@ void Body::drawBody() {
 			questions[2].Questions::ans[2].text = "Pneumonia";
 			questions[2].Questions::ans[3].text = "Asthma";
 
-			questions[3].Questions::question = "What is the name of the bacterial infection that primarily affects the lungs but can also affect other parts of the body?";
+			questions[3].Questions::question = "What is the name of the bacterial infection that primarily affects the lungs but\ncan also affect other parts of the body?";
 			questions[3].Questions::currectAns = 2;
 			questions[3].Questions::ans[0].text = "Pneumonia";
 			questions[3].Questions::ans[1].text = "Asthma";
 			questions[3].Questions::ans[2].text = "Tuberculosis";
 			questions[3].Questions::ans[3].text = "Lung cancer";
 
-			questions[4].Questions::question = "What is the name of the condition where cells in the lungs grow abnormally and form tumors?";
+			questions[4].Questions::question = "What is the name of the condition where cells in the lungs grow abnormally and form\ntumors?";
 			questions[4].Questions::currectAns = 3;
 			questions[4].Questions::ans[0].text = "Asthma";
 			questions[4].Questions::ans[1].text = "Tuberculosis";
@@ -1733,505 +1798,505 @@ void Body::drawBody() {
 			break;
 
 		case Body::TestFor::LIVER:
-			questions[0].Questions::question = "";
-			questions[0].Questions::currectAns = 0;
-			questions[0].Questions::ans[0].text = "";
-			questions[0].Questions::ans[1].text = "";
-			questions[0].Questions::ans[2].text = "";
-			questions[0].Questions::ans[3].text = "";
-			questions[1].Questions::question = "";
-			questions[1].Questions::currectAns = 0;
-			questions[1].Questions::ans[0].text = "";
-			questions[1].Questions::ans[1].text = "";
-			questions[1].Questions::ans[2].text = "";
-			questions[1].Questions::ans[3].text = "";
-			questions[2].Questions::question = "";
-			questions[2].Questions::currectAns = 0;
-			questions[2].Questions::ans[0].text = "";
-			questions[2].Questions::ans[1].text = "";
-			questions[2].Questions::ans[2].text = "";
-			questions[2].Questions::ans[3].text = "";
-			questions[3].Questions::question = "";
-			questions[3].Questions::currectAns = 0;
-			questions[3].Questions::ans[0].text = "";
-			questions[3].Questions::ans[1].text = "";
-			questions[3].Questions::ans[2].text = "";
-			questions[3].Questions::ans[3].text = "";
-			questions[4].Questions::question = "";
-			questions[4].Questions::currectAns = 0;
-			questions[4].Questions::ans[0].text = "";
-			questions[4].Questions::ans[1].text = "";
-			questions[4].Questions::ans[2].text = "";
-			questions[4].Questions::ans[3].text = "";
-			questions[5].Questions::question = "";
-			questions[5].Questions::currectAns = 0;
-			questions[5].Questions::ans[0].text = "";
-			questions[5].Questions::ans[1].text = "";
-			questions[5].Questions::ans[2].text = "";
-			questions[5].Questions::ans[3].text = "";
-			questions[6].Questions::question = "";
-			questions[6].Questions::currectAns = 0;
-			questions[6].Questions::ans[0].text = "";
-			questions[6].Questions::ans[1].text = "";
-			questions[6].Questions::ans[2].text = "";
-			questions[6].Questions::ans[3].text = "";
-			questions[7].Questions::question = "";
-			questions[7].Questions::currectAns = 0;
-			questions[7].Questions::ans[0].text = "";
-			questions[7].Questions::ans[1].text = "";
-			questions[7].Questions::ans[2].text = "";
-			questions[7].Questions::ans[3].text = "";
-			questions[8].Questions::question = "";
-			questions[8].Questions::currectAns = 0;
-			questions[8].Questions::ans[0].text = "";
-			questions[8].Questions::ans[1].text = "";
-			questions[8].Questions::ans[2].text = "";
-			questions[8].Questions::ans[3].text = "";
-			questions[9].Questions::question = "";
+			questions[0].Questions::question = "What is the function of the liver?";
+			questions[0].Questions::currectAns = 1;
+			questions[0].Questions::ans[0].text = "Producing insulin";
+			questions[0].Questions::ans[1].text = "Filtering blood";
+			questions[0].Questions::ans[2].text = "Pumping blood to the heart";
+			questions[0].Questions::ans[3].text = "Digesting food";
+			questions[1].Questions::question = "What is hepatitis?";
+			questions[1].Questions::currectAns = 1;
+			questions[1].Questions::ans[0].text = "Inflammation of the kidneys";
+			questions[1].Questions::ans[1].text = "Inflammation of the liver";
+			questions[1].Questions::ans[2].text = "Inflammation of the lungs";
+			questions[1].Questions::ans[3].text = "Inflammation of the brain";
+			questions[2].Questions::question = "Which of the following is a common cause of cirrhosis?";
+			questions[2].Questions::currectAns = 3;
+			questions[2].Questions::ans[0].text = "Viral infection";
+			questions[2].Questions::ans[1].text = "Exposure to toxins";
+			questions[2].Questions::ans[2].text = "Excessive alcohol consumption";
+			questions[2].Questions::ans[3].text = "All of the above";
+			questions[3].Questions::question = "What is the main feature of cirrhosis?";
+			questions[3].Questions::currectAns = 2;
+			questions[3].Questions::ans[0].text = "Fat accumulation in the liver";
+			questions[3].Questions::ans[1].text = "Inflammation of the liver";
+			questions[3].Questions::ans[2].text = "Formation of scar tissue in the liver";
+			questions[3].Questions::ans[3].text = "Destruction of liver cells";
+			questions[4].Questions::question = "Which of the following is a risk factor for developing NAFLD?";
+			questions[4].Questions::currectAns = 2;
+			questions[4].Questions::ans[0].text = "High levels of physical activity";
+			questions[4].Questions::ans[1].text = "Low-carbohydrate diet";
+			questions[4].Questions::ans[2].text = "Obesity";
+			questions[4].Questions::ans[3].text = "All of the above";
+			questions[5].Questions::question = "What is the difference between alcoholic and nonalcoholic liver disease?";
+			questions[5].Questions::currectAns = 2;
+			questions[5].Questions::ans[0].text = "Alcoholic liver disease is caused by drinking too much alcohol, while nonalcoholic liver\ndisease is caused by exposure to toxins.";
+			questions[5].Questions::ans[1].text = "Alcoholic liver disease is caused by a virus, while nonalcoholic liver disease is causedny\na genetic mutation.";
+			questions[5].Questions::ans[2].text = "Alcoholic liver disease is caused by drinking too much alcohol, while nonalcoholic liver\ndisease is not related to alcohol consumption.";
+			questions[5].Questions::ans[3].text = "Alcoholic liver disease is caused by a genetic mutation, while nonalcoholic liver diseasen\nis caused by exposure to toxins.";
+			questions[6].Questions::question = "What are the symptoms of liver disease?";
+			questions[6].Questions::currectAns = 3;
+			questions[6].Questions::ans[0].text = "Nausea and vomiting";
+			questions[6].Questions::ans[1].text = "Abdominal pain and swelling";
+			questions[6].Questions::ans[2].text = "Fatigue and weakness";
+			questions[6].Questions::ans[3].text = "All of the above";
+			questions[7].Questions::question = "Which of the following is a preventive measure for liver disease?";
+			questions[7].Questions::currectAns = 3;
+			questions[7].Questions::ans[0].text = "Limiting alcohol consumption";
+			questions[7].Questions::ans[1].text = "Getting vaccinated against hepatitis B and C";
+			questions[7].Questions::ans[2].text = "Maintaining a healthy weight";
+			questions[7].Questions::ans[3].text = "All of the above";
+			questions[8].Questions::question = "What is the treatment for liver disease?";
+			questions[8].Questions::currectAns = 3;
+			questions[8].Questions::ans[0].text = "Surgery";
+			questions[8].Questions::ans[1].text = "Medications";
+			questions[8].Questions::ans[2].text = "Lifestyle changes";
+			questions[8].Questions::ans[3].text = "All of the above";
+			questions[9].Questions::question = "What is the most common cause of liver cancer?";
 			questions[9].Questions::currectAns = 0;
-			questions[9].Questions::ans[0].text = "";
-			questions[9].Questions::ans[1].text = "";
-			questions[9].Questions::ans[2].text = "";
-			questions[9].Questions::ans[3].text = "";
+			questions[9].Questions::ans[0].text = "Hepatitis B and C";
+			questions[9].Questions::ans[1].text = "Smoking";
+			questions[9].Questions::ans[2].text = "Obesity";
+			questions[9].Questions::ans[3].text = "Genetic mutation";
 			break;
 
 		case Body::TestFor::HEART:
-			questions[0].Questions::question = "";
-			questions[0].Questions::currectAns = 0;
-			questions[0].Questions::ans[0].text = "";
-			questions[0].Questions::ans[1].text = "";
-			questions[0].Questions::ans[2].text = "";
-			questions[0].Questions::ans[3].text = "";
-			questions[1].Questions::question = "";
-			questions[1].Questions::currectAns = 0;
-			questions[1].Questions::ans[0].text = "";
-			questions[1].Questions::ans[1].text = "";
-			questions[1].Questions::ans[2].text = "";
-			questions[1].Questions::ans[3].text = "";
-			questions[2].Questions::question = "";
-			questions[2].Questions::currectAns = 0;
-			questions[2].Questions::ans[0].text = "";
-			questions[2].Questions::ans[1].text = "";
-			questions[2].Questions::ans[2].text = "";
-			questions[2].Questions::ans[3].text = "";
-			questions[3].Questions::question = "";
-			questions[3].Questions::currectAns = 0;
-			questions[3].Questions::ans[0].text = "";
-			questions[3].Questions::ans[1].text = "";
-			questions[3].Questions::ans[2].text = "";
-			questions[3].Questions::ans[3].text = "";
-			questions[4].Questions::question = "";
+			questions[0].Questions::question = "What is the name of the condition where the arteries that supply blood to the heart\nbecome narrowed or blocked?";
+			questions[0].Questions::currectAns = 2;
+			questions[0].Questions::ans[0].text = "Atherosclerosis";
+			questions[0].Questions::ans[1].text = "Arrhythmia";
+			questions[0].Questions::ans[2].text = "Coronary artery disease";
+			questions[0].Questions::ans[3].text = "Heart valve disease";
+			questions[1].Questions::question = "What is the name of the heart rhythm problem that can cause the heart to beat too fast,\ntoo slow, or irregularly?";
+			questions[1].Questions::currectAns = 2;
+			questions[1].Questions::ans[0].text = "Heart valve disease";
+			questions[1].Questions::ans[1].text = "Coronary artery disease";
+			questions[1].Questions::ans[2].text = "Arrhythmia";
+			questions[1].Questions::ans[3].text = "Atherosclerosis";
+			questions[2].Questions::question = "What is the name of the condition where the heart cannot pump enough blood to meet\nthe body's needs?";
+			questions[2].Questions::currectAns = 2;
+			questions[2].Questions::ans[0].text = "Atherosclerosis";
+			questions[2].Questions::ans[1].text = "Heart valve disease";
+			questions[2].Questions::ans[2].text = "Heart failure";
+			questions[2].Questions::ans[3].text = "Coronary artery disease";
+			questions[3].Questions::question = "What is the name of the condition where plaque builds up inside the arteries, causing\nthem to harden and narrow?";
+			questions[3].Questions::currectAns = 2;
+			questions[3].Questions::ans[0].text = "Heart valve disease";
+			questions[3].Questions::ans[1].text = "Coronary artery disease";
+			questions[3].Questions::ans[2].text = "Atherosclerosis";
+			questions[3].Questions::ans[3].text = "Arrhythmia";
+			questions[4].Questions::question = "What is the name of the condition where one or more of the heart valves do not function\nproperly?";
 			questions[4].Questions::currectAns = 0;
-			questions[4].Questions::ans[0].text = "";
-			questions[4].Questions::ans[1].text = "";
-			questions[4].Questions::ans[2].text = "";
-			questions[4].Questions::ans[3].text = "";
-			questions[5].Questions::question = "";
-			questions[5].Questions::currectAns = 0;
-			questions[5].Questions::ans[0].text = "";
-			questions[5].Questions::ans[1].text = "";
-			questions[5].Questions::ans[2].text = "";
-			questions[5].Questions::ans[3].text = "";
-			questions[6].Questions::question = "";
-			questions[6].Questions::currectAns = 0;
-			questions[6].Questions::ans[0].text = "";
-			questions[6].Questions::ans[1].text = "";
-			questions[6].Questions::ans[2].text = "";
-			questions[6].Questions::ans[3].text = "";
-			questions[7].Questions::question = "";
-			questions[7].Questions::currectAns = 0;
-			questions[7].Questions::ans[0].text = "";
-			questions[7].Questions::ans[1].text = "";
-			questions[7].Questions::ans[2].text = "";
-			questions[7].Questions::ans[3].text = "";
-			questions[8].Questions::question = "";
-			questions[8].Questions::currectAns = 0;
-			questions[8].Questions::ans[0].text = "";
-			questions[8].Questions::ans[1].text = "";
-			questions[8].Questions::ans[2].text = "";
-			questions[8].Questions::ans[3].text = "";
-			questions[9].Questions::question = "";
-			questions[9].Questions::currectAns = 0;
-			questions[9].Questions::ans[0].text = "";
-			questions[9].Questions::ans[1].text = "";
-			questions[9].Questions::ans[2].text = "";
-			questions[9].Questions::ans[3].text = "";
+			questions[4].Questions::ans[0].text = "Heart valve disease";
+			questions[4].Questions::ans[1].text = "Coronary artery disease";
+			questions[4].Questions::ans[2].text = "Atherosclerosis";
+			questions[4].Questions::ans[3].text = "Arrhythmia";
+			questions[5].Questions::question = "What is the most common cause of coronary artery disease?";
+			questions[5].Questions::currectAns = 3;
+			questions[5].Questions::ans[0].text = "Smoking";
+			questions[5].Questions::ans[1].text = "High blood pressure";
+			questions[5].Questions::ans[2].text = "Lack of exercise";
+			questions[5].Questions::ans[3].text = "High cholesterol";
+			questions[6].Questions::question = "What is the name of the medical procedure used to treat coronary artery disease by\nopening up narrowed or blocked arteries?";
+			questions[6].Questions::currectAns = 2;
+			questions[6].Questions::ans[0].text = "Coronary artery bypass graft surgery";
+			questions[6].Questions::ans[1].text = "Cardiac catheterization";
+			questions[6].Questions::ans[2].text = "Angioplasty";
+			questions[6].Questions::ans[3].text = "Stent placement";
+			questions[7].Questions::question = "What is the name of the condition where the heart beats too slowly?";
+			questions[7].Questions::currectAns = 1;
+			questions[7].Questions::ans[0].text = "Tachycardia";
+			questions[7].Questions::ans[1].text = "Bradycardia";
+			questions[7].Questions::ans[2].text = "Arrhythmia";
+			questions[7].Questions::ans[3].text = "Atrial fibrillation";
+			questions[8].Questions::question = "Which of the following is a common symptom of heart failure?";
+			questions[8].Questions::currectAns = 1;
+			questions[8].Questions::ans[0].text = "Chest pain";
+			questions[8].Questions::ans[1].text = "Shortness of breath";
+			questions[8].Questions::ans[2].text = "Dizziness";
+			questions[8].Questions::ans[3].text = "All of the above";
+			questions[9].Questions::question = "What is the name of the condition where the heart beats irregularly?";
+			questions[9].Questions::currectAns = 1;
+			questions[9].Questions::ans[0].text = "Atherosclerosis";
+			questions[9].Questions::ans[1].text = "Arrhythmia";
+			questions[9].Questions::ans[2].text = "Coronary artery disease";
+			questions[9].Questions::ans[3].text = "Heart valve disease";
 			break;
 
 		case Body::TestFor::KIDNEY:
-			questions[0].Questions::question = "";
+			questions[0].Questions::question = "What is the primary function of the kidneys?";
 			questions[0].Questions::currectAns = 0;
-			questions[0].Questions::ans[0].text = "";
-			questions[0].Questions::ans[1].text = "";
-			questions[0].Questions::ans[2].text = "";
-			questions[0].Questions::ans[3].text = "";
-			questions[1].Questions::question = "";
-			questions[1].Questions::currectAns = 0;
-			questions[1].Questions::ans[0].text = "";
-			questions[1].Questions::ans[1].text = "";
-			questions[1].Questions::ans[2].text = "";
-			questions[1].Questions::ans[3].text = "";
-			questions[2].Questions::question = "";
+			questions[0].Questions::ans[0].text = "Produce urine";
+			questions[0].Questions::ans[1].text = "Pump blood";
+			questions[0].Questions::ans[2].text = "Digest food";
+			questions[0].Questions::ans[3].text = "Regulate body temperature";
+			questions[1].Questions::question = "What is chronic kidney disease?";
+			questions[1].Questions::currectAns = 1;
+			questions[1].Questions::ans[0].text = "A condition where the kidneys fail suddenly";
+			questions[1].Questions::ans[1].text = "A condition where the kidneys gradually lose function over time";
+			questions[1].Questions::ans[2].text = "A condition where the kidneys become enlarged";
+			questions[1].Questions::ans[3].text = "A condition where the kidneys produce too much urine";
+			questions[2].Questions::question = "What is the most common cause of kidney stones?";
 			questions[2].Questions::currectAns = 0;
-			questions[2].Questions::ans[0].text = "";
-			questions[2].Questions::ans[1].text = "";
-			questions[2].Questions::ans[2].text = "";
-			questions[2].Questions::ans[3].text = "";
-			questions[3].Questions::question = "";
-			questions[3].Questions::currectAns = 0;
-			questions[3].Questions::ans[0].text = "";
-			questions[3].Questions::ans[1].text = "";
-			questions[3].Questions::ans[2].text = "";
-			questions[3].Questions::ans[3].text = "";
-			questions[4].Questions::question = "";
-			questions[4].Questions::currectAns = 0;
-			questions[4].Questions::ans[0].text = "";
-			questions[4].Questions::ans[1].text = "";
-			questions[4].Questions::ans[2].text = "";
-			questions[4].Questions::ans[3].text = "";
-			questions[5].Questions::question = "";
+			questions[2].Questions::ans[0].text = "Dehydration";
+			questions[2].Questions::ans[1].text = "Consuming too much calcium";
+			questions[2].Questions::ans[2].text = "Consuming too much sodium";
+			questions[2].Questions::ans[3].text = "Eating too much sugar";
+			questions[3].Questions::question = "Which of the following is NOT a symptom of a urinary tract infection?";
+			questions[3].Questions::currectAns = 3;
+			questions[3].Questions::ans[0].text = "Painful urination";
+			questions[3].Questions::ans[1].text = "Back pain";
+			questions[3].Questions::ans[2].text = "Fever";
+			questions[3].Questions::ans[3].text = "Headache";
+			questions[4].Questions::question = "Which of the following is a risk factor for chronic kidney disease?";
+			questions[4].Questions::currectAns = 1;
+			questions[4].Questions::ans[0].text = "Drinking plenty of water";
+			questions[4].Questions::ans[1].text = "High blood pressure";
+			questions[4].Questions::ans[2].text = "Regular exercise";
+			questions[4].Questions::ans[3].text = "A diet low in protein";
+			questions[5].Questions::question = "What is the most common type of kidney stone?";
 			questions[5].Questions::currectAns = 0;
-			questions[5].Questions::ans[0].text = "";
-			questions[5].Questions::ans[1].text = "";
-			questions[5].Questions::ans[2].text = "";
-			questions[5].Questions::ans[3].text = "";
-			questions[6].Questions::question = "";
+			questions[5].Questions::ans[0].text = "Calcium oxalate";
+			questions[5].Questions::ans[1].text = "Uric acid";
+			questions[5].Questions::ans[2].text = "Struvite";
+			questions[5].Questions::ans[3].text = "Cystine";
+			questions[6].Questions::question = "What is the main treatment for kidney failure?";
 			questions[6].Questions::currectAns = 0;
-			questions[6].Questions::ans[0].text = "";
-			questions[6].Questions::ans[1].text = "";
-			questions[6].Questions::ans[2].text = "";
-			questions[6].Questions::ans[3].text = "";
-			questions[7].Questions::question = "";
-			questions[7].Questions::currectAns = 0;
-			questions[7].Questions::ans[0].text = "";
-			questions[7].Questions::ans[1].text = "";
-			questions[7].Questions::ans[2].text = "";
-			questions[7].Questions::ans[3].text = "";
-			questions[8].Questions::question = "";
-			questions[8].Questions::currectAns = 0;
-			questions[8].Questions::ans[0].text = "";
-			questions[8].Questions::ans[1].text = "";
-			questions[8].Questions::ans[2].text = "";
-			questions[8].Questions::ans[3].text = "";
-			questions[9].Questions::question = "";
-			questions[9].Questions::currectAns = 0;
-			questions[9].Questions::ans[0].text = "";
-			questions[9].Questions::ans[1].text = "";
-			questions[9].Questions::ans[2].text = "";
-			questions[9].Questions::ans[3].text = "";
+			questions[6].Questions::ans[0].text = "Dialysis";
+			questions[6].Questions::ans[1].text = "Surgery";
+			questions[6].Questions::ans[2].text = "Antibiotics";
+			questions[6].Questions::ans[3].text = "Physical therapy";
+			questions[7].Questions::question = "What is the function of the nephrons in the kidneys?";
+			questions[7].Questions::currectAns = 2;
+			questions[7].Questions::ans[0].text = "To produce urine";
+			questions[7].Questions::ans[1].text = "To regulate blood pressure";
+			questions[7].Questions::ans[2].text = "To filter waste and excess fluids from the blood";
+			questions[7].Questions::ans[3].text = "To secrete hormones that regulate metabolism";
+			questions[8].Questions::question = "Which of the following is a symptom of chronic kidney disease?";
+			questions[8].Questions::currectAns = 1;
+			questions[8].Questions::ans[0].text = "High blood pressure";
+			questions[8].Questions::ans[1].text = "Swelling of the legs and feet";
+			questions[8].Questions::ans[2].text = "Urinary incontinence";
+			questions[8].Questions::ans[3].text = "Blurred vision";
+			questions[9].Questions::question = "How can kidney disease be prevented?";
+			questions[9].Questions::currectAns = 3;
+			questions[9].Questions::ans[0].text = "Drinking plenty of water";
+			questions[9].Questions::ans[1].text = "Eating a diet high in protein";
+			questions[9].Questions::ans[2].text = "Avoiding regular exercise";
+			questions[9].Questions::ans[3].text = "Monitoring blood pressure and blood sugar levels regularly.";
 			break;
 
 		case Body::TestFor::STOMACH:
-			questions[0].Questions::question = "";
+			questions[0].Questions::question = "What is the primary function of the human stomach?";
 			questions[0].Questions::currectAns = 0;
-			questions[0].Questions::ans[0].text = "";
-			questions[0].Questions::ans[1].text = "";
-			questions[0].Questions::ans[2].text = "";
-			questions[0].Questions::ans[3].text = "";
-			questions[1].Questions::question = "";
+			questions[0].Questions::ans[0].text = "Absorption of nutrients";
+			questions[0].Questions::ans[1].text = "Digestion of food";
+			questions[0].Questions::ans[2].text = "Storage of food";
+			questions[0].Questions::ans[3].text = "Production of hormones";
+			questions[1].Questions::question = "Which of the following is NOT a common disease of the human stomach?";
 			questions[1].Questions::currectAns = 0;
-			questions[1].Questions::ans[0].text = "";
-			questions[1].Questions::ans[1].text = "";
-			questions[1].Questions::ans[2].text = "";
-			questions[1].Questions::ans[3].text = "";
-			questions[2].Questions::question = "";
+			questions[1].Questions::ans[0].text = "Gastritis";
+			questions[1].Questions::ans[1].text = "Ulcers";
+			questions[1].Questions::ans[2].text = "Celiac disease";
+			questions[1].Questions::ans[3].text = "Parkinson's disease";
+			questions[2].Questions::question = "Which of the following is a symptom of gastroesophageal reflux disease (GERD)?";
 			questions[2].Questions::currectAns = 0;
-			questions[2].Questions::ans[0].text = "";
-			questions[2].Questions::ans[1].text = "";
-			questions[2].Questions::ans[2].text = "";
-			questions[2].Questions::ans[3].text = "";
-			questions[3].Questions::question = "";
+			questions[2].Questions::ans[0].text = "Chest pain";
+			questions[2].Questions::ans[1].text = "Joint pain";
+			questions[2].Questions::ans[2].text = "Visual disturbances";
+			questions[2].Questions::ans[3].text = "Hair loss";
+			questions[3].Questions::question = "What is the name of the bacterium that causes most stomach ulcers?";
 			questions[3].Questions::currectAns = 0;
-			questions[3].Questions::ans[0].text = "";
-			questions[3].Questions::ans[1].text = "";
-			questions[3].Questions::ans[2].text = "";
-			questions[3].Questions::ans[3].text = "";
-			questions[4].Questions::question = "";
+			questions[3].Questions::ans[0].text = "Streptococcus";
+			questions[3].Questions::ans[1].text = "E. coli";
+			questions[3].Questions::ans[2].text = "Salmonella";
+			questions[3].Questions::ans[3].text = "Helicobacter pylori";
+			questions[4].Questions::question = "What is the name of the condition in which the stomach lining becomes inflamed and irritated?";
 			questions[4].Questions::currectAns = 0;
-			questions[4].Questions::ans[0].text = "";
-			questions[4].Questions::ans[1].text = "";
-			questions[4].Questions::ans[2].text = "";
-			questions[4].Questions::ans[3].text = "";
-			questions[5].Questions::question = "";
+			questions[4].Questions::ans[0].text = "Ulcerative colitis";
+			questions[4].Questions::ans[1].text = "Crohn's disease";
+			questions[4].Questions::ans[2].text = "Gastritis";
+			questions[4].Questions::ans[3].text = "Irritable bowel syndrome";
+			questions[5].Questions::question = "Which of the following foods should be avoided if someone has gastritis?";
 			questions[5].Questions::currectAns = 0;
-			questions[5].Questions::ans[0].text = "";
-			questions[5].Questions::ans[1].text = "";
-			questions[5].Questions::ans[2].text = "";
-			questions[5].Questions::ans[3].text = "";
-			questions[6].Questions::question = "";
+			questions[5].Questions::ans[0].text = "Spicy foods";
+			questions[5].Questions::ans[1].text = "Lean proteins";
+			questions[5].Questions::ans[2].text = "Whole grains";
+			questions[5].Questions::ans[3].text = "Fruits and vegetables";
+			questions[6].Questions::question = "Which of the following is a potential complication of a peptic ulcer?";
 			questions[6].Questions::currectAns = 0;
-			questions[6].Questions::ans[0].text = "";
-			questions[6].Questions::ans[1].text = "";
-			questions[6].Questions::ans[2].text = "";
-			questions[6].Questions::ans[3].text = "";
-			questions[7].Questions::question = "";
+			questions[6].Questions::ans[0].text = "Hypertension";
+			questions[6].Questions::ans[1].text = "Blood clots";
+			questions[6].Questions::ans[2].text = "Internal bleeding";
+			questions[6].Questions::ans[3].text = "Vision loss";
+			questions[7].Questions::question = "What is the name of the procedure in which a small camera is inserted into the stomach to examine the lining?";
 			questions[7].Questions::currectAns = 0;
-			questions[7].Questions::ans[0].text = "";
-			questions[7].Questions::ans[1].text = "";
-			questions[7].Questions::ans[2].text = "";
-			questions[7].Questions::ans[3].text = "";
-			questions[8].Questions::question = "";
+			questions[7].Questions::ans[0].text = "MRI";
+			questions[7].Questions::ans[1].text = "Endoscopy";
+			questions[7].Questions::ans[2].text = "X-ray";
+			questions[7].Questions::ans[3].text = "Ultrasound";
+			questions[8].Questions::question = "Which of the following medications is commonly used to treat acid reflux?";
 			questions[8].Questions::currectAns = 0;
-			questions[8].Questions::ans[0].text = "";
-			questions[8].Questions::ans[1].text = "";
-			questions[8].Questions::ans[2].text = "";
-			questions[8].Questions::ans[3].text = "";
-			questions[9].Questions::question = "";
+			questions[8].Questions::ans[0].text = "Antibiotics";
+			questions[8].Questions::ans[1].text = "Antihistamines";
+			questions[8].Questions::ans[2].text = "Antacids";
+			questions[8].Questions::ans[3].text = "Pain relievers";
+			questions[9].Questions::question = "What is the medical term for vomiting?";
 			questions[9].Questions::currectAns = 0;
-			questions[9].Questions::ans[0].text = "";
-			questions[9].Questions::ans[1].text = "";
-			questions[9].Questions::ans[2].text = "";
-			questions[9].Questions::ans[3].text = "";
+			questions[9].Questions::ans[0].text = "Diarrhea";
+			questions[9].Questions::ans[1].text = "Hematemesis";
+			questions[9].Questions::ans[2].text = "Dysphagia";
+			questions[9].Questions::ans[3].text = "Pyrosis";
 
 		case Body::TestFor::INTESTINES:
-			questions[0].Questions::question = "";
+			questions[0].Questions::question = "What is the function of the human intestine?";
 			questions[0].Questions::currectAns = 0;
-			questions[0].Questions::ans[0].text = "";
-			questions[0].Questions::ans[1].text = "";
-			questions[0].Questions::ans[2].text = "";
-			questions[0].Questions::ans[3].text = "";
-			questions[1].Questions::question = "";
-			questions[1].Questions::currectAns = 0;
-			questions[1].Questions::ans[0].text = "";
-			questions[1].Questions::ans[1].text = "";
-			questions[1].Questions::ans[2].text = "";
-			questions[1].Questions::ans[3].text = "";
-			questions[2].Questions::question = "";
-			questions[2].Questions::currectAns = 0;
-			questions[2].Questions::ans[0].text = "";
-			questions[2].Questions::ans[1].text = "";
-			questions[2].Questions::ans[2].text = "";
-			questions[2].Questions::ans[3].text = "";
-			questions[3].Questions::question = "";
-			questions[3].Questions::currectAns = 0;
-			questions[3].Questions::ans[0].text = "";
-			questions[3].Questions::ans[1].text = "";
-			questions[3].Questions::ans[2].text = "";
-			questions[3].Questions::ans[3].text = "";
-			questions[4].Questions::question = "";
-			questions[4].Questions::currectAns = 0;
-			questions[4].Questions::ans[0].text = "";
-			questions[4].Questions::ans[1].text = "";
-			questions[4].Questions::ans[2].text = "";
-			questions[4].Questions::ans[3].text = "";
-			questions[5].Questions::question = "";
+			questions[0].Questions::ans[0].text = "Absorbing nutrients and eliminating waste";
+			questions[0].Questions::ans[1].text = "Pumping blood";
+			questions[0].Questions::ans[2].text = "Regulating breathing";
+			questions[0].Questions::ans[3].text = "Producing hormones";
+			questions[1].Questions::question = "Which part of the digestive tract is responsible for most nutrient absorption?";
+			questions[1].Questions::currectAns = 1;
+			questions[1].Questions::ans[0].text = "Stomach";
+			questions[1].Questions::ans[1].text = "Small intestine";
+			questions[1].Questions::ans[2].text = "Large intestine";
+			questions[1].Questions::ans[3].text = "Esophagus";
+			questions[2].Questions::question = "What is the function of the large intestine or colon?";
+			questions[2].Questions::currectAns = 1;
+			questions[2].Questions::ans[0].text = "Nutrient absorption";
+			questions[2].Questions::ans[1].text = "Eliminating waste";
+			questions[2].Questions::ans[2].text = "Pumping blood";
+			questions[2].Questions::ans[3].text = "Producing enzymes";
+			questions[3].Questions::question = "What are some common diseases of the intestines?";
+			questions[3].Questions::currectAns = 2;
+			questions[3].Questions::ans[0].text = "Asthma and pneumonia";
+			questions[3].Questions::ans[1].text = "Malaria and dengue fever";
+			questions[3].Questions::ans[2].text = "Inflammatory bowel disease, irritable bowel syndrome, diverticulitis, and colon cancer";
+			questions[3].Questions::ans[3].text = "All of the above";
+			questions[4].Questions::question = "What is inflammatory bowel disease (IBD)?";
+			questions[4].Questions::currectAns = 2;
+			questions[4].Questions::ans[0].text = "A functional disorder that causes abdominal pain and bloating";
+			questions[4].Questions::ans[1].text = "The inflammation or infection of small pouches in the lining of the colon";
+			questions[4].Questions::ans[2].text = "A chronic inflammation of the digestive tract that includes Crohn's disease and\nulcerative colitis";
+			questions[4].Questions::ans[3].text = "The growth of cancerous cells in the colon or rectum";
+			questions[5].Questions::question = "What is irritable bowel syndrome (IBS)?";
 			questions[5].Questions::currectAns = 0;
-			questions[5].Questions::ans[0].text = "";
-			questions[5].Questions::ans[1].text = "";
-			questions[5].Questions::ans[2].text = "";
-			questions[5].Questions::ans[3].text = "";
-			questions[6].Questions::question = "";
-			questions[6].Questions::currectAns = 0;
-			questions[6].Questions::ans[0].text = "";
-			questions[6].Questions::ans[1].text = "";
-			questions[6].Questions::ans[2].text = "";
-			questions[6].Questions::ans[3].text = "";
-			questions[7].Questions::question = "";
-			questions[7].Questions::currectAns = 0;
-			questions[7].Questions::ans[0].text = "";
-			questions[7].Questions::ans[1].text = "";
-			questions[7].Questions::ans[2].text = "";
-			questions[7].Questions::ans[3].text = "";
-			questions[8].Questions::question = "";
-			questions[8].Questions::currectAns = 0;
-			questions[8].Questions::ans[0].text = "";
-			questions[8].Questions::ans[1].text = "";
-			questions[8].Questions::ans[2].text = "";
-			questions[8].Questions::ans[3].text = "";
-			questions[9].Questions::question = "";
-			questions[9].Questions::currectAns = 0;
-			questions[9].Questions::ans[0].text = "";
-			questions[9].Questions::ans[1].text = "";
-			questions[9].Questions::ans[2].text = "";
-			questions[9].Questions::ans[3].text = "";
+			questions[5].Questions::ans[0].text = "A functional disorder that causes abdominal pain and bloating";
+			questions[5].Questions::ans[1].text = "The inflammation or infection of small pouches in the lining of the colon";
+			questions[5].Questions::ans[2].text = "A chronic inflammation of the digestive tract that includes Crohn's disease and\nulcerative colitis";
+			questions[5].Questions::ans[3].text = "The growth of cancerous cells in the colon or rectum";
+			questions[6].Questions::question = "What is diverticulitis?";
+			questions[6].Questions::currectAns = 1;
+			questions[6].Questions::ans[0].text = "A functional disorder that causes abdominal pain and bloating";
+			questions[6].Questions::ans[1].text = "The inflammation or infection of small pouches in the lining of the colon";
+			questions[6].Questions::ans[2].text = "A chronic inflammation of the digestive tract that includes Crohn's disease and\nulcerative colitis";
+			questions[6].Questions::ans[3].text = "The growth of cancerous cells in the colon or rectum";
+			questions[7].Questions::question = "What is colon cancer?";
+			questions[7].Questions::currectAns = 3;
+			questions[7].Questions::ans[0].text = "A functional disorder that causes abdominal pain and bloating";
+			questions[7].Questions::ans[1].text = "The inflammation or infection of small pouches in the lining of the colon";
+			questions[7].Questions::ans[2].text = "A chronic inflammation of the digestive tract that includes Crohn's disease and\nulcerative colitis";
+			questions[7].Questions::ans[3].text = "The growth of cancerous cells in the colon or rectum";
+			questions[8].Questions::question = "What is the small intestine?";
+			questions[8].Questions::currectAns = 2;
+			questions[8].Questions::ans[0].text = "The shortest part of the digestive tract";
+			questions[8].Questions::ans[1].text = "Responsible for absorbing water and electrolytes";
+			questions[8].Questions::ans[2].text = "Responsible for most nutrient absorption";
+			questions[8].Questions::ans[3].text = "None of the above";
+			questions[9].Questions::question = "What is the large intestine or colon?";
+			questions[9].Questions::currectAns = 3;
+			questions[9].Questions::ans[0].text = "The shortest part of the digestive tract";
+			questions[9].Questions::ans[1].text = "Responsible for absorbing water and electrolytes";
+			questions[9].Questions::ans[2].text = "Responsible for most nutrient absorption";
+			questions[9].Questions::ans[3].text = "Stores waste until elimination";
 			break;
 		case Body::TestFor::REPRODUCTIVE:
-			questions[0].Questions::question = "";
+			questions[0].Questions::question = "What is the primary function of the male reproductive system?";
 			questions[0].Questions::currectAns = 0;
-			questions[0].Questions::ans[0].text = "";
-			questions[0].Questions::ans[1].text = "";
-			questions[0].Questions::ans[2].text = "";
-			questions[0].Questions::ans[3].text = "";
-			questions[1].Questions::question = "";
-			questions[1].Questions::currectAns = 0;
-			questions[1].Questions::ans[0].text = "";
-			questions[1].Questions::ans[1].text = "";
-			questions[1].Questions::ans[2].text = "";
-			questions[1].Questions::ans[3].text = "";
-			questions[2].Questions::question = "";
-			questions[2].Questions::currectAns = 0;
-			questions[2].Questions::ans[0].text = "";
-			questions[2].Questions::ans[1].text = "";
-			questions[2].Questions::ans[2].text = "";
-			questions[2].Questions::ans[3].text = "";
-			questions[3].Questions::question = "";
+			questions[0].Questions::ans[0].text = "To produce and deliver sperm";
+			questions[0].Questions::ans[1].text = "To produce and deliver eggs";
+			questions[0].Questions::ans[2].text = "To nourish and protect the fetus";
+			questions[0].Questions::ans[3].text = "To facilitate menstruation";
+			questions[1].Questions::question = "What is the name of the male sex hormone?";
+			questions[1].Questions::currectAns = 1;
+			questions[1].Questions::ans[0].text = "Estrogen";
+			questions[1].Questions::ans[1].text = "Testosterone";
+			questions[1].Questions::ans[2].text = "Progesterone";
+			questions[1].Questions::ans[3].text = "Follicle-stimulating hormone";
+			questions[2].Questions::question = "Where are the testes located in the male body?";
+			questions[2].Questions::currectAns = 2;
+			questions[2].Questions::ans[0].text = "In the penis";
+			questions[2].Questions::ans[1].text = "In the prostate gland";
+			questions[2].Questions::ans[2].text = "In the scrotum";
+			questions[2].Questions::ans[3].text = "In the bladder";
+			questions[3].Questions::question = "What is the name of the tube that carries sperm from the testes to the urethra?";
 			questions[3].Questions::currectAns = 0;
-			questions[3].Questions::ans[0].text = "";
-			questions[3].Questions::ans[1].text = "";
-			questions[3].Questions::ans[2].text = "";
-			questions[3].Questions::ans[3].text = "";
-			questions[4].Questions::question = "";
-			questions[4].Questions::currectAns = 0;
-			questions[4].Questions::ans[0].text = "";
-			questions[4].Questions::ans[1].text = "";
-			questions[4].Questions::ans[2].text = "";
-			questions[4].Questions::ans[3].text = "";
-			questions[5].Questions::question = "";
+			questions[3].Questions::ans[0].text = "Vas deferens";
+			questions[3].Questions::ans[1].text = "Ureter";
+			questions[3].Questions::ans[2].text = "Fallopian tube";
+			questions[3].Questions::ans[3].text = "Epididymis";
+			questions[4].Questions::question = "Which of the following is a common disease of the male reproductive system?";
+			questions[4].Questions::currectAns = 2;
+			questions[4].Questions::ans[0].text = "Breast cancer";
+			questions[4].Questions::ans[1].text = "Ovarian cancer";
+			questions[4].Questions::ans[2].text = "Prostate cancer";
+			questions[4].Questions::ans[3].text = "Cervical cancer";
+			questions[5].Questions::question = "What is the name of the gland that produces the fluid that mixes with sperm to form\nsemen?";
 			questions[5].Questions::currectAns = 0;
-			questions[5].Questions::ans[0].text = "";
-			questions[5].Questions::ans[1].text = "";
-			questions[5].Questions::ans[2].text = "";
-			questions[5].Questions::ans[3].text = "";
-			questions[6].Questions::question = "";
-			questions[6].Questions::currectAns = 0;
-			questions[6].Questions::ans[0].text = "";
-			questions[6].Questions::ans[1].text = "";
-			questions[6].Questions::ans[2].text = "";
-			questions[6].Questions::ans[3].text = "";
-			questions[7].Questions::question = "";
-			questions[7].Questions::currectAns = 0;
-			questions[7].Questions::ans[0].text = "";
-			questions[7].Questions::ans[1].text = "";
-			questions[7].Questions::ans[2].text = "";
-			questions[7].Questions::ans[3].text = "";
-			questions[8].Questions::question = "";
-			questions[8].Questions::currectAns = 0;
-			questions[8].Questions::ans[0].text = "";
-			questions[8].Questions::ans[1].text = "";
-			questions[8].Questions::ans[2].text = "";
-			questions[8].Questions::ans[3].text = "";
-			questions[9].Questions::question = "";
-			questions[9].Questions::currectAns = 0;
-			questions[9].Questions::ans[0].text = "";
-			questions[9].Questions::ans[1].text = "";
-			questions[9].Questions::ans[2].text = "";
-			questions[9].Questions::ans[3].text = "";
+			questions[5].Questions::ans[0].text = "Prostate gland";
+			questions[5].Questions::ans[1].text = "Cowper's gland";
+			questions[5].Questions::ans[2].text = "Bartholin's gland";
+			questions[5].Questions::ans[3].text = "Skene's gland";
+			questions[6].Questions::question = "What is the medical term for the surgical removal of the testes?";
+			questions[6].Questions::currectAns = 1;
+			questions[6].Questions::ans[0].text = "Vasectomy";
+			questions[6].Questions::ans[1].text = "Orchiectomy";
+			questions[6].Questions::ans[2].text = "Prostatectomy";
+			questions[6].Questions::ans[3].text = "Hysterectomy";
+			questions[7].Questions::question = "Which of the following is a common sexually transmitted infection that can affect\nthe male reproductive system?";
+			questions[7].Questions::currectAns = 1;
+			questions[7].Questions::ans[0].text = "Hepatitis C";
+			questions[7].Questions::ans[1].text = "Human papillomavirus (HPV)";
+			questions[7].Questions::ans[2].text = "Influenza";
+			questions[7].Questions::ans[3].text = "Tuberculosis";
+			questions[8].Questions::question = "What is the name of the condition where the foreskin of the penis cannot be retracted?";
+			questions[8].Questions::currectAns = 3;
+			questions[8].Questions::ans[0].text = "Erectile dysfunction";
+			questions[8].Questions::ans[1].text = "Testicular torsion";
+			questions[8].Questions::ans[2].text = "Peyronie's disease";
+			questions[8].Questions::ans[3].text = "Phimosis";
+			questions[9].Questions::question = "Which of the following is a common symptom of testicular cancer?";
+			questions[9].Questions::currectAns = 2;
+			questions[9].Questions::ans[0].text = "Nausea and vomiting";
+			questions[9].Questions::ans[1].text = "Abnormal discharge from the penis";
+			questions[9].Questions::ans[2].text = "Pain or discomfort in the testicles";
+			questions[9].Questions::ans[3].text = "Urinary incontinence";
 			break;
 
 		case Body::TestFor::NERVES:
-			questions[0].Questions::question = "";
+			questions[0].Questions::question = "What is the primary function of human nerves?";
 			questions[0].Questions::currectAns = 0;
-			questions[0].Questions::ans[0].text = "";
-			questions[0].Questions::ans[1].text = "";
-			questions[0].Questions::ans[2].text = "";
-			questions[0].Questions::ans[3].text = "";
-			questions[1].Questions::question = "";
-			questions[1].Questions::currectAns = 0;
-			questions[1].Questions::ans[0].text = "";
-			questions[1].Questions::ans[1].text = "";
-			questions[1].Questions::ans[2].text = "";
-			questions[1].Questions::ans[3].text = "";
-			questions[2].Questions::question = "";
-			questions[2].Questions::currectAns = 0;
-			questions[2].Questions::ans[0].text = "";
-			questions[2].Questions::ans[1].text = "";
-			questions[2].Questions::ans[2].text = "";
-			questions[2].Questions::ans[3].text = "";
-			questions[3].Questions::question = "";
-			questions[3].Questions::currectAns = 0;
-			questions[3].Questions::ans[0].text = "";
-			questions[3].Questions::ans[1].text = "";
-			questions[3].Questions::ans[2].text = "";
-			questions[3].Questions::ans[3].text = "";
-			questions[4].Questions::question = "";
+			questions[0].Questions::ans[0].text = "To control and coordinate bodily functions";
+			questions[0].Questions::ans[1].text = "To produce hormones";
+			questions[0].Questions::ans[2].text = "To digest food";
+			questions[0].Questions::ans[3].text = "To pump blood";
+			questions[1].Questions::question = "Which type of nerves carry signals from the brain and spinal cord to the muscles\nand organs?";
+			questions[1].Questions::currectAns = 1;
+			questions[1].Questions::ans[0].text = "Sensory nerves";
+			questions[1].Questions::ans[1].text = "Motor nerves";
+			questions[1].Questions::ans[2].text = "Autonomic nerves";
+			questions[1].Questions::ans[3].text = "Cranial nerves";
+			questions[2].Questions::question = "What is a myelin sheath?";
+			questions[2].Questions::currectAns = 2;
+			questions[2].Questions::ans[0].text = "A type of nerve cell";
+			questions[2].Questions::ans[1].text = "A type of neurotransmitter";
+			questions[2].Questions::ans[2].text = "A protective coating around nerves";
+			questions[2].Questions::ans[3].text = "A type of nerve impulse";
+			questions[3].Questions::question = "Which type of nerve fibers transmit signals faster?";
+			questions[3].Questions::currectAns = 3;
+			questions[3].Questions::ans[0].text = "Unmyelinated fibers";
+			questions[3].Questions::ans[1].text = "Sensory fibers";
+			questions[3].Questions::ans[2].text = "Motor fibers";
+			questions[3].Questions::ans[3].text = "Myelinated fibers";
+			questions[4].Questions::question = "Which part of a neuron receives signals from other neurons?";
 			questions[4].Questions::currectAns = 0;
-			questions[4].Questions::ans[0].text = "";
-			questions[4].Questions::ans[1].text = "";
-			questions[4].Questions::ans[2].text = "";
-			questions[4].Questions::ans[3].text = "";
-			questions[5].Questions::question = "";
+			questions[4].Questions::ans[0].text = "Dendrites";
+			questions[4].Questions::ans[1].text = "Axons";
+			questions[4].Questions::ans[2].text = "Soma";
+			questions[4].Questions::ans[3].text = "Synapses";
+			questions[5].Questions::question = "Which division of the autonomic nervous system is responsible for the fight or\nflight response?";
 			questions[5].Questions::currectAns = 0;
-			questions[5].Questions::ans[0].text = "";
-			questions[5].Questions::ans[1].text = "";
-			questions[5].Questions::ans[2].text = "";
-			questions[5].Questions::ans[3].text = "";
-			questions[6].Questions::question = "";
-			questions[6].Questions::currectAns = 0;
-			questions[6].Questions::ans[0].text = "";
-			questions[6].Questions::ans[1].text = "";
-			questions[6].Questions::ans[2].text = "";
-			questions[6].Questions::ans[3].text = "";
-			questions[7].Questions::question = "";
-			questions[7].Questions::currectAns = 0;
-			questions[7].Questions::ans[0].text = "";
-			questions[7].Questions::ans[1].text = "";
-			questions[7].Questions::ans[2].text = "";
-			questions[7].Questions::ans[3].text = "";
-			questions[8].Questions::question = "";
+			questions[5].Questions::ans[0].text = "Sympathetic division";
+			questions[5].Questions::ans[1].text = "Parasympathetic division";
+			questions[5].Questions::ans[2].text = "Somatic division";
+			questions[5].Questions::ans[3].text = "Sensory division";
+			questions[6].Questions::question = "Which of the following is a disorder that affects the peripheral nervous system?";
+			questions[6].Questions::currectAns = 3;
+			questions[6].Questions::ans[0].text = "Multiple sclerosis";
+			questions[6].Questions::ans[1].text = "Parkinson's disease";
+			questions[6].Questions::ans[2].text = "Alzheimer's disease";
+			questions[6].Questions::ans[3].text = "Guillain-Barre syndrome";
+			questions[7].Questions::question = "Which of the following is a type of nerve cell that helps to support and nourish neurons?";
+			questions[7].Questions::currectAns = 1;
+			questions[7].Questions::ans[0].text = "Schwann cells";
+			questions[7].Questions::ans[1].text = "Astrocytes";
+			questions[7].Questions::ans[2].text = "Microglia";
+			questions[7].Questions::ans[3].text = "Oligodendrocytes";
+			questions[8].Questions::question = "Which of the following is a common symptom of nerve damage?";
 			questions[8].Questions::currectAns = 0;
-			questions[8].Questions::ans[0].text = "";
-			questions[8].Questions::ans[1].text = "";
-			questions[8].Questions::ans[2].text = "";
-			questions[8].Questions::ans[3].text = "";
-			questions[9].Questions::question = "";
+			questions[8].Questions::ans[0].text = "Muscle weakness";
+			questions[8].Questions::ans[1].text = "High blood pressure";
+			questions[8].Questions::ans[2].text = "Hearing loss";
+			questions[8].Questions::ans[3].text = "Skin rash";
+			questions[9].Questions::question = "Which of the following is a type of nerve that carries signals from the body to the spinal\ncord and brain?";
 			questions[9].Questions::currectAns = 0;
-			questions[9].Questions::ans[0].text = "";
-			questions[9].Questions::ans[1].text = "";
-			questions[9].Questions::ans[2].text = "";
-			questions[9].Questions::ans[3].text = "";
+			questions[9].Questions::ans[0].text = "Sensory nerves";
+			questions[9].Questions::ans[1].text = "Motor nerves";
+			questions[9].Questions::ans[2].text = "Autonomic nerves";
+			questions[9].Questions::ans[3].text = "Cranial nerves";
 			break;
 
 		case Body::TestFor::MUSCLE:
-			questions[0].Questions::question = "";
-			questions[0].Questions::currectAns = 0;
-			questions[0].Questions::ans[0].text = "";
-			questions[0].Questions::ans[1].text = "";
-			questions[0].Questions::ans[2].text = "";
-			questions[0].Questions::ans[3].text = "";
-			questions[1].Questions::question = "";
-			questions[1].Questions::currectAns = 0;
-			questions[1].Questions::ans[0].text = "";
-			questions[1].Questions::ans[1].text = "";
-			questions[1].Questions::ans[2].text = "";
-			questions[1].Questions::ans[3].text = "";
-			questions[2].Questions::question = "";
-			questions[2].Questions::currectAns = 0;
-			questions[2].Questions::ans[0].text = "";
-			questions[2].Questions::ans[1].text = "";
-			questions[2].Questions::ans[2].text = "";
-			questions[2].Questions::ans[3].text = "";
-			questions[3].Questions::question = "";
-			questions[3].Questions::currectAns = 0;
-			questions[3].Questions::ans[0].text = "";
-			questions[3].Questions::ans[1].text = "";
-			questions[3].Questions::ans[2].text = "";
-			questions[3].Questions::ans[3].text = "";
-			questions[4].Questions::question = "";
+			questions[0].Questions::question = "Which type of muscle is responsible for involuntary movements?";
+			questions[0].Questions::currectAns = 2;
+			questions[0].Questions::ans[0].text = "Skeletal muscle";
+			questions[0].Questions::ans[1].text = "Cardiac muscle";
+			questions[0].Questions::ans[2].text = "Smooth muscle";
+			questions[0].Questions::ans[3].text = "Striated muscle";
+			questions[1].Questions::question = "Which disease causes progressive muscle weakness and loss of muscle mass?";
+			questions[1].Questions::currectAns = 2;
+			questions[1].Questions::ans[0].text = "Multiple sclerosis";
+			questions[1].Questions::ans[1].text = "Parkinson's disease";
+			questions[1].Questions::ans[2].text = "Muscular dystrophy";
+			questions[1].Questions::ans[3].text = "Fibromyalgia";
+			questions[2].Questions::question = "Which muscle group is responsible for extension of the elbow joint?";
+			questions[2].Questions::currectAns = 1;
+			questions[2].Questions::ans[0].text = "Biceps brachii";
+			questions[2].Questions::ans[1].text = "Triceps brachii";
+			questions[2].Questions::ans[2].text = "Deltoid";
+			questions[2].Questions::ans[3].text = "Pectoralis major";
+			questions[3].Questions::question = "Which muscle is commonly referred to as the 'six - pack' muscle ? ";
+			questions[3].Questions::currectAns = 2;
+			questions[3].Questions::ans[0].text = "Rectus femoris";
+			questions[3].Questions::ans[1].text = "Pectoralis major";
+			questions[3].Questions::ans[2].text = "Rectus abdominis";
+			questions[3].Questions::ans[3].text = "Deltoid";
+			questions[4].Questions::question = "Which disease is characterized by chronic widespread muscle pain and tenderness?";
 			questions[4].Questions::currectAns = 0;
-			questions[4].Questions::ans[0].text = "";
-			questions[4].Questions::ans[1].text = "";
-			questions[4].Questions::ans[2].text = "";
-			questions[4].Questions::ans[3].text = "";
-			questions[5].Questions::question = "";
-			questions[5].Questions::currectAns = 0;
-			questions[5].Questions::ans[0].text = "";
-			questions[5].Questions::ans[1].text = "";
-			questions[5].Questions::ans[2].text = "";
-			questions[5].Questions::ans[3].text = "";
-			questions[6].Questions::question = "";
-			questions[6].Questions::currectAns = 0;
-			questions[6].Questions::ans[0].text = "";
-			questions[6].Questions::ans[1].text = "";
-			questions[6].Questions::ans[2].text = "";
-			questions[6].Questions::ans[3].text = "";
-			questions[7].Questions::question = "";
+			questions[4].Questions::ans[0].text = "Fibromyalgia";
+			questions[4].Questions::ans[1].text = "Rheumatoid arthritis";
+			questions[4].Questions::ans[2].text = "Osteoarthritis";
+			questions[4].Questions::ans[3].text = "Scoliosis";
+			questions[5].Questions::question = "Which muscle is responsible for abducting the arm at the shoulder joint?";
+			questions[5].Questions::currectAns = 2;
+			questions[5].Questions::ans[0].text = "Pectoralis major";
+			questions[5].Questions::ans[1].text = "Latissimus dorsi";
+			questions[5].Questions::ans[2].text = "Deltoid";
+			questions[5].Questions::ans[3].text = "Trapezius";
+			questions[6].Questions::question = "Which disease is caused by the degeneration of motor neurons, resulting in progressive\nmuscle weakness and atrophy?";
+			questions[6].Questions::currectAns = 1;
+			questions[6].Questions::ans[0].text = "Muscular dystrophy";
+			questions[6].Questions::ans[1].text = "ALS (Amyotrophic lateral sclerosis";
+			questions[6].Questions::ans[2].text = "Multiple sclerosis";
+			questions[6].Questions::ans[3].text = "Fibromyalgia";
+			questions[7].Questions::question = "Which muscle group is responsible for plantarflexion of the foot?";
 			questions[7].Questions::currectAns = 0;
-			questions[7].Questions::ans[0].text = "";
-			questions[7].Questions::ans[1].text = "";
-			questions[7].Questions::ans[2].text = "";
-			questions[7].Questions::ans[3].text = "";
-			questions[8].Questions::question = "";
-			questions[8].Questions::currectAns = 0;
-			questions[8].Questions::ans[0].text = "";
-			questions[8].Questions::ans[1].text = "";
-			questions[8].Questions::ans[2].text = "";
-			questions[8].Questions::ans[3].text = "";
-			questions[9].Questions::question = "";
-			questions[9].Questions::currectAns = 0;
-			questions[9].Questions::ans[0].text = "";
-			questions[9].Questions::ans[1].text = "";
-			questions[9].Questions::ans[2].text = "";
-			questions[9].Questions::ans[3].text = "";
+			questions[7].Questions::ans[0].text = "Gastrocnemius and soleus";
+			questions[7].Questions::ans[1].text = "Quadriceps femoris";
+			questions[7].Questions::ans[2].text = "Hamstrings";
+			questions[7].Questions::ans[3].text = "Gluteus maximus";
+			questions[8].Questions::question = "Which disease is characterized by inflammation and weakness of the muscles, particularly\nin the shoulders and hips?";
+			questions[8].Questions::currectAns = 1;
+			questions[8].Questions::ans[0].text = "Fibromyalgia";
+			questions[8].Questions::ans[1].text = "Polymyositis";
+			questions[8].Questions::ans[2].text = "Myasthenia gravis";
+			questions[8].Questions::ans[3].text = "Muscular dystrophy";
+			questions[9].Questions::question = "Which muscle group is responsible for flexion of the knee joint?";
+			questions[9].Questions::currectAns = 1;
+			questions[9].Questions::ans[0].text = "Quadriceps femoris";
+			questions[9].Questions::ans[1].text = "Hamstrings";
+			questions[9].Questions::ans[2].text = "Gastrocnemius and soleus";
+			questions[9].Questions::ans[3].text = "Gluteus maximus";
 			break;
 		}
 		drawQuestions(questions);
