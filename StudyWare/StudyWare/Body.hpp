@@ -3,6 +3,20 @@
 
 class Body {
 public:
+	enum class TestFor {
+		BRAIN,
+		LUNGS,
+		LIVER,
+		HEART,
+		KIDNEY,
+		STOMACH,
+		INTESTINES,
+		REPRODUCTIVE,
+		NERVES,
+		MUSCLE
+	};
+	TestFor testfor;
+
 	struct Button {
 		Rectangle bounds;
 		int rounding;
@@ -11,6 +25,7 @@ public:
 		Color color;
 	};
 	Button cancel;
+	Button testBTN;
 	Button brainBTN;
 	Button lungsBTN;
 	Button liverBTN;
@@ -24,8 +39,8 @@ public:
 
 	Body();
 	~Body();
-
 	void cancelBtn(float posX, float posY);
+	void testBtn(float posX, float posY);
 	void organsBtn();
 
 	void drawBrain();
@@ -40,11 +55,39 @@ public:
 	void drawMuscle();
 	void drawBody();
 
+	struct Answers {
+		const char* text;
+		Vector2 pos;
+		bool checked = false;
+	};
+	struct Questions {
+		const char* question;
+		Vector2 pos;
+		Answers ans[4];
+		int currectAns;
+		Color color;
+	};
+
+	bool questionTurn[10] = { true, false, false , false , false , false , false , false , false , false };
+	Questions question;
+	Questions questions[10];
+	Vector2 checkBoxPos;
+	Rectangle clickRecPos;
+	int countForAns = 0;
+
+	void drawTestButtons();
+	void drawQuestionNum(float posX, float posY, Questions question);
+	void drawAnswer(Questions question);
+	void drawQuestions(Questions question1[]);
+	Rectangle field;
+
+
+	bool inTest = true;
+
 	static std::shared_ptr<Body> getInstance();
 private:
 	static std::shared_ptr<Body> instance;
-
-	Font font;
+	//std::shared_ptr<TestMode> test;
 
 	float sWidth;
 	float sHeight;

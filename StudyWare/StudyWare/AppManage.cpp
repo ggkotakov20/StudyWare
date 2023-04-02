@@ -18,7 +18,6 @@ AppManage* AppManage::getInstance() {
 }
 void AppManage::appManage() {
     std::shared_ptr<AppStatus> manage = AppStatus::getInstance();
-
     while (!WindowShouldClose()) {
         BeginDrawing();
         ClearBackground(RAYWHITE);
