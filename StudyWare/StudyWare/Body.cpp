@@ -157,6 +157,42 @@ std::shared_ptr<Body> Body::getInstance() {
 	return instance;
 }
 
+void Body::drawAlertForEnd() {
+	Button yesBtn, noBtn;
+
+	yesBtn.bounds = { (float)sWidth / 2 + 30, (float)sHeight / 2, 250, 50 };
+	yesBtn.rounding = 1;
+	yesBtn.hovering = CheckCollisionPointRec(GetMousePosition(), yesBtn.bounds);
+	yesBtn.text = "Yes, finish attempt";
+	yesBtn.color = GRAY;
+
+	noBtn.bounds = { (float)sWidth / 2 - 280, (float)sHeight / 2, 250, 50 };
+	noBtn.rounding = 1;
+	noBtn.hovering = CheckCollisionPointRec(GetMousePosition(), noBtn.bounds);
+	noBtn.text = "No, back to attempt";
+	noBtn.color = GRAY;
+
+	Vector2 textPos = { sWidth / 2 - 475, sHeight / 2 - 100 };
+	DrawText("Are you sure you want to finish attempt", textPos.x, textPos.y, 50, BLACK);
+
+	Vector2 yesBtnPos = { yesBtn.bounds.x + yesBtn.bounds.width / 2 - MeasureText(yesBtn.text, 20) / 2, yesBtn.bounds.y + 15 };
+	if (yesBtn.hovering) yesBtn.color = DARKGRAY;
+	DrawRectangleRounded(yesBtn.bounds, yesBtn.rounding, yesBtn.rounding, yesBtn.color);
+	DrawText(yesBtn.text, yesBtnPos.x, yesBtnPos.y, 20, BLACK);
+
+	if (yesBtn.hovering && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+		inTest = false;
+		showAlert = false;
+	}
+
+	Vector2 noBtnPos = { noBtn.bounds.x + noBtn.bounds.width / 2 - MeasureText(noBtn.text, 20) / 2, noBtn.bounds.y + 15 };
+	if (noBtn.hovering) noBtn.color = DARKGRAY;
+	DrawRectangleRounded(noBtn.bounds, noBtn.rounding, noBtn.rounding, noBtn.color);
+	DrawText(noBtn.text, noBtnPos.x, noBtnPos.y, 20, BLACK);
+
+	if (noBtn.hovering && IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+		showAlert = false;
+}
 void Body::drawTestButtons() {
 	if (!questionTurn[0]) {
 		Button previousBtn;
@@ -427,16 +463,7 @@ void Body::drawTestButtons() {
 
 	if (CheckCollisionPointRec(GetMousePosition(), finishBtn.bounds) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
 		if (inTest) {
-			questionTurn[0] = true;
-			questionTurn[1] = false;
-			questionTurn[2] = false;
-			questionTurn[3] = false;
-			questionTurn[4] = false;
-			questionTurn[5] = false;
-			questionTurn[6] = false;
-			questionTurn[7] = false;
-			questionTurn[8] = false;
-			questionTurn[9] = false;
+			showAlert = true;
 		}
 
 	}
@@ -593,7 +620,10 @@ void Body::drawAnswer(Questions question) {
 		Rectangle clickRecPos;
 		switch (j) {
 		case 0:
-			question.ans[j].pos = { question.pos.x + 30, question.pos.y + 70 };
+			if(questionTurn[3])
+				question.ans[j].pos = { question.pos.x + 30, question.pos.y + 70+50};
+			else
+				question.ans[j].pos = { question.pos.x + 30, question.pos.y + 70};
 			checkBoxPos = { question.pos.x + 10, question.ans[j].pos.y + 15 };
 			clickRecPos.x = question.pos.x;
 			clickRecPos.y = question.ans[j].pos.y;
@@ -615,7 +645,10 @@ void Body::drawAnswer(Questions question) {
 			DrawText(question.ans[j].text, question.ans[j].pos.x, question.ans[j].pos.y, 30, question.color);
 			break;
 		case 1:
-			question.ans[j].pos = { question.pos.x + 30, question.pos.y + 120 };
+			if (questionTurn[3])
+				question.ans[j].pos = { question.pos.x + 30, question.pos.y + 120 + 50 };
+			else
+				question.ans[j].pos = { question.pos.x + 30, question.pos.y + 120 };
 
 			checkBoxPos = { question.pos.x + 10, question.ans[j].pos.y + 15 };
 			clickRecPos.x = question.pos.x;
@@ -638,7 +671,10 @@ void Body::drawAnswer(Questions question) {
 			DrawText(question.ans[j].text, question.ans[j].pos.x, question.ans[j].pos.y, 30, question.color);
 			break;
 		case 2:
-			question.ans[j].pos = { question.pos.x + 30, question.pos.y + 170 };
+			if (questionTurn[3])
+				question.ans[j].pos = { question.pos.x + 30, question.pos.y + 170 + 50 };
+			else
+				question.ans[j].pos = { question.pos.x + 30, question.pos.y + 170 };
 
 			checkBoxPos = { question.pos.x + 10, question.ans[j].pos.y + 15 };
 			clickRecPos.x = question.pos.x;
@@ -661,7 +697,10 @@ void Body::drawAnswer(Questions question) {
 			DrawText(question.ans[j].text, question.ans[j].pos.x, question.ans[j].pos.y, 30, question.color);
 			break;
 		case 3:
-			question.ans[j].pos = { question.pos.x + 30, question.pos.y + 220 };
+			if (questionTurn[3])
+				question.ans[j].pos = { question.pos.x + 30, question.pos.y + 220 + 50 };
+			else
+				question.ans[j].pos = { question.pos.x + 30, question.pos.y + 220 };
 
 			checkBoxPos = { question.pos.x + 10, question.ans[j].pos.y + 15 };
 			clickRecPos.x = question.pos.x;
@@ -687,84 +726,86 @@ void Body::drawAnswer(Questions question) {
 	}
 }
 void Body::drawQuestions(Questions question1[]) {
-
-	DrawRectangleRec(field, GRAY);
-	question.pos.x = field.x + 30;
-	question.pos.y = field.y + 15;
-	question.color = BLACK;
-	if (questionTurn[0]) {
-		question.question = question1[0].question;
-		question.ans[0].text = question1[0].ans[0].text;
-		question.ans[1].text = question1[0].ans[1].text;
-		question.ans[2].text = question1[0].ans[2].text;
-		question.ans[3].text = question1[0].ans[3].text;
+	if (!showAlert) {
+		DrawRectangleRec(field, GRAY);
+		question.pos.x = field.x + 30;
+		question.pos.y = field.y + 15;
+		question.color = BLACK;
+		if (questionTurn[0]) {
+			question.question = question1[0].question;
+			question.ans[0].text = question1[0].ans[0].text;
+			question.ans[1].text = question1[0].ans[1].text;
+			question.ans[2].text = question1[0].ans[2].text;
+			question.ans[3].text = question1[0].ans[3].text;
+		}
+		else if (questionTurn[1]) {
+			question.question = question1[1].question;
+			question.ans[0].text = question1[1].ans[0].text;
+			question.ans[1].text = question1[1].ans[1].text;
+			question.ans[2].text = question1[1].ans[2].text;
+			question.ans[3].text = question1[1].ans[3].text;
+		}
+		else if (questionTurn[2]) {
+			question.question = question1[2].question;
+			question.ans[0].text = question1[2].ans[0].text;
+			question.ans[1].text = question1[2].ans[1].text;
+			question.ans[2].text = question1[2].ans[2].text;
+			question.ans[3].text = question1[2].ans[3].text;
+		}
+		else if (questionTurn[3]) {
+			question.question = question1[3].question;
+			question.ans[0].text = question1[3].ans[0].text;
+			question.ans[1].text = question1[3].ans[1].text;
+			question.ans[2].text = question1[3].ans[2].text;
+			question.ans[3].text = question1[3].ans[3].text;
+		}
+		else if (questionTurn[4]) {
+			question.question = question1[4].question;
+			question.ans[0].text = question1[4].ans[0].text;
+			question.ans[1].text = question1[4].ans[1].text;
+			question.ans[2].text = question1[4].ans[2].text;
+			question.ans[3].text = question1[4].ans[3].text;
+		}
+		else if (questionTurn[5]) {
+			question.question = question1[5].question;
+			question.ans[0].text = question1[5].ans[0].text;
+			question.ans[1].text = question1[5].ans[1].text;
+			question.ans[2].text = question1[5].ans[2].text;
+			question.ans[3].text = question1[5].ans[3].text;
+		}
+		else if (questionTurn[6]) {
+			question.question = question1[6].question;
+			question.ans[0].text = question1[6].ans[0].text;
+			question.ans[1].text = question1[6].ans[1].text;
+			question.ans[2].text = question1[6].ans[2].text;
+			question.ans[3].text = question1[6].ans[3].text;
+		}
+		else if (questionTurn[7]) {
+			question.question = question1[7].question;
+			question.ans[0].text = question1[7].ans[0].text;
+			question.ans[1].text = question1[7].ans[1].text;
+			question.ans[2].text = question1[7].ans[2].text;
+			question.ans[3].text = question1[7].ans[3].text;
+		}
+		else if (questionTurn[8]) {
+			question.question = question1[8].question;
+			question.ans[0].text = question1[8].ans[0].text;
+			question.ans[1].text = question1[8].ans[1].text;
+			question.ans[2].text = question1[8].ans[2].text;
+			question.ans[3].text = question1[8].ans[3].text;
+		}
+		else if (questionTurn[9]) {
+			question.question = question1[9].question;
+			question.ans[0].text = question1[9].ans[0].text;
+			question.ans[1].text = question1[9].ans[1].text;
+			question.ans[2].text = question1[9].ans[2].text;
+			question.ans[3].text = question1[9].ans[3].text;
+		}
+		drawAnswer(question);
+		drawTestButtons();
+		drawQuestionNum(sWidth / 2 - sWidth / 45 * 7, sHeight - 75, question);
 	}
-	else if (questionTurn[1]) {
-		question.question = question1[1].question;
-		question.ans[0].text = question1[1].ans[0].text;
-		question.ans[1].text = question1[1].ans[1].text;
-		question.ans[2].text = question1[1].ans[2].text;
-		question.ans[3].text = question1[1].ans[3].text;
-	}
-	else if (questionTurn[2]) {
-		question.question = question1[2].question;
-		question.ans[0].text = question1[2].ans[0].text;
-		question.ans[1].text = question1[2].ans[1].text;
-		question.ans[2].text = question1[2].ans[2].text;
-		question.ans[3].text = question1[2].ans[3].text;
-	}
-	else if (questionTurn[3]) {
-		question.question = question1[3].question;
-		question.ans[0].text = question1[3].ans[0].text;
-		question.ans[1].text = question1[3].ans[1].text;
-		question.ans[2].text = question1[3].ans[2].text;
-		question.ans[3].text = question1[3].ans[3].text;
-	}
-	else if (questionTurn[4]) {
-		question.question = question1[4].question;
-		question.ans[0].text = question1[4].ans[0].text;
-		question.ans[1].text = question1[4].ans[1].text;
-		question.ans[2].text = question1[4].ans[2].text;
-		question.ans[3].text = question1[4].ans[3].text;
-	}
-	else if (questionTurn[5]) {
-		question.question = question1[5].question;
-		question.ans[0].text = question1[5].ans[0].text;
-		question.ans[1].text = question1[5].ans[1].text;
-		question.ans[2].text = question1[5].ans[2].text;
-		question.ans[3].text = question1[5].ans[3].text;
-	}
-	else if (questionTurn[6]) {
-		question.question = question1[6].question;
-		question.ans[0].text = question1[6].ans[0].text;
-		question.ans[1].text = question1[6].ans[1].text;
-		question.ans[2].text = question1[6].ans[2].text;
-		question.ans[3].text = question1[6].ans[3].text;
-	}
-	else if (questionTurn[7]) {
-		question.question = question1[7].question;
-		question.ans[0].text = question1[7].ans[0].text;
-		question.ans[1].text = question1[7].ans[1].text;
-		question.ans[2].text = question1[7].ans[2].text;
-		question.ans[3].text = question1[7].ans[3].text;
-	}
-	else if (questionTurn[8]) {
-		question.question = question1[8].question;
-		question.ans[0].text = question1[8].ans[0].text;
-		question.ans[1].text = question1[8].ans[1].text;
-		question.ans[2].text = question1[8].ans[2].text;
-		question.ans[3].text = question1[8].ans[3].text;
-	}
-	else if (questionTurn[9]) {
-		question.question = question1[9].question;
-		question.ans[0].text = question1[9].ans[0].text;
-		question.ans[1].text = question1[9].ans[1].text;
-		question.ans[2].text = question1[9].ans[2].text;
-		question.ans[3].text = question1[9].ans[3].text;
-	}
-	drawAnswer(question);
-	drawTestButtons();
-	drawQuestionNum(sWidth / 2 - sWidth / 45 * 7, sHeight - 75, question);
+	else drawAlertForEnd();
 }
 
 

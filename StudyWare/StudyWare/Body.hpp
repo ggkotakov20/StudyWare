@@ -76,6 +76,7 @@ public:
 	int countForAns = 0;
 
 	void drawTestButtons();
+	void drawAlertForEnd();
 	void drawQuestionNum(float posX, float posY, Questions question);
 	void drawAnswer(Questions question);
 	void drawQuestions(Questions question1[]);
@@ -83,6 +84,7 @@ public:
 
 
 	bool inTest = true;
+	bool showAlert = false;
 
 	static std::shared_ptr<Body> getInstance();
 private:
