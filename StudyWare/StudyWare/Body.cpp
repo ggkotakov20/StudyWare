@@ -166,19 +166,19 @@ void Body::drawAlertForEnd() {
 	yesBtn.rounding = 1;
 	yesBtn.hovering = CheckCollisionPointRec(GetMousePosition(), yesBtn.bounds);
 	yesBtn.text = "Yes, finish attempt";
-	yesBtn.color = GRAY;
+	yesBtn.color = BUTTON;
 
 	noBtn.bounds = { (float)sWidth / 2 - 280, (float)sHeight / 2, 250, 50 };
 	noBtn.rounding = 1;
 	noBtn.hovering = CheckCollisionPointRec(GetMousePosition(), noBtn.bounds);
 	noBtn.text = "No, back to attempt";
-	noBtn.color = GRAY;
+	noBtn.color = BUTTON;
 
 	Vector2 textPos = { sWidth / 2 - 475, sHeight / 2 - 100 };
 	DrawText("Are you sure you want to finish attempt", textPos.x, textPos.y, 50, BLACK);
 
 	Vector2 yesBtnPos = { yesBtn.bounds.x + yesBtn.bounds.width / 2 - MeasureText(yesBtn.text, 20) / 2, yesBtn.bounds.y + 15 };
-	if (yesBtn.hovering) yesBtn.color = DARKGRAY;
+	if (yesBtn.hovering) yesBtn.color = BUTTONHOVER;
 	DrawRectangleRounded(yesBtn.bounds, yesBtn.rounding, yesBtn.rounding, yesBtn.color);
 	DrawText(yesBtn.text, yesBtnPos.x, yesBtnPos.y, 20, BLACK);
 
@@ -192,7 +192,7 @@ void Body::drawAlertForEnd() {
 	}
 
 	Vector2 noBtnPos = { noBtn.bounds.x + noBtn.bounds.width / 2 - MeasureText(noBtn.text, 20) / 2, noBtn.bounds.y + 15 };
-	if (noBtn.hovering) noBtn.color = DARKGRAY;
+	if (noBtn.hovering) noBtn.color = BUTTONHOVER;
 	DrawRectangleRounded(noBtn.bounds, noBtn.rounding, noBtn.rounding, noBtn.color);
 	DrawText(noBtn.text, noBtnPos.x, noBtnPos.y, 20, BLACK);
 
@@ -209,9 +209,9 @@ void Body::drawTestButtons(Questions question1[]) {
 		previousBtn.rounding = 1;
 		previousBtn.hovering = CheckCollisionPointRec(GetMousePosition(), previousBtn.bounds);
 		previousBtn.text = "Previous";
-		previousBtn.color = GRAY;
+		previousBtn.color = BUTTON;
 
-		if (previousBtn.hovering) previousBtn.color = DARKGRAY;
+		if (previousBtn.hovering) previousBtn.color = BUTTONHOVER;
 		DrawRectangleRounded(previousBtn.bounds, previousBtn.rounding, previousBtn.rounding, previousBtn.color);
 		DrawText(previousBtn.text, previousBtn.bounds.x + previousBtn.bounds.width / 2 - MeasureText(previousBtn.text, 20) / 2, previousBtn.bounds.y + 15, 20, BLACK);
 
@@ -335,9 +335,9 @@ void Body::drawTestButtons(Questions question1[]) {
 		nextBtn.rounding = 1;
 		nextBtn.hovering = CheckCollisionPointRec(GetMousePosition(), nextBtn.bounds);
 		nextBtn.text = "Next";
-		nextBtn.color = GRAY;
+		nextBtn.color = BUTTON;
 
-		if (nextBtn.hovering) nextBtn.color = DARKGRAY;
+		if (nextBtn.hovering) nextBtn.color = BUTTONHOVER;
 		DrawRectangleRounded(nextBtn.bounds, nextBtn.rounding, nextBtn.rounding, nextBtn.color);
 		DrawText(nextBtn.text, nextBtn.bounds.x + nextBtn.bounds.width / 2 - MeasureText(nextBtn.text, 20) / 2, nextBtn.bounds.y + 15, 20, BLACK);
 
@@ -467,9 +467,9 @@ void Body::drawTestButtons(Questions question1[]) {
 
 	finishBtn.rounding = 1;
 	finishBtn.hovering = CheckCollisionPointRec(GetMousePosition(), finishBtn.bounds);
-	finishBtn.color = GRAY;
+	finishBtn.color = BUTTON;
 
-	if (finishBtn.hovering) finishBtn.color = DARKGRAY;
+	if (finishBtn.hovering) finishBtn.color = BUTTONHOVER;
 
 	DrawRectangleRounded(finishBtn.bounds, finishBtn.rounding, finishBtn.rounding, finishBtn.color);
 	DrawText(finishBtn.text, finishBtn.bounds.x + finishBtn.bounds.width / 2 - MeasureText(finishBtn.text, 20) / 2, finishBtn.bounds.y + 15, 20, BLACK);
@@ -499,7 +499,7 @@ void Body::drawQuestionNum(float posX, float posY, Questions question[]) {
 	Color secondRec = WHITE;
 	for (int i = 0; i < 10; i++) {
 		if (questionTurn[i])
-			secondRec = BLUE;
+			secondRec = BUTTON;
 		else if (question[i].ans[question[i].currectAns].checked && showResult)
 			secondRec = GREEN;
 		else if (!question[i].ans[question[i].currectAns].checked && showResult)
@@ -664,12 +664,12 @@ void Body::drawQuestions(Questions question1[]) {
 
 					checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
 					clickRecPos.x = question1[i].pos.x;
-					clickRecPos.y = question1[i].ans[j].pos.y;
+					clickRecPos.y = question1[i].ans[j].pos.y - 5;
 					clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
 					if (questionTurn[5] && testfor == TestFor::LIVER)
 						clickRecPos.height = 70;
 					else
-						clickRecPos.height = 30;
+						clickRecPos.height = 40;
 					/*DrawRectangleRec(clickRecPos, BLACK);*/
 					if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && !showResult) {
 						question1[i].ans[0].checked = true;
@@ -709,13 +709,13 @@ void Body::drawQuestions(Questions question1[]) {
 
 					checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
 					clickRecPos.x = question1[i].pos.x;
-					clickRecPos.y = question1[i].ans[j].pos.y;
+					clickRecPos.y = question1[i].ans[j].pos.y - 5;
 					clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
 					if (questionTurn[5] && testfor == TestFor::LIVER)
 						clickRecPos.height = 70;
 					else
-						clickRecPos.height = 30;
-					/*DrawRectangleRec(clickRecPos, BLACK);*/
+						clickRecPos.height = 40;
+					/*DrawRectangleRec(clickRecPos, BLACK)*/;
 					if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && !showResult) {
 						question1[i].ans[0].checked = false;
 						question1[i].ans[1].checked = true;
@@ -754,12 +754,12 @@ void Body::drawQuestions(Questions question1[]) {
 
 					checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
 					clickRecPos.x = question1[i].pos.x;
-					clickRecPos.y = question1[i].ans[j].pos.y;
+					clickRecPos.y = question1[i].ans[j].pos.y - 5;
 					clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
 					if ((questionTurn[5] && testfor == TestFor::LIVER) || ((questionTurn[4] || questionTurn[5] || questionTurn[6] || questionTurn[7]) && testfor == TestFor::INTESTINES))
 						clickRecPos.height = 70;
 					else
-						clickRecPos.height = 30;
+						clickRecPos.height = 40;
 					/*DrawRectangleRec(clickRecPos, BLACK);*/
 					if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && !showResult) {
 						question1[i].ans[0].checked = false;
@@ -800,12 +800,12 @@ void Body::drawQuestions(Questions question1[]) {
 
 					checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
 					clickRecPos.x = question1[i].pos.x;
-					clickRecPos.y = question1[i].ans[j].pos.y;
+					clickRecPos.y = question1[i].ans[j].pos.y - 5;
 					clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
 					if (questionTurn[5] && testfor == TestFor::LIVER)
 						clickRecPos.height = 70;
 					else
-						clickRecPos.height = 30;
+						clickRecPos.height = 40;
 					/*DrawRectangleRec(clickRecPos, BLACK);*/
 					if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && !showResult) {
 						question1[i].ans[0].checked = false;
@@ -854,12 +854,12 @@ void Body::drawQuestions(Questions question1[]) {
 
 					checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
 					clickRecPos.x = question1[i].pos.x;
-					clickRecPos.y = question1[i].ans[j].pos.y;
+					clickRecPos.y = question1[i].ans[j].pos.y - 5;
 					clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
 					if (questionTurn[5] && testfor == TestFor::LIVER)
 						clickRecPos.height = 70;
 					else
-						clickRecPos.height = 30;
+						clickRecPos.height = 40;
 					/*DrawRectangleRec(clickRecPos, BLACK);*/
 					if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && !showResult) {
 						question1[i].ans[0].checked = true;
@@ -899,12 +899,12 @@ void Body::drawQuestions(Questions question1[]) {
 
 					checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
 					clickRecPos.x = question1[i].pos.x;
-					clickRecPos.y = question1[i].ans[j].pos.y;
+					clickRecPos.y = question1[i].ans[j].pos.y - 5;
 					clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
 					if (questionTurn[5] && testfor == TestFor::LIVER)
 						clickRecPos.height = 70;
 					else
-						clickRecPos.height = 30;
+						clickRecPos.height = 40;
 					/*DrawRectangleRec(clickRecPos, BLACK);*/
 					if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && !showResult) {
 						question1[i].ans[0].checked = false;
@@ -944,12 +944,12 @@ void Body::drawQuestions(Questions question1[]) {
 
 					checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
 					clickRecPos.x = question1[i].pos.x;
-					clickRecPos.y = question1[i].ans[j].pos.y;
+					clickRecPos.y = question1[i].ans[j].pos.y - 5;
 					clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
 					if ((questionTurn[5] && testfor == TestFor::LIVER) || ((questionTurn[4] || questionTurn[5] || questionTurn[6] || questionTurn[7]) && testfor == TestFor::INTESTINES))
 						clickRecPos.height = 70;
 					else
-						clickRecPos.height = 30;
+						clickRecPos.height = 40;
 					/*DrawRectangleRec(clickRecPos, BLACK);*/
 					if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && !showResult) {
 						question1[i].ans[0].checked = false;
@@ -990,12 +990,12 @@ void Body::drawQuestions(Questions question1[]) {
 
 					checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
 					clickRecPos.x = question1[i].pos.x;
-					clickRecPos.y = question1[i].ans[j].pos.y;
+					clickRecPos.y = question1[i].ans[j].pos.y - 5;
 					clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
 					if (questionTurn[5] && testfor == TestFor::LIVER)
 						clickRecPos.height = 70;
 					else
-						clickRecPos.height = 30;
+						clickRecPos.height = 40;
 					/*DrawRectangleRec(clickRecPos, BLACK);*/
 					if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && !showResult) {
 						question1[i].ans[0].checked = false;
@@ -1049,7 +1049,7 @@ void Body::drawQuestions(Questions question1[]) {
 					if (questionTurn[5] && testfor == TestFor::LIVER)
 						clickRecPos.height = 70;
 					else
-						clickRecPos.height = 30;
+						clickRecPos.height = 40;
 					/*DrawRectangleRec(clickRecPos, BLACK);*/
 					if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && !showResult) {
 						question1[i].ans[0].checked = true;
@@ -1089,12 +1089,12 @@ void Body::drawQuestions(Questions question1[]) {
 
 					checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
 					clickRecPos.x = question1[i].pos.x;
-					clickRecPos.y = question1[i].ans[j].pos.y;
+					clickRecPos.y = question1[i].ans[j].pos.y - 5;
 					clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
 					if (questionTurn[5] && testfor == TestFor::LIVER)
 						clickRecPos.height = 70;
 					else
-						clickRecPos.height = 30;
+						clickRecPos.height = 40;
 					/*DrawRectangleRec(clickRecPos, BLACK);*/
 					if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && !showResult) {
 						question1[i].ans[0].checked = false;
@@ -1139,7 +1139,7 @@ void Body::drawQuestions(Questions question1[]) {
 					if ((questionTurn[5] && testfor == TestFor::LIVER) || ((questionTurn[4] || questionTurn[5] || questionTurn[6] || questionTurn[7]) && testfor == TestFor::INTESTINES))
 						clickRecPos.height = 70;
 					else
-						clickRecPos.height = 30;
+						clickRecPos.height = 40;
 					/*DrawRectangleRec(clickRecPos, BLACK);*/
 					if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && !showResult) {
 						question1[i].ans[0].checked = false;
@@ -1180,12 +1180,12 @@ void Body::drawQuestions(Questions question1[]) {
 
 					checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
 					clickRecPos.x = question1[i].pos.x;
-					clickRecPos.y = question1[i].ans[j].pos.y;
+					clickRecPos.y = question1[i].ans[j].pos.y - 5;
 					clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
 					if (questionTurn[5] && testfor == TestFor::LIVER)
 						clickRecPos.height = 70;
 					else
-						clickRecPos.height = 30;
+						clickRecPos.height = 40;
 					/*DrawRectangleRec(clickRecPos, BLACK);*/
 					if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && !showResult) {
 						question1[i].ans[0].checked = false;
@@ -1234,12 +1234,12 @@ void Body::drawQuestions(Questions question1[]) {
 
 					checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
 					clickRecPos.x = question1[i].pos.x;
-					clickRecPos.y = question1[i].ans[j].pos.y;
+					clickRecPos.y = question1[i].ans[j].pos.y - 5;
 					clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
 					if (questionTurn[5] && testfor == TestFor::LIVER)
 						clickRecPos.height = 70;
 					else
-						clickRecPos.height = 30;
+						clickRecPos.height = 40;
 					/*DrawRectangleRec(clickRecPos, BLACK);*/
 					if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && !showResult) {
 						question1[i].ans[0].checked = true;
@@ -1279,12 +1279,12 @@ void Body::drawQuestions(Questions question1[]) {
 
 					checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
 					clickRecPos.x = question1[i].pos.x;
-					clickRecPos.y = question1[i].ans[j].pos.y;
+					clickRecPos.y = question1[i].ans[j].pos.y - 5;
 					clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
 					if (questionTurn[5] && testfor == TestFor::LIVER)
 						clickRecPos.height = 70;
 					else
-						clickRecPos.height = 30;
+						clickRecPos.height = 40;
 					/*DrawRectangleRec(clickRecPos, BLACK);*/
 					if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && !showResult) {
 						question1[i].ans[0].checked = false;
@@ -1324,12 +1324,12 @@ void Body::drawQuestions(Questions question1[]) {
 
 					checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
 					clickRecPos.x = question1[i].pos.x;
-					clickRecPos.y = question1[i].ans[j].pos.y;
+					clickRecPos.y = question1[i].ans[j].pos.y - 5;
 					clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
 					if ((questionTurn[5] && testfor == TestFor::LIVER) || ((questionTurn[4] || questionTurn[5] || questionTurn[6] || questionTurn[7]) && testfor == TestFor::INTESTINES))
 						clickRecPos.height = 70;
 					else
-						clickRecPos.height = 30;
+						clickRecPos.height = 40;
 					/*DrawRectangleRec(clickRecPos, BLACK);*/
 					if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && !showResult) {
 						question1[i].ans[0].checked = false;
@@ -1370,12 +1370,12 @@ void Body::drawQuestions(Questions question1[]) {
 
 					checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
 					clickRecPos.x = question1[i].pos.x;
-					clickRecPos.y = question1[i].ans[j].pos.y;
+					clickRecPos.y = question1[i].ans[j].pos.y - 5;
 					clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
 					if (questionTurn[5] && testfor == TestFor::LIVER)
 						clickRecPos.height = 70;
 					else
-						clickRecPos.height = 30;
+						clickRecPos.height = 40;
 					/*DrawRectangleRec(clickRecPos, BLACK);*/
 					if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && !showResult) {
 						question1[i].ans[0].checked = false;
@@ -1424,12 +1424,12 @@ void Body::drawQuestions(Questions question1[]) {
 
 					checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
 					clickRecPos.x = question1[i].pos.x;
-					clickRecPos.y = question1[i].ans[j].pos.y;
+					clickRecPos.y = question1[i].ans[j].pos.y - 5;
 					clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
 					if (questionTurn[5] && testfor == TestFor::LIVER)
 						clickRecPos.height = 70;
 					else
-						clickRecPos.height = 30;
+						clickRecPos.height = 40;
 					/*DrawRectangleRec(clickRecPos, BLACK);*/
 					if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && !showResult) {
 						question1[i].ans[0].checked = true;
@@ -1469,12 +1469,12 @@ void Body::drawQuestions(Questions question1[]) {
 
 					checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
 					clickRecPos.x = question1[i].pos.x;
-					clickRecPos.y = question1[i].ans[j].pos.y;
+					clickRecPos.y = question1[i].ans[j].pos.y - 5;
 					clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
 					if (questionTurn[5] && testfor == TestFor::LIVER)
 						clickRecPos.height = 70;
 					else
-						clickRecPos.height = 30;
+						clickRecPos.height = 40;
 					/*DrawRectangleRec(clickRecPos, BLACK);*/
 					if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && !showResult) {
 						question1[i].ans[0].checked = false;
@@ -1514,12 +1514,12 @@ void Body::drawQuestions(Questions question1[]) {
 
 					checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
 					clickRecPos.x = question1[i].pos.x;
-					clickRecPos.y = question1[i].ans[j].pos.y;
+					clickRecPos.y = question1[i].ans[j].pos.y - 5;
 					clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
 					if ((questionTurn[5] && testfor == TestFor::LIVER) || ((questionTurn[4] || questionTurn[5] || questionTurn[6] || questionTurn[7]) && testfor == TestFor::INTESTINES))
 						clickRecPos.height = 70;
 					else
-						clickRecPos.height = 30;
+						clickRecPos.height = 40;
 					/*DrawRectangleRec(clickRecPos, BLACK);*/
 					if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && !showResult) {
 						question1[i].ans[0].checked = false;
@@ -1560,12 +1560,12 @@ void Body::drawQuestions(Questions question1[]) {
 
 					checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
 					clickRecPos.x = question1[i].pos.x;
-					clickRecPos.y = question1[i].ans[j].pos.y;
+					clickRecPos.y = question1[i].ans[j].pos.y - 5;
 					clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
 					if (questionTurn[5] && testfor == TestFor::LIVER)
 						clickRecPos.height = 70;
 					else
-						clickRecPos.height = 30;
+						clickRecPos.height = 40;
 					/*DrawRectangleRec(clickRecPos, BLACK);*/
 					if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && !showResult) {
 						question1[i].ans[0].checked = false;
@@ -1614,12 +1614,12 @@ void Body::drawQuestions(Questions question1[]) {
 
 					checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
 					clickRecPos.x = question1[i].pos.x;
-					clickRecPos.y = question1[i].ans[j].pos.y;
+					clickRecPos.y = question1[i].ans[j].pos.y - 5;
 					clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
 					if (questionTurn[5] && testfor == TestFor::LIVER)
 						clickRecPos.height = 70;
 					else
-						clickRecPos.height = 30;
+						clickRecPos.height = 40;
 					/*DrawRectangleRec(clickRecPos, BLACK);*/
 					if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && !showResult) {
 						question1[i].ans[0].checked = true;
@@ -1659,12 +1659,12 @@ void Body::drawQuestions(Questions question1[]) {
 
 					checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
 					clickRecPos.x = question1[i].pos.x;
-					clickRecPos.y = question1[i].ans[j].pos.y;
+					clickRecPos.y = question1[i].ans[j].pos.y - 5;
 					clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
 					if (questionTurn[5] && testfor == TestFor::LIVER)
 						clickRecPos.height = 70;
 					else
-						clickRecPos.height = 30;
+						clickRecPos.height = 40;
 					/*DrawRectangleRec(clickRecPos, BLACK);*/
 					if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && !showResult) {
 						question1[i].ans[0].checked = false;
@@ -1704,12 +1704,12 @@ void Body::drawQuestions(Questions question1[]) {
 
 					checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
 					clickRecPos.x = question1[i].pos.x;
-					clickRecPos.y = question1[i].ans[j].pos.y;
+					clickRecPos.y = question1[i].ans[j].pos.y - 5;
 					clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
 					if ((questionTurn[5] && testfor == TestFor::LIVER) || ((questionTurn[4] || questionTurn[5] || questionTurn[6] || questionTurn[7]) && testfor == TestFor::INTESTINES))
 						clickRecPos.height = 70;
 					else
-						clickRecPos.height = 30;
+						clickRecPos.height = 40;
 					/*DrawRectangleRec(clickRecPos, BLACK);*/
 					if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && !showResult) {
 						question1[i].ans[0].checked = false;
@@ -1750,12 +1750,12 @@ void Body::drawQuestions(Questions question1[]) {
 
 					checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
 					clickRecPos.x = question1[i].pos.x;
-					clickRecPos.y = question1[i].ans[j].pos.y;
+					clickRecPos.y = question1[i].ans[j].pos.y - 5;
 					clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
 					if (questionTurn[5] && testfor == TestFor::LIVER)
 						clickRecPos.height = 70;
 					else
-						clickRecPos.height = 30;
+						clickRecPos.height = 40;
 					/*DrawRectangleRec(clickRecPos, BLACK);*/
 					if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && !showResult) {
 						question1[i].ans[0].checked = false;
@@ -1804,12 +1804,12 @@ void Body::drawQuestions(Questions question1[]) {
 
 					checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
 					clickRecPos.x = question1[i].pos.x;
-					clickRecPos.y = question1[i].ans[j].pos.y;
+					clickRecPos.y = question1[i].ans[j].pos.y - 5;
 					clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
 					if (questionTurn[5] && testfor == TestFor::LIVER)
 						clickRecPos.height = 70;
 					else
-						clickRecPos.height = 30;
+						clickRecPos.height = 40;
 					/*DrawRectangleRec(clickRecPos, BLACK);*/
 					if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && !showResult) {
 						question1[i].ans[0].checked = true;
@@ -1849,12 +1849,12 @@ void Body::drawQuestions(Questions question1[]) {
 
 					checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
 					clickRecPos.x = question1[i].pos.x;
-					clickRecPos.y = question1[i].ans[j].pos.y;
+					clickRecPos.y = question1[i].ans[j].pos.y - 5;
 					clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
 					if (questionTurn[5] && testfor == TestFor::LIVER)
 						clickRecPos.height = 70;
 					else
-						clickRecPos.height = 30;
+						clickRecPos.height = 40;
 					/*DrawRectangleRec(clickRecPos, BLACK);*/
 					if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && !showResult) {
 						question1[i].ans[0].checked = false;
@@ -1894,12 +1894,12 @@ void Body::drawQuestions(Questions question1[]) {
 
 					checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
 					clickRecPos.x = question1[i].pos.x;
-					clickRecPos.y = question1[i].ans[j].pos.y;
+					clickRecPos.y = question1[i].ans[j].pos.y - 5;
 					clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
 					if ((questionTurn[5] && testfor == TestFor::LIVER) || ((questionTurn[4] || questionTurn[5] || questionTurn[6] || questionTurn[7]) && testfor == TestFor::INTESTINES))
 						clickRecPos.height = 70;
 					else
-						clickRecPos.height = 30;
+						clickRecPos.height = 40;
 					/*DrawRectangleRec(clickRecPos, BLACK);*/
 					if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && !showResult) {
 						question1[i].ans[0].checked = false;
@@ -1940,12 +1940,12 @@ void Body::drawQuestions(Questions question1[]) {
 
 					checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
 					clickRecPos.x = question1[i].pos.x;
-					clickRecPos.y = question1[i].ans[j].pos.y;
+					clickRecPos.y = question1[i].ans[j].pos.y - 5;
 					clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
 					if (questionTurn[5] && testfor == TestFor::LIVER)
 						clickRecPos.height = 70;
 					else
-						clickRecPos.height = 30;
+						clickRecPos.height = 40;
 					/*DrawRectangleRec(clickRecPos, BLACK);*/
 					if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && !showResult) {
 						question1[i].ans[0].checked = false;
@@ -1994,12 +1994,12 @@ void Body::drawQuestions(Questions question1[]) {
 
 					checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
 					clickRecPos.x = question1[i].pos.x;
-					clickRecPos.y = question1[i].ans[j].pos.y;
+					clickRecPos.y = question1[i].ans[j].pos.y - 5;
 					clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
 					if (questionTurn[5] && testfor == TestFor::LIVER)
 						clickRecPos.height = 70;
 					else
-						clickRecPos.height = 30;
+						clickRecPos.height = 40;
 					/*DrawRectangleRec(clickRecPos, BLACK);*/
 					if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && !showResult) {
 						question1[i].ans[0].checked = true;
@@ -2039,12 +2039,12 @@ void Body::drawQuestions(Questions question1[]) {
 
 					checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
 					clickRecPos.x = question1[i].pos.x;
-					clickRecPos.y = question1[i].ans[j].pos.y;
+					clickRecPos.y = question1[i].ans[j].pos.y - 5;
 					clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
 					if (questionTurn[5] && testfor == TestFor::LIVER)
 						clickRecPos.height = 70;
 					else
-						clickRecPos.height = 30;
+						clickRecPos.height = 40;
 					/*DrawRectangleRec(clickRecPos, BLACK);*/
 					if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && !showResult) {
 						question1[i].ans[0].checked = false;
@@ -2084,12 +2084,12 @@ void Body::drawQuestions(Questions question1[]) {
 
 					checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
 					clickRecPos.x = question1[i].pos.x;
-					clickRecPos.y = question1[i].ans[j].pos.y;
+					clickRecPos.y = question1[i].ans[j].pos.y - 5;
 					clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
 					if ((questionTurn[5] && testfor == TestFor::LIVER) || ((questionTurn[4] || questionTurn[5] || questionTurn[6] || questionTurn[7]) && testfor == TestFor::INTESTINES))
 						clickRecPos.height = 70;
 					else
-						clickRecPos.height = 30;
+						clickRecPos.height = 40;
 					/*DrawRectangleRec(clickRecPos, BLACK);*/
 					if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && !showResult) {
 						question1[i].ans[0].checked = false;
@@ -2130,12 +2130,12 @@ void Body::drawQuestions(Questions question1[]) {
 
 					checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
 					clickRecPos.x = question1[i].pos.x;
-					clickRecPos.y = question1[i].ans[j].pos.y;
+					clickRecPos.y = question1[i].ans[j].pos.y - 5;
 					clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
 					if (questionTurn[5] && testfor == TestFor::LIVER)
 						clickRecPos.height = 70;
 					else
-						clickRecPos.height = 30;
+						clickRecPos.height = 40;
 					/*DrawRectangleRec(clickRecPos, BLACK);*/
 					if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && !showResult) {
 						question1[i].ans[0].checked = false;
@@ -2184,12 +2184,12 @@ void Body::drawQuestions(Questions question1[]) {
 
 					checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
 					clickRecPos.x = question1[i].pos.x;
-					clickRecPos.y = question1[i].ans[j].pos.y;
+					clickRecPos.y = question1[i].ans[j].pos.y - 5;
 					clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
 					if (questionTurn[5] && testfor == TestFor::LIVER)
 						clickRecPos.height = 70;
 					else
-						clickRecPos.height = 30;
+						clickRecPos.height = 40;
 					/*DrawRectangleRec(clickRecPos, BLACK);*/
 					if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && !showResult) {
 						question1[i].ans[0].checked = true;
@@ -2229,12 +2229,12 @@ void Body::drawQuestions(Questions question1[]) {
 
 					checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
 					clickRecPos.x = question1[i].pos.x;
-					clickRecPos.y = question1[i].ans[j].pos.y;
+					clickRecPos.y = question1[i].ans[j].pos.y - 5;
 					clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
 					if (questionTurn[5] && testfor == TestFor::LIVER)
 						clickRecPos.height = 70;
 					else
-						clickRecPos.height = 30;
+						clickRecPos.height = 40;
 					/*DrawRectangleRec(clickRecPos, BLACK);*/
 					if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && !showResult) {
 						question1[i].ans[0].checked = false;
@@ -2274,12 +2274,12 @@ void Body::drawQuestions(Questions question1[]) {
 
 					checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
 					clickRecPos.x = question1[i].pos.x;
-					clickRecPos.y = question1[i].ans[j].pos.y;
+					clickRecPos.y = question1[i].ans[j].pos.y - 5;
 					clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
 					if ((questionTurn[5] && testfor == TestFor::LIVER) || ((questionTurn[4] || questionTurn[5] || questionTurn[6] || questionTurn[7]) && testfor == TestFor::INTESTINES))
 						clickRecPos.height = 70;
 					else
-						clickRecPos.height = 30;
+						clickRecPos.height = 40;
 					/*DrawRectangleRec(clickRecPos, BLACK);*/
 					if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && !showResult) {
 						question1[i].ans[0].checked = false;
@@ -2320,12 +2320,12 @@ void Body::drawQuestions(Questions question1[]) {
 
 					checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
 					clickRecPos.x = question1[i].pos.x;
-					clickRecPos.y = question1[i].ans[j].pos.y;
+					clickRecPos.y = question1[i].ans[j].pos.y - 5;
 					clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
 					if (questionTurn[5] && testfor == TestFor::LIVER)
 						clickRecPos.height = 70;
 					else
-						clickRecPos.height = 30;
+						clickRecPos.height = 40;
 					/*DrawRectangleRec(clickRecPos, BLACK);*/
 					if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && !showResult) {
 						question1[i].ans[0].checked = false;
@@ -2374,12 +2374,12 @@ void Body::drawQuestions(Questions question1[]) {
 
 					checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
 					clickRecPos.x = question1[i].pos.x;
-					clickRecPos.y = question1[i].ans[j].pos.y;
+					clickRecPos.y = question1[i].ans[j].pos.y - 5;
 					clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
 					if (questionTurn[5] && testfor == TestFor::LIVER)
 						clickRecPos.height = 70;
 					else
-						clickRecPos.height = 30;
+						clickRecPos.height = 40;
 					/*DrawRectangleRec(clickRecPos, BLACK);*/
 					if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && !showResult) {
 						question1[i].ans[0].checked = true;
@@ -2419,12 +2419,12 @@ void Body::drawQuestions(Questions question1[]) {
 
 					checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
 					clickRecPos.x = question1[i].pos.x;
-					clickRecPos.y = question1[i].ans[j].pos.y;
+					clickRecPos.y = question1[i].ans[j].pos.y - 5;
 					clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
 					if (questionTurn[5] && testfor == TestFor::LIVER)
 						clickRecPos.height = 70;
 					else
-						clickRecPos.height = 30;
+						clickRecPos.height = 40;
 					/*DrawRectangleRec(clickRecPos, BLACK);*/
 					if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && !showResult) {
 						question1[i].ans[0].checked = false;
@@ -2464,12 +2464,12 @@ void Body::drawQuestions(Questions question1[]) {
 
 					checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
 					clickRecPos.x = question1[i].pos.x;
-					clickRecPos.y = question1[i].ans[j].pos.y;
+					clickRecPos.y = question1[i].ans[j].pos.y - 5;
 					clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
 					if ((questionTurn[5] && testfor == TestFor::LIVER) || ((questionTurn[4] || questionTurn[5] || questionTurn[6] || questionTurn[7]) && testfor == TestFor::INTESTINES))
 						clickRecPos.height = 70;
 					else
-						clickRecPos.height = 30;
+						clickRecPos.height = 40;
 					/*DrawRectangleRec(clickRecPos, BLACK);*/
 					if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && !showResult) {
 						question1[i].ans[0].checked = false;
@@ -2510,12 +2510,12 @@ void Body::drawQuestions(Questions question1[]) {
 
 					checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
 					clickRecPos.x = question1[i].pos.x;
-					clickRecPos.y = question1[i].ans[j].pos.y;
+					clickRecPos.y = question1[i].ans[j].pos.y - 5;
 					clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
 					if (questionTurn[5] && testfor == TestFor::LIVER)
 						clickRecPos.height = 70;
 					else
-						clickRecPos.height = 30;
+						clickRecPos.height = 40;
 					/*DrawRectangleRec(clickRecPos, BLACK);*/
 					if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && !showResult) {
 						question1[i].ans[0].checked = false;
@@ -2550,8 +2550,8 @@ void Body::drawQuestions(Questions question1[]) {
 }
 void Body::drawScore(Questions question1[], int result) {
 	for (int i = 0; i < 10; i++) if (question1[i].ans[question1[i].currectAns].checked) result += 10;
-	DrawRectangleRec(field, GRAY);
-	DrawText(TextFormat("Result: %d", result), field.x + 30, field.y + 15, 30, BLACK);
+	DrawRectangleRec(field, MENUBACKGROUND);
+	DrawText(TextFormat("Result: %d %%", result), field.x + 30, field.y + 15, testFontSize, BLACK);
 	
 	drawQuestions(question1);
 	drawTestButtons(question1);
@@ -2560,7 +2560,7 @@ void Body::drawScore(Questions question1[], int result) {
 void Body::drawTest(Questions question1[]) {
 	int result = 0;
 	if (!showAlert && !showResult) {
-		DrawRectangleRec(field, GRAY);
+		DrawRectangleRec(field, MENUBACKGROUND);
 		drawQuestions(question1);
 
 		drawTestButtons(question1);
@@ -2580,9 +2580,9 @@ void Body::cancelBtn(float posX, float posY) {
 	cancel.rounding = 1;
 	cancel.hovering = CheckCollisionPointRec(GetMousePosition(), cancel.bounds);
 	cancel.text = "Cancel";
-	cancel.color = GRAY;
+	cancel.color = BUTTON;
 
-	if (cancel.hovering) cancel.color = DARKGRAY;
+	if (cancel.hovering) cancel.color = BUTTONHOVER;
 	DrawRectangleRounded(cancel.bounds, cancel.rounding, cancel.rounding, cancel.color);
 	DrawText(cancel.text, cancel.bounds.x + cancel.bounds.width / 2 - MeasureText(cancel.text, 20) / 2, cancel.bounds.y + 11, 20, BLACK);
 	if (cancel.hovering && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
@@ -2603,9 +2603,9 @@ void Body::testBtn(float posX, float posY, TestFor test) {
 	testBTN.rounding = 1;
 	testBTN.hovering = CheckCollisionPointRec(GetMousePosition(), testBTN.bounds);
 	testBTN.text = "Test";
-	testBTN.color = GRAY;
+	testBTN.color = BUTTON;
 
-	if (testBTN.hovering) testBTN.color = DARKGRAY;
+	if (testBTN.hovering) testBTN.color = BUTTONHOVER;
 	DrawRectangleRounded(testBTN.bounds, testBTN.rounding, testBTN.rounding, testBTN.color);
 	DrawText(testBTN.text, testBTN.bounds.x + testBTN.bounds.width / 2 - MeasureText(testBTN.text, 20) / 2, testBTN.bounds.y + 11, 20, BLACK);
 	if (testBTN.hovering && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
@@ -2618,9 +2618,9 @@ void Body::organsBtn() {
 	brainBTN.rounding = 1;
 	brainBTN.hovering = CheckCollisionPointRec(GetMousePosition(), brainBTN.bounds);
 	brainBTN.text = "Brain";
-	brainBTN.color = ORGANBTN;
+	brainBTN.color = BUTTON;
 
-	if (brainBTN.hovering) brainBTN.color = ORGANBTNHOVER;
+	if (brainBTN.hovering) brainBTN.color = BUTTONHOVER;
 	DrawRectangleRounded(brainBTN.bounds, brainBTN.rounding, brainBTN.rounding, brainBTN.color);
 	DrawText(brainBTN.text, brainBTN.bounds.x + brainBTN.bounds.width / 2 - MeasureText(brainBTN.text, 20) / 2, brainBTN.bounds.y + 11, 22, BLACK);
 
@@ -2628,9 +2628,9 @@ void Body::organsBtn() {
 	lungsBTN.rounding = 1;
 	lungsBTN.hovering = CheckCollisionPointRec(GetMousePosition(), lungsBTN.bounds);
 	lungsBTN.text = "Lungs";
-	lungsBTN.color = ORGANBTN;
+	lungsBTN.color = BUTTON;
 
-	if (lungsBTN.hovering) lungsBTN.color = ORGANBTNHOVER;
+	if (lungsBTN.hovering) lungsBTN.color = BUTTONHOVER;
 	DrawRectangleRounded(lungsBTN.bounds, lungsBTN.rounding, lungsBTN.rounding, lungsBTN.color);
 	DrawText(lungsBTN.text, lungsBTN.bounds.x + lungsBTN.bounds.width / 2 - MeasureText(lungsBTN.text, 20) / 2, lungsBTN.bounds.y + 11, 22, BLACK);
 
@@ -2638,9 +2638,9 @@ void Body::organsBtn() {
 	heartBTN.rounding = 1;
 	heartBTN.hovering = CheckCollisionPointRec(GetMousePosition(), heartBTN.bounds);
 	heartBTN.text = "Heart";
-	heartBTN.color = ORGANBTN;
+	heartBTN.color = BUTTON;
 
-	if (heartBTN.hovering) heartBTN.color = ORGANBTNHOVER;
+	if (heartBTN.hovering) heartBTN.color = BUTTONHOVER;
 	DrawRectangleRounded(heartBTN.bounds, heartBTN.rounding, heartBTN.rounding, heartBTN.color);
 	DrawText(heartBTN.text, heartBTN.bounds.x + heartBTN.bounds.width / 2 - MeasureText(heartBTN.text, 20) / 2, heartBTN.bounds.y + 11, 22, BLACK);
 
@@ -2648,9 +2648,9 @@ void Body::organsBtn() {
 	liverBTN.rounding = 1;
 	liverBTN.hovering = CheckCollisionPointRec(GetMousePosition(), liverBTN.bounds);
 	liverBTN.text = "Liver";
-	liverBTN.color = ORGANBTN;
+	liverBTN.color = BUTTON;
 
-	if (liverBTN.hovering) liverBTN.color = ORGANBTNHOVER;
+	if (liverBTN.hovering) liverBTN.color = BUTTONHOVER;
 	DrawRectangleRounded(liverBTN.bounds, liverBTN.rounding, liverBTN.rounding, liverBTN.color);
 	DrawText(liverBTN.text, liverBTN.bounds.x + liverBTN.bounds.width / 2 - MeasureText(liverBTN.text, 20) / 2, liverBTN.bounds.y + 11, 22, BLACK);
 
@@ -2658,9 +2658,9 @@ void Body::organsBtn() {
 	kidneyBTN.rounding = 1;
 	kidneyBTN.hovering = CheckCollisionPointRec(GetMousePosition(), kidneyBTN.bounds);
 	kidneyBTN.text = "Kidney";
-	kidneyBTN.color = ORGANBTN;
+	kidneyBTN.color = BUTTON;
 
-	if (kidneyBTN.hovering) kidneyBTN.color = ORGANBTNHOVER;
+	if (kidneyBTN.hovering) kidneyBTN.color = BUTTONHOVER;
 	DrawRectangleRounded(kidneyBTN.bounds, kidneyBTN.rounding, kidneyBTN.rounding, kidneyBTN.color);
 	DrawText(kidneyBTN.text, kidneyBTN.bounds.x + kidneyBTN.bounds.width / 2 - MeasureText(kidneyBTN.text, 20) / 2, kidneyBTN.bounds.y + 11, 22, BLACK);
 
@@ -2668,9 +2668,9 @@ void Body::organsBtn() {
 	stomachBTN.rounding = 1;
 	stomachBTN.hovering = CheckCollisionPointRec(GetMousePosition(), stomachBTN.bounds);
 	stomachBTN.text = "Stomach";
-	stomachBTN.color = ORGANBTN;
+	stomachBTN.color = BUTTON;
 
-	if (stomachBTN.hovering) stomachBTN.color = ORGANBTNHOVER;
+	if (stomachBTN.hovering) stomachBTN.color = BUTTONHOVER;
 	DrawRectangleRounded(stomachBTN.bounds, stomachBTN.rounding, stomachBTN.rounding, stomachBTN.color);
 	DrawText(stomachBTN.text, stomachBTN.bounds.x + stomachBTN.bounds.width / 2 - MeasureText(stomachBTN.text, 20) / 2, stomachBTN.bounds.y + 11, 22, BLACK);
 
@@ -2678,9 +2678,9 @@ void Body::organsBtn() {
 	intestinesBTN.rounding = 1;
 	intestinesBTN.hovering = CheckCollisionPointRec(GetMousePosition(), intestinesBTN.bounds);
 	intestinesBTN.text = "Intestines";
-	intestinesBTN.color = ORGANBTN;
+	intestinesBTN.color = BUTTON;
 
-	if (intestinesBTN.hovering) intestinesBTN.color = ORGANBTNHOVER;
+	if (intestinesBTN.hovering) intestinesBTN.color = BUTTONHOVER;
 	DrawRectangleRounded(intestinesBTN.bounds, intestinesBTN.rounding, intestinesBTN.rounding, intestinesBTN.color);
 	DrawText(intestinesBTN.text, intestinesBTN.bounds.x + intestinesBTN.bounds.width / 2 - MeasureText(intestinesBTN.text, 20) / 2, intestinesBTN.bounds.y + 11, 22, BLACK);
 
@@ -2688,9 +2688,9 @@ void Body::organsBtn() {
 	reproductiveSMBTN.rounding = 1;
 	reproductiveSMBTN.hovering = CheckCollisionPointRec(GetMousePosition(), reproductiveSMBTN.bounds);
 	reproductiveSMBTN.text = "Reproductive system";
-	reproductiveSMBTN.color = ORGANBTN;
+	reproductiveSMBTN.color = BUTTON;
 
-	if (reproductiveSMBTN.hovering) reproductiveSMBTN.color = ORGANBTNHOVER;
+	if (reproductiveSMBTN.hovering) reproductiveSMBTN.color = BUTTONHOVER;
 	DrawRectangleRounded(reproductiveSMBTN.bounds, reproductiveSMBTN.rounding, reproductiveSMBTN.rounding, reproductiveSMBTN.color);
 	DrawText(reproductiveSMBTN.text, reproductiveSMBTN.bounds.x + reproductiveSMBTN.bounds.width / 2 - MeasureText(reproductiveSMBTN.text, 20) / 2 - 5, reproductiveSMBTN.bounds.y + 11, 22, BLACK);
 
@@ -2698,9 +2698,9 @@ void Body::organsBtn() {
 	nervesBTN.rounding = 1;
 	nervesBTN.hovering = CheckCollisionPointRec(GetMousePosition(), nervesBTN.bounds);
 	nervesBTN.text = "Nerves";
-	nervesBTN.color = ORGANBTN;
+	nervesBTN.color = BUTTON;
 
-	if (nervesBTN.hovering) nervesBTN.color = ORGANBTNHOVER;
+	if (nervesBTN.hovering) nervesBTN.color = BUTTONHOVER;
 	DrawRectangleRounded(nervesBTN.bounds, nervesBTN.rounding, nervesBTN.rounding, nervesBTN.color);
 	DrawText(nervesBTN.text, nervesBTN.bounds.x + nervesBTN.bounds.width / 2 - MeasureText(nervesBTN.text, 20) / 2, nervesBTN.bounds.y + 11, 22, BLACK);
 
@@ -2708,9 +2708,9 @@ void Body::organsBtn() {
 	muscleBTN.rounding = 1;
 	muscleBTN.hovering = CheckCollisionPointRec(GetMousePosition(), muscleBTN.bounds);
 	muscleBTN.text = "Muscles";
-	muscleBTN.color = ORGANBTN;
+	muscleBTN.color = BUTTON;
 
-	if (muscleBTN.hovering) muscleBTN.color = ORGANBTNHOVER;
+	if (muscleBTN.hovering) muscleBTN.color = BUTTONHOVER;
 	DrawRectangleRounded(muscleBTN.bounds, muscleBTN.rounding, muscleBTN.rounding, muscleBTN.color);
 	DrawText(muscleBTN.text, muscleBTN.bounds.x + muscleBTN.bounds.width / 2 - MeasureText(muscleBTN.text, 20) / 2, muscleBTN.bounds.y + 11, 22, BLACK);
 
@@ -2835,6 +2835,22 @@ void Body::organsBtn() {
 			nervesIsActive = false;
 			muscleIsActive = true;
 		}
+	}
+}
+void Body::backBtn(float posX, float posY) {
+	backBTN.bounds = { posX, posY, 135, 45 };
+	backBTN.rounding = 1;
+	backBTN.hovering = CheckCollisionPointRec(GetMousePosition(), backBTN.bounds);
+	backBTN.text = "Back";
+	backBTN.color = BUTTON;
+
+	std::shared_ptr<AppStatus> status = AppStatus::getInstance();
+
+	if (backBTN.hovering) backBTN.color = BUTTONHOVER;
+	DrawRectangleRounded(backBTN.bounds, backBTN.rounding, backBTN.rounding, backBTN.color);
+	DrawText(backBTN.text, backBTN.bounds.x + backBTN.bounds.width / 2 - MeasureText(backBTN.text, 20) / 2, backBTN.bounds.y + 11, 22, BLACK);
+	if (backBTN.hovering && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+		status->status = AppStatus::Status::MENU;
 	}
 }
 
@@ -3233,6 +3249,8 @@ void Body::drawMuscle() {
 
 void Body::drawBody() {
 	if (!inTest) {
+		
+		backBtn(5, 5);
 		DrawTexture(body, bodyPos.x, bodyPos.y, WHITE);
 
 		if (brainIsActive) {

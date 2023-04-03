@@ -26,6 +26,7 @@ public:
 	};
 	Button cancel;
 	Button testBTN;
+	Button backBTN;
 	Button brainBTN;
 	Button lungsBTN;
 	Button liverBTN;
@@ -42,6 +43,7 @@ public:
 	void cancelBtn(float posX, float posY);
 	void testBtn(float posX, float posY,TestFor test);
 	void organsBtn();
+	void backBtn(float posX, float posY);
 
 	void drawBrain();
 	void drawLungs();
@@ -90,7 +92,7 @@ public:
 	static std::shared_ptr<Body> getInstance();
 private:
 	static std::shared_ptr<Body> instance;
-	//std::shared_ptr<TestMode> test;
+	static std::shared_ptr<AppStatus> status;
 
 	float sWidth;
 	float sHeight;
