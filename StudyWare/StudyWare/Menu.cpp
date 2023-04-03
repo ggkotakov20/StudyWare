@@ -12,13 +12,13 @@ Menu::Menu() {
 
 
 	// Set Learning button position
-	gameMenu[0].width = 580;
+	gameMenu[0].width = sWidth / 3 ;
 	gameMenu[0].height = 100; 
 	gameMenu[0].x = sWidth / 2 - gameMenu[0].width / 2;
 	gameMenu[0].y = sHeight / 2 - gameMenu[0].height - gameMenu[0].height * 0.5 - 5;
 	
 	// Set Quit button position
-	gameMenu[1].width = 200;
+	gameMenu[1].width = sWidth / 7;
 	gameMenu[1].height = 100;
 	gameMenu[1].x = sWidth / 2 - gameMenu[1].width / 2;
 	gameMenu[1].y = sHeight / 2 - (gameMenu[1].height / 2);
@@ -36,21 +36,36 @@ std::shared_ptr<Menu> Menu::getInstance() {
 void Menu::drawMenu(Font font) {
 	auto manage = AppStatus::getInstance();
 
+	DrawText("StudyWare", sWidth / 3.25, sHeight / 8, sHeight/ 8, MAROON);
+
 	for (int i = 0; i < gameMenuOptions; i++) {
-		gameMenuPos = { gameMenu[i].x, gameMenu[i].y };
+		float textWidth = 0;
 		switch (i)
 		{
 		case 0:
-			DrawRectangleRec(gameMenu[i], RAYWHITE);
-			DrawTextEx(font, "Start learn", gameMenuPos, fontSize, 5, BLACK);
-			if (CheckCollisionPointRec(GetMousePosition(), gameMenu[i]) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
-				manage->status = AppStatus::Status::LEARNING;
+			textWidth = MeasureText("Start learn", fontSize);
+			gameMenuPos = { gameMenu[i].x + (gameMenu[i].width - textWidth -fontSize/4), gameMenu[i].y };
+
+			DrawRectangleRec(gameMenu[i], MENUBUTTONS);
+			DrawText("Start learn", gameMenuPos.x, gameMenuPos.y, fontSize, BLACK);
+
+			if (CheckCollisionPointRec(GetMousePosition(), gameMenu[i])) {
+				// Draw border
+				DrawRectangleLinesEx(gameMenu[i], 1, BLACK);
+				if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+					manage->status = AppStatus::Status::LEARNING;
+			}
 			break;
 		case 1:
-			DrawRectangleRec(gameMenu[i], RAYWHITE);
-			DrawTextEx(font, "Quit", gameMenuPos, fontSize, 5, BLACK);
-			if (CheckCollisionPointRec(GetMousePosition(), gameMenu[i]) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-				manage->status = AppStatus::Status::QUIT;
+			textWidth = MeasureText("Quit", fontSize);
+			gameMenuPos = { gameMenu[i].x + (gameMenu[i].width - textWidth - fontSize / 2), gameMenu[i].y };
+			DrawRectangleRec(gameMenu[i], MENUBUTTONS);
+			DrawText("Quit", gameMenuPos.x, gameMenuPos.y, fontSize, BLACK);
+			if (CheckCollisionPointRec(GetMousePosition(), gameMenu[i])) {
+				// Draw border
+				DrawRectangleLinesEx(gameMenu[i], 1, BLACK);
+				if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+					manage->status = AppStatus::Status::QUIT;
 			}
 			break;
 		}

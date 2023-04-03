@@ -20,17 +20,18 @@ void AppManage::appManage() {
     std::shared_ptr<AppStatus> manage = AppStatus::getInstance();
     while (!WindowShouldClose()) {
         BeginDrawing();
-        ClearBackground(RAYWHITE);
 
         switch (manage->status)
         {
         case AppStatus::Status::MENU:
-            /*menu = Menu::getInstance();
-            menu->drawMenu(fontRomulus);*/
-            body = Body::getInstance();
-            body->drawBody();
+            ClearBackground(MENUBACKGROUND);
+            menu = Menu::getInstance();
+            menu->drawMenu(fontRomulus);
+            /*body = Body::getInstance();
+            body->drawBody();*/
             break;
         case AppStatus::Status::LEARNING:
+            ClearBackground(BACKGROUND);
             body = Body::getInstance();
             body->drawBody();
             break;
