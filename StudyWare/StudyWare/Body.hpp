@@ -38,8 +38,12 @@ public:
 	Button nervesBTN;
 	Button muscleBTN;
 
+	// Constructor and Destructor
 	Body();
 	~Body();
+
+	// Functions to draw and handle different buttons
+
 	void cancelBtn(float posX, float posY);
 	void testBtn(float posX, float posY,TestFor test);
 	void organsBtn();
@@ -88,10 +92,12 @@ public:
 	bool showAlert = false;
 	bool showResult = false;
 
-
+	// Static function to get instance of the class
 	static std::shared_ptr<Body> getInstance();
 private:
+	// Static variable to hold the instance of the class
 	static std::shared_ptr<Body> instance;
+	// Static variable to hold the instance of AppStatus
 	static std::shared_ptr<AppStatus> status;
 
 	float sWidth;

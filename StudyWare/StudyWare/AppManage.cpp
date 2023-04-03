@@ -10,6 +10,7 @@ AppManage::~AppManage() {
 
     CloseWindow();
 }
+// Method to get the instance of AppManage
 AppManage* AppManage::getInstance() {
     if (instance == nullptr) instance = new AppManage();
 
@@ -24,15 +25,18 @@ void AppManage::appManage() {
         {
         case AppStatus::Status::MENU:
             ClearBackground(MENUBACKGROUND);
+            // Get the instance of Menu and draw menu
             menu = Menu::getInstance();
             menu->drawMenu();
             break;
         case AppStatus::Status::LEARNING:
             ClearBackground(BACKGROUND);
+            // Get the instance of Body and draw body
             body = Body::getInstance();
             body->drawBody();
             break;
         case AppStatus::Status::QUIT:
+            // Exit the application
             exit(0);
             break;
         }

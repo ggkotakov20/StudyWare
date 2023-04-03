@@ -26,6 +26,7 @@ Body::Body() {
 	bodySize = 2.5;
 	organSize = 2.5;
 
+	// Set size of each organ
 	body.width /= bodySize;
 	body.height /= bodySize;
 	brain.width /= organSize;
@@ -49,6 +50,7 @@ Body::Body() {
 	muscle.width /= organSize;
 	muscle.height /= organSize;
 
+	// Set position of each organ
 	bodyPos = { sWidth / 2 - body.width / 2, sHeight / 2 - body.height / 2 };
 	brainPos = { sWidth / 2 - brain.width / 2 - 1, sHeight / 2 - brain.height / 2  - body.height / 2 + 35};
 	lungsPos = { sWidth / 2 - lungs.width / 2 - 1, sHeight / 2 - lungs.height / 2 - body.height / 3 + 35};
@@ -103,6 +105,7 @@ Body::Body() {
 	muscleRec.width = 50;
 	muscleRec.height = 150;
 
+	// Disable all organs
 	brainIsActive = false;
 	lungsIsActive = false;
 	liverIsActive = false;
@@ -114,6 +117,7 @@ Body::Body() {
 	nervesIsActive = false;
 	muscleIsActive = false;
 
+	// Set information for each organ
 	brainInfo = "B R A I N\nThe brain is the most complex and vital organ in the human body,\nresponsible for controllingand coordinating all bodily functions,\nthoughts, emotions, and sensations. It is composed of more than\n100 billion neurons and trillions of synapses, which form complex\nnetworks that allow us to think, feel, and move.\nCommon brain diseases include:\nAlzheimer's disease, Parkinson's disease, multiple sclerosis,\nepilepsy, migraines, and traumatic brain injury. Alzheimer's disease\nis a progressive neurodegenerative disease that affects memory,\nthinking, and behavior, while Parkinson's disease is a degenerative\ndisorder that affects movement, balance, and coordination.\nMultiple sclerosis is an autoimmune disease that affects\nthe central nervous system, while epilepsy is a neurological\ndisorder that causes seizures. Migraines are a type of headache that\ncan be debilitatingand recurring, while traumatic brin injury can result\nfrom a blow or jolt to the head, leading to cognitive, emotional,\nand physical impairment.";
 
 	lungsInfo = "L U N G S\nThe lungs are essential organs that help us breathe by taking in\noxygen and getting rid of carbon dioxide.Here are some common lung\ndiseases : \n1. Asthma : A chronic condition that causes inflammation and narrowing\nof the airways, making it difficult to breathe.\n2. Chronic obstructive pulmonary disease(COPD) : A group of lung\ndiseases that make it hard to breathe due to damage to the airways\nand /or air Sacs in the lungs.\n3. Pneumonia : An infection that inflames the air sacs in one\nor both lungs.\n4. Tuberculosis(TB) : A bacterial infection that primarily affects\nthe lungs but can also affect other parts of the body\n5. Lung cancer : A condition where cells in the lungs grow\nabnormally and form tumors.";
@@ -3251,6 +3255,7 @@ void Body::drawBody() {
 		backBtn(5, 5);
 		DrawTexture(body, bodyPos.x, bodyPos.y, WHITE);
 
+		// if you learn about any organ, that organ will be in front of others
 		if (brainIsActive) {
 			drawLungs();
 			drawLiver();
