@@ -37,8 +37,8 @@
 
 ---
 
-# [📄 Documentation](https://github.com/ggkotakov20/StudyWare/blob/main/Documentation/Documentation.docx)
-# [📄 Presentation](https://github.com/ggkotakov20/StudyWare/blob/main/StudyWare/Documentation/Presentation.pptx?raw=true)
+# [📄 Documentation](https://github.com/ggkotakov20/StudyWare/blob/main/Documentation/Documentation.docx?raw=true)
+# [📄 Presentation](https://github.com/ggkotakov20/StudyWare/blob/main/Documentation/Presentation.pptx?raw=true)
 
 ---
 
