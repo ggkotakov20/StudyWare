@@ -58,5 +58,5 @@
 <pre>git clone https://github.com/ggkotakov20/StudyWare.git</pre>
 
 <p>Or you can downoload the zip file from the repository. Go into StudyWare folder and then click the StudyWare.sln file.</p>
-<p>1</p>
+<p>now</p>
 
