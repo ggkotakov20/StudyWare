@@ -2618,9 +2618,9 @@ void Body::organsBtn() {
 	brainBTN.rounding = 1;
 	brainBTN.hovering = CheckCollisionPointRec(GetMousePosition(), brainBTN.bounds);
 	brainBTN.text = "Brain";
-	brainBTN.color = GRAY;
+	brainBTN.color = ORGANBTN;
 
-	if (brainBTN.hovering) brainBTN.color = DARKGRAY;
+	if (brainBTN.hovering) brainBTN.color = ORGANBTNHOVER;
 	DrawRectangleRounded(brainBTN.bounds, brainBTN.rounding, brainBTN.rounding, brainBTN.color);
 	DrawText(brainBTN.text, brainBTN.bounds.x + brainBTN.bounds.width / 2 - MeasureText(brainBTN.text, 20) / 2, brainBTN.bounds.y + 11, 22, BLACK);
 
@@ -2628,9 +2628,9 @@ void Body::organsBtn() {
 	lungsBTN.rounding = 1;
 	lungsBTN.hovering = CheckCollisionPointRec(GetMousePosition(), lungsBTN.bounds);
 	lungsBTN.text = "Lungs";
-	lungsBTN.color = GRAY;
+	lungsBTN.color = ORGANBTN;
 
-	if (lungsBTN.hovering) lungsBTN.color = DARKGRAY;
+	if (lungsBTN.hovering) lungsBTN.color = ORGANBTNHOVER;
 	DrawRectangleRounded(lungsBTN.bounds, lungsBTN.rounding, lungsBTN.rounding, lungsBTN.color);
 	DrawText(lungsBTN.text, lungsBTN.bounds.x + lungsBTN.bounds.width / 2 - MeasureText(lungsBTN.text, 20) / 2, lungsBTN.bounds.y + 11, 22, BLACK);
 
@@ -2638,9 +2638,9 @@ void Body::organsBtn() {
 	heartBTN.rounding = 1;
 	heartBTN.hovering = CheckCollisionPointRec(GetMousePosition(), heartBTN.bounds);
 	heartBTN.text = "Heart";
-	heartBTN.color = GRAY;
+	heartBTN.color = ORGANBTN;
 
-	if (heartBTN.hovering) heartBTN.color = DARKGRAY;
+	if (heartBTN.hovering) heartBTN.color = ORGANBTNHOVER;
 	DrawRectangleRounded(heartBTN.bounds, heartBTN.rounding, heartBTN.rounding, heartBTN.color);
 	DrawText(heartBTN.text, heartBTN.bounds.x + heartBTN.bounds.width / 2 - MeasureText(heartBTN.text, 20) / 2, heartBTN.bounds.y + 11, 22, BLACK);
 
@@ -2648,9 +2648,9 @@ void Body::organsBtn() {
 	liverBTN.rounding = 1;
 	liverBTN.hovering = CheckCollisionPointRec(GetMousePosition(), liverBTN.bounds);
 	liverBTN.text = "Liver";
-	liverBTN.color = GRAY;
+	liverBTN.color = ORGANBTN;
 
-	if (liverBTN.hovering) liverBTN.color = DARKGRAY;
+	if (liverBTN.hovering) liverBTN.color = ORGANBTNHOVER;
 	DrawRectangleRounded(liverBTN.bounds, liverBTN.rounding, liverBTN.rounding, liverBTN.color);
 	DrawText(liverBTN.text, liverBTN.bounds.x + liverBTN.bounds.width / 2 - MeasureText(liverBTN.text, 20) / 2, liverBTN.bounds.y + 11, 22, BLACK);
 
@@ -2658,9 +2658,9 @@ void Body::organsBtn() {
 	kidneyBTN.rounding = 1;
 	kidneyBTN.hovering = CheckCollisionPointRec(GetMousePosition(), kidneyBTN.bounds);
 	kidneyBTN.text = "Kidney";
-	kidneyBTN.color = GRAY;
+	kidneyBTN.color = ORGANBTN;
 
-	if (kidneyBTN.hovering) kidneyBTN.color = DARKGRAY;
+	if (kidneyBTN.hovering) kidneyBTN.color = ORGANBTNHOVER;
 	DrawRectangleRounded(kidneyBTN.bounds, kidneyBTN.rounding, kidneyBTN.rounding, kidneyBTN.color);
 	DrawText(kidneyBTN.text, kidneyBTN.bounds.x + kidneyBTN.bounds.width / 2 - MeasureText(kidneyBTN.text, 20) / 2, kidneyBTN.bounds.y + 11, 22, BLACK);
 
@@ -2668,9 +2668,9 @@ void Body::organsBtn() {
 	stomachBTN.rounding = 1;
 	stomachBTN.hovering = CheckCollisionPointRec(GetMousePosition(), stomachBTN.bounds);
 	stomachBTN.text = "Stomach";
-	stomachBTN.color = GRAY;
+	stomachBTN.color = ORGANBTN;
 
-	if (stomachBTN.hovering) stomachBTN.color = DARKGRAY;
+	if (stomachBTN.hovering) stomachBTN.color = ORGANBTNHOVER;
 	DrawRectangleRounded(stomachBTN.bounds, stomachBTN.rounding, stomachBTN.rounding, stomachBTN.color);
 	DrawText(stomachBTN.text, stomachBTN.bounds.x + stomachBTN.bounds.width / 2 - MeasureText(stomachBTN.text, 20) / 2, stomachBTN.bounds.y + 11, 22, BLACK);
 
@@ -2678,9 +2678,9 @@ void Body::organsBtn() {
 	intestinesBTN.rounding = 1;
 	intestinesBTN.hovering = CheckCollisionPointRec(GetMousePosition(), intestinesBTN.bounds);
 	intestinesBTN.text = "Intestines";
-	intestinesBTN.color = GRAY;
+	intestinesBTN.color = ORGANBTN;
 
-	if (intestinesBTN.hovering) intestinesBTN.color = DARKGRAY;
+	if (intestinesBTN.hovering) intestinesBTN.color = ORGANBTNHOVER;
 	DrawRectangleRounded(intestinesBTN.bounds, intestinesBTN.rounding, intestinesBTN.rounding, intestinesBTN.color);
 	DrawText(intestinesBTN.text, intestinesBTN.bounds.x + intestinesBTN.bounds.width / 2 - MeasureText(intestinesBTN.text, 20) / 2, intestinesBTN.bounds.y + 11, 22, BLACK);
 
@@ -2688,9 +2688,9 @@ void Body::organsBtn() {
 	reproductiveSMBTN.rounding = 1;
 	reproductiveSMBTN.hovering = CheckCollisionPointRec(GetMousePosition(), reproductiveSMBTN.bounds);
 	reproductiveSMBTN.text = "Reproductive system";
-	reproductiveSMBTN.color = GRAY;
+	reproductiveSMBTN.color = ORGANBTN;
 
-	if (reproductiveSMBTN.hovering) reproductiveSMBTN.color = DARKGRAY;
+	if (reproductiveSMBTN.hovering) reproductiveSMBTN.color = ORGANBTNHOVER;
 	DrawRectangleRounded(reproductiveSMBTN.bounds, reproductiveSMBTN.rounding, reproductiveSMBTN.rounding, reproductiveSMBTN.color);
 	DrawText(reproductiveSMBTN.text, reproductiveSMBTN.bounds.x + reproductiveSMBTN.bounds.width / 2 - MeasureText(reproductiveSMBTN.text, 20) / 2 - 5, reproductiveSMBTN.bounds.y + 11, 22, BLACK);
 
@@ -2698,9 +2698,9 @@ void Body::organsBtn() {
 	nervesBTN.rounding = 1;
 	nervesBTN.hovering = CheckCollisionPointRec(GetMousePosition(), nervesBTN.bounds);
 	nervesBTN.text = "Nerves";
-	nervesBTN.color = GRAY;
+	nervesBTN.color = ORGANBTN;
 
-	if (nervesBTN.hovering) nervesBTN.color = DARKGRAY;
+	if (nervesBTN.hovering) nervesBTN.color = ORGANBTNHOVER;
 	DrawRectangleRounded(nervesBTN.bounds, nervesBTN.rounding, nervesBTN.rounding, nervesBTN.color);
 	DrawText(nervesBTN.text, nervesBTN.bounds.x + nervesBTN.bounds.width / 2 - MeasureText(nervesBTN.text, 20) / 2, nervesBTN.bounds.y + 11, 22, BLACK);
 
@@ -2708,9 +2708,9 @@ void Body::organsBtn() {
 	muscleBTN.rounding = 1;
 	muscleBTN.hovering = CheckCollisionPointRec(GetMousePosition(), muscleBTN.bounds);
 	muscleBTN.text = "Muscles";
-	muscleBTN.color = GRAY;
+	muscleBTN.color = ORGANBTN;
 
-	if (muscleBTN.hovering) muscleBTN.color = DARKGRAY;
+	if (muscleBTN.hovering) muscleBTN.color = ORGANBTNHOVER;
 	DrawRectangleRounded(muscleBTN.bounds, muscleBTN.rounding, muscleBTN.rounding, muscleBTN.color);
 	DrawText(muscleBTN.text, muscleBTN.bounds.x + muscleBTN.bounds.width / 2 - MeasureText(muscleBTN.text, 20) / 2, muscleBTN.bounds.y + 11, 22, BLACK);
 

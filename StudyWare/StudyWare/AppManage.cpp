@@ -27,8 +27,6 @@ void AppManage::appManage() {
             ClearBackground(MENUBACKGROUND);
             menu = Menu::getInstance();
             menu->drawMenu(fontRomulus);
-            /*body = Body::getInstance();
-            body->drawBody();*/
             break;
         case AppStatus::Status::LEARNING:
             ClearBackground(BACKGROUND);
