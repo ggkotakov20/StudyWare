@@ -43,7 +43,7 @@
 ---
 
 # Used technologies
-- <img src="https://user-images.githubusercontent.com/85336778/168471335-47e2d66a-c812-4b33-a43c-08e9e7076ac4.png" width=50>  Visual studio
+-<img src="https://user-images.githubusercontent.com/85336778/168471335-47e2d66a-c812-4b33-a43c-08e9e7076ac4.png" width=50>  Visual studio
 - <img src="https://upload.wikimedia.org/wikipedia/commons/f/f4/Raylib_logo.png" width=35> Raylib
 - <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Microsoft_Word_logo_%282013-2019%29.png?20131212130336" width="35">  Word
 -  <img src="https://bg.wizcase.com/wp-content/uploads/2020/02/Powerpoint-logo.png" width="35"> PowerPoint
