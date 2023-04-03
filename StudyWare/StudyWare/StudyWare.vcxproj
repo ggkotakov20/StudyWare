@@ -143,6 +143,7 @@
     <ClInclude Include="AppManage.hpp" />
     <ClInclude Include="AppStatus.hpp" />
     <ClInclude Include="Body.hpp" />
+    <ClInclude Include="Colors.hpp" />
     <ClInclude Include="Menu.hpp" />
     <ClInclude Include="TestMode.hpp" />
   </ItemGroup>
