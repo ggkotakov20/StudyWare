@@ -1,6 +1,6 @@
 # StudyWare
 
-our team:  
+Our team:  
 Nikola Krushkov - Scrum Trainer  
 Dimitur Yoldov - Designer  
 Georgi Kotakov - Backend Developer  
