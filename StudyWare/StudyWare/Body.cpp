@@ -182,18 +182,8 @@ void Body::drawAlertForEnd() {
 	DrawText(yesBtn.text, yesBtnPos.x, yesBtnPos.y, 20, BLACK);
 
 	if (yesBtn.hovering && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-		inTest = false;
 		showAlert = false;
-		questionTurn[0] = true;
-		questionTurn[1] = false;
-		questionTurn[2] = false;
-		questionTurn[3] = false;
-		questionTurn[4] = false;
-		questionTurn[5] = false;
-		questionTurn[6] = false;
-		questionTurn[7] = false;
-		questionTurn[8] = false;
-		questionTurn[9] = false;
+		showResult = true;
 	}
 
 	Vector2 noBtnPos = { noBtn.bounds.x + noBtn.bounds.width / 2 - MeasureText(noBtn.text, 20) / 2, noBtn.bounds.y + 15 };
@@ -623,10 +613,8 @@ void Body::drawQuestionNum(float posX, float posY, Questions question[]) {
 	}
 }
 void Body::drawQuestions(Questions question1[]) {
-	if (!showAlert) {
-
-		float currectAnswers = 0;
-		float score = 0;
+	int result = 0;
+	if (!showAlert && !showResult) {
 
 		int questionNum = 10; // Number of questions
 		DrawRectangleRec(field, GRAY);
@@ -786,6 +774,7 @@ void Body::drawQuestions(Questions question1[]) {
 						break;
 					}
 				}
+				
 			}
 			if (i == 1 && questionTurn[i]) {
 				DrawText(question1[i].question, question1[i].pos.x, question1[i].pos.y, testFontSize, BLACK);
@@ -2173,12 +2162,21 @@ void Body::drawQuestions(Questions question1[]) {
 					}
 				}
 			}
+			
 		}
-	
+
 		drawTestButtons();
 		drawQuestionNum(sWidth / 2 - sWidth / 45 * 7, sHeight - 75, question1);
+		
+	}
+	else if (showResult) {
+		for(int i=0;i<10;i++) if (question1[i].ans[question1[i].currectAns].checked) result += 10;
+
+		DrawText(TextFormat("Result: %d", result), 0, 0, 30, GREEN);
 	}
 	else drawAlertForEnd();
+
+	std::cout << result << std::endl;
 }
 
 void Body::cancelBtn(float posX, float posY) {

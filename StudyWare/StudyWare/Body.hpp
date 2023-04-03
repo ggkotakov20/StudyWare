@@ -72,6 +72,7 @@ public:
 	Vector2 checkBoxPos;
 	Rectangle clickRecPos;
 
+	void drawScore(int score);
 	void drawTestButtons();
 	void drawAlertForEnd();
 	void drawQuestionNum(float posX, float posY, Questions question[]);
@@ -83,6 +84,8 @@ public:
 
 	bool inTest = false;
 	bool showAlert = false;
+	bool showResult = false;
+
 
 	static std::shared_ptr<Body> getInstance();
 private:
