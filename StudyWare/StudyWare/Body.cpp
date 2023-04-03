@@ -2571,8 +2571,6 @@ void Body::drawTest(Questions question1[]) {
 		drawScore(question1, result);
 	}
 	else drawAlertForEnd();
-
-	std::cout << result << std::endl;
 }
 
 void Body::cancelBtn(float posX, float posY) {

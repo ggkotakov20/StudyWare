@@ -137,7 +137,6 @@
     <ClCompile Include="Body.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Menu.cpp" />
-    <ClCompile Include="TestMode.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AppManage.hpp" />
@@ -145,7 +144,6 @@
     <ClInclude Include="Body.hpp" />
     <ClInclude Include="Colors.hpp" />
     <ClInclude Include="Menu.hpp" />
-    <ClInclude Include="TestMode.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -33,7 +33,7 @@ std::shared_ptr<Menu> Menu::getInstance() {
 
 	return instance;
 }
-void Menu::drawMenu(Font font) {
+void Menu::drawMenu() {
 	auto manage = AppStatus::getInstance();
 
 	DrawText("StudyWare", sWidth / 3.25, sHeight / 8, sHeight/ 8, MAROON);

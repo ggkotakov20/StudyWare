@@ -4,11 +4,10 @@ AppManage* AppManage::instance = nullptr;
 
 AppManage::AppManage() {
     InitWindow(1920, 1080, "StudyWare");
-
-    fontRomulus = LoadFont("../font/romulus.png");
+    ToggleFullscreen();
 }
 AppManage::~AppManage() {
-    UnloadFont(fontRomulus);
+
     CloseWindow();
 }
 AppManage* AppManage::getInstance() {
@@ -26,7 +25,7 @@ void AppManage::appManage() {
         case AppStatus::Status::MENU:
             ClearBackground(MENUBACKGROUND);
             menu = Menu::getInstance();
-            menu->drawMenu(fontRomulus);
+            menu->drawMenu();
             break;
         case AppStatus::Status::LEARNING:
             ClearBackground(BACKGROUND);

@@ -19,7 +19,7 @@ public:
 	Menu();
 	~Menu();
 
-	void drawMenu(Font font);
+	void drawMenu();
 
 	static std::shared_ptr<Menu> getInstance();
 };
