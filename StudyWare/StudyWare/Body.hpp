@@ -65,21 +65,19 @@ public:
 		Vector2 pos;
 		Answers ans[4];
 		int currectAns;
-		Color color;
 	};
 
 	bool questionTurn[10] = { true, false, false , false , false , false , false , false , false , false };
-	Questions question;
 	Questions questions[10];
 	Vector2 checkBoxPos;
 	Rectangle clickRecPos;
-	int countForAns = 0;
 
 	void drawTestButtons();
 	void drawAlertForEnd();
-	void drawQuestionNum(float posX, float posY, Questions question);
+	void drawQuestionNum(float posX, float posY, Questions question[]);
 	void drawAnswer(Questions question);
 	void drawQuestions(Questions question1[]);
+
 	Rectangle field;
 
 
@@ -97,6 +95,7 @@ private:
 	float organSize;
 
 	int fontSize;
+	int testFontSize;
 
 	bool brainIsActive;
 	bool lungsIsActive;

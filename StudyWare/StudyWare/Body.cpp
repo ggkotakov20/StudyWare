@@ -7,6 +7,7 @@ Body::Body() {
 	sHeight = GetScreenHeight();
 
 	fontSize = sHeight / 50;
+	testFontSize = sHeight / 35;
 
 	mousePosition = GetMousePosition();
 
@@ -481,12 +482,12 @@ void Body::drawTestButtons() {
 
 
 }
-void Body::drawQuestionNum(float posX, float posY, Questions question) {
+void Body::drawQuestionNum(float posX, float posY, Questions question[]) {
 	Color secondRec = WHITE;
 	for (int i = 0; i < 10; i++) {
 		if (questionTurn[i])
 			secondRec = BLUE;
-		else if (question.ans[0].checked || question.ans[1].checked || question.ans[1].checked || question.ans[3].checked)
+		else if (question[i].ans[0].checked || question[i].ans[1].checked || question[i].ans[2].checked || question[i].ans[3].checked)
 			secondRec = GRAY;
 		else secondRec = WHITE;
 		DrawRectangleRounded(Rectangle{ posX + i * 55, posY, sWidth / 45, sHeight / 25 }, 0.5f, 30, DARKGRAY);
@@ -621,248 +622,1564 @@ void Body::drawQuestionNum(float posX, float posY, Questions question) {
 		}
 	}
 }
-void Body::drawAnswer(Questions question) {
-	
-	DrawText(question.question, question.pos.x, question.pos.y, 30, question.color);
-
-	std::cout << countForAns << std::endl;
-	for (int j = 0; j < 4; j++) {
-		Vector2 checkBoxPos;
-		Rectangle clickRecPos;
-		switch (j) {
-		case 0:
-			if ((questionTurn[3] && testfor == TestFor::BRAIN) ||
-				((questionTurn[0] || questionTurn[1] || questionTurn[3] || questionTurn[4]) && testfor == TestFor::LUNGS)||
-				((questionTurn[0] || questionTurn[1] || questionTurn[2] || questionTurn[3] || questionTurn[4] || questionTurn[6]) && testfor == TestFor::HEART)||
-				((questionTurn[5] || questionTurn[7])&& testfor == TestFor::REPRODUCTIVE)||
-				((questionTurn[1] || questionTurn[5] || questionTurn[9])&& testfor == TestFor::NERVES)||
-				((questionTurn[6] || questionTurn[8]) && testfor == TestFor::MUSCLE))
-				question.ans[j].pos = { question.pos.x + 30, question.pos.y + 120 };
-			else
-				question.ans[j].pos = { question.pos.x + 30, question.pos.y + 70};
-
-			checkBoxPos = { question.pos.x + 10, question.ans[j].pos.y + 15 };
-			clickRecPos.x = question.pos.x;
-			clickRecPos.y = question.ans[j].pos.y;
-			clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
-			if (questionTurn[5] && testfor == TestFor::LIVER) 
-				clickRecPos.height = 70;
-			else
-				clickRecPos.height = 30;
-			/*DrawRectangleRec(clickRecPos, BLACK);*/
-			if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-				question.ans[0].checked = true;
-				question.ans[1].checked = false;
-				question.ans[2].checked = false;
-				question.ans[3].checked = false;
-			}
-
-			if (question.ans[j].checked) {
-				DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
-				DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
-			}
-			else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
-
-			DrawText(question.ans[j].text, question.ans[j].pos.x, question.ans[j].pos.y, 30, question.color);
-			break;
-		case 1:
-			if ((questionTurn[3] && testfor == TestFor::BRAIN) ||
-				((questionTurn[0] || questionTurn[1] || questionTurn[3] || questionTurn[4]) && testfor == TestFor::LUNGS) ||
-				((questionTurn[0] || questionTurn[1] || questionTurn[2] || questionTurn[3] || questionTurn[4] || questionTurn[6]) && testfor == TestFor::HEART) ||
-				((questionTurn[5] || questionTurn[7]) && testfor == TestFor::REPRODUCTIVE) ||
-				((questionTurn[1] || questionTurn[5] || questionTurn[9]) && testfor == TestFor::NERVES) ||
-				((questionTurn[6] || questionTurn[8]) && testfor == TestFor::MUSCLE))
-				question.ans[j].pos = { question.pos.x + 30, question.pos.y + 170 };
-			else if (questionTurn[5] && testfor == TestFor::LIVER)
-				question.ans[j].pos = { question.pos.x + 30, question.pos.y + 170 };
-			else
-				question.ans[j].pos = { question.pos.x + 30, question.pos.y + 120 };
-
-			checkBoxPos = { question.pos.x + 10, question.ans[j].pos.y + 15 };
-			clickRecPos.x = question.pos.x;
-			clickRecPos.y = question.ans[j].pos.y;
-			clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
-			if (questionTurn[5] && testfor == TestFor::LIVER)
-				clickRecPos.height = 70;
-			else
-				clickRecPos.height = 30;
-			/*DrawRectangleRec(clickRecPos, BLACK);*/
-			if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-				question.ans[0].checked = false;
-				question.ans[1].checked = true;
-				question.ans[2].checked = false;
-				question.ans[3].checked = false;
-			}
-
-			if (question.ans[j].checked) {
-				DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
-				DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
-			}
-			else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
-
-			DrawText(question.ans[j].text, question.ans[j].pos.x, question.ans[j].pos.y, 30, question.color);
-			break;
-		case 2:
-			if ((questionTurn[3] && testfor == TestFor::BRAIN) ||
-				((questionTurn[0] || questionTurn[1] || questionTurn[3] || questionTurn[4]) && testfor == TestFor::LUNGS) ||
-				((questionTurn[0] || questionTurn[1] || questionTurn[2] || questionTurn[3] || questionTurn[4] || questionTurn[6]) && testfor == TestFor::HEART) ||
-				((questionTurn[5] || questionTurn[7]) && testfor == TestFor::REPRODUCTIVE) ||
-				((questionTurn[1] || questionTurn[5] || questionTurn[9]) && testfor == TestFor::NERVES) ||
-				((questionTurn[6] || questionTurn[8]) && testfor == TestFor::MUSCLE))
-				question.ans[j].pos = { question.pos.x + 30, question.pos.y + 220 };
-			else if (questionTurn[5] && testfor == TestFor::LIVER)
-				question.ans[j].pos = { question.pos.x + 30, question.pos.y + 270 };
-			else
-				question.ans[j].pos = { question.pos.x + 30, question.pos.y + 170 };
-
-			checkBoxPos = { question.pos.x + 10, question.ans[j].pos.y + 15 };
-			clickRecPos.x = question.pos.x;
-			clickRecPos.y = question.ans[j].pos.y;
-			clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
-			if ((questionTurn[5] && testfor == TestFor::LIVER) || ((questionTurn[4] || questionTurn[5] || questionTurn[6] || questionTurn[7]) && testfor == TestFor::INTESTINES))
-				clickRecPos.height = 70;
-			else
-				clickRecPos.height = 30;
-			/*DrawRectangleRec(clickRecPos, BLACK);*/
-			if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-				question.ans[0].checked = false;
-				question.ans[1].checked = false;
-				question.ans[2].checked = true;
-				question.ans[3].checked = false;
-			}
-
-			if (question.ans[j].checked) {
-				DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
-				DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
-			}
-			else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
-
-			DrawText(question.ans[j].text, question.ans[j].pos.x, question.ans[j].pos.y, 30, question.color);
-			break;
-		case 3:
-			if ((questionTurn[3] && testfor == TestFor::BRAIN) ||
-				((questionTurn[0] || questionTurn[1] || questionTurn[3] || questionTurn[4]) && testfor == TestFor::LUNGS) ||
-				((questionTurn[0] || questionTurn[1] || questionTurn[2] || questionTurn[3] || questionTurn[4] || questionTurn[6]) && testfor == TestFor::HEART) ||
-				((questionTurn[4] || questionTurn[5] || questionTurn[6] || questionTurn[7]) && testfor == TestFor::INTESTINES) ||
-				((questionTurn[5] || questionTurn[7]) && testfor == TestFor::REPRODUCTIVE) ||
-				((questionTurn[1] || questionTurn[5] || questionTurn[9]) && testfor == TestFor::NERVES) ||
-				((questionTurn[6] || questionTurn[8]) && testfor == TestFor::MUSCLE))
-				question.ans[j].pos = { question.pos.x + 30, question.pos.y + 270 };
-			else if (questionTurn[5] && testfor == TestFor::LIVER)
-				question.ans[j].pos = { question.pos.x + 30, question.pos.y + 370 };
-			else
-				question.ans[j].pos = { question.pos.x + 30, question.pos.y + 220 };
-
-			checkBoxPos = { question.pos.x + 10, question.ans[j].pos.y + 15 };
-			clickRecPos.x = question.pos.x;
-			clickRecPos.y = question.ans[j].pos.y;
-			clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
-			if (questionTurn[5] && testfor == TestFor::LIVER)
-				clickRecPos.height = 70;
-			else
-				clickRecPos.height = 30;
-			/*DrawRectangleRec(clickRecPos, BLACK);*/
-			if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-				question.ans[0].checked = false;
-				question.ans[1].checked = false;
-				question.ans[2].checked = false;
-				question.ans[3].checked = true;
-			}
-
-			if (question.ans[j].checked) {
-				DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
-				DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
-			}
-			else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
-
-			DrawText(question.ans[j].text, question.ans[j].pos.x, question.ans[j].pos.y, 30, question.color);
-			break;
-		}
-	}
-}
 void Body::drawQuestions(Questions question1[]) {
 	if (!showAlert) {
+
+		float currectAnswers = 0;
+		float score = 0;
+
+		int questionNum = 10; // Number of questions
 		DrawRectangleRec(field, GRAY);
-		question.pos.x = field.x + 30;
-		question.pos.y = field.y + 15;
-		question.color = BLACK;
-		if (questionTurn[0]) {
-			question.question = question1[0].question;
-			question.ans[0].text = question1[0].ans[0].text;
-			question.ans[1].text = question1[0].ans[1].text;
-			question.ans[2].text = question1[0].ans[2].text;
-			question.ans[3].text = question1[0].ans[3].text;
+		for (int i = 0; i < questionNum; i++) {
+			question1[i].pos.x = field.x + 30;
+			question1[i].pos.y = field.y + 15;
+			if (i == 0 && questionTurn[i]) {
+				DrawText(question1[i].question, question1[i].pos.x, question1[i].pos.y, testFontSize, BLACK);
+				for (int j = 0; j < 4; j++) {
+					switch (j) {
+					case 0:
+						if ((questionTurn[3] && testfor == TestFor::BRAIN) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[3] || questionTurn[4]) && testfor == TestFor::LUNGS) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[2] || questionTurn[3] || questionTurn[4] || questionTurn[6]) && testfor == TestFor::HEART) ||
+							((questionTurn[5] || questionTurn[7]) && testfor == TestFor::REPRODUCTIVE) ||
+							((questionTurn[1] || questionTurn[5] || questionTurn[9]) && testfor == TestFor::NERVES) ||
+							((questionTurn[6] || questionTurn[8]) && testfor == TestFor::MUSCLE))
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 120 };
+						else
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 70 };
+
+						checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
+						clickRecPos.x = question1[i].pos.x;
+						clickRecPos.y = question1[i].ans[j].pos.y;
+						clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
+						if (questionTurn[5] && testfor == TestFor::LIVER)
+							clickRecPos.height = 70;
+						else
+							clickRecPos.height = 30;
+						/*DrawRectangleRec(clickRecPos, BLACK);*/
+						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+							question1[i].ans[0].checked = true;
+							question1[i].ans[1].checked = false;
+							question1[i].ans[2].checked = false;
+							question1[i].ans[3].checked = false;
+						}
+
+						if (question1[i].ans[j].checked) {
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+						}
+						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+
+						DrawText(question1[i].ans[j].text, question1[i].ans[j].pos.x, question1[i].ans[j].pos.y, 30, BLACK);
+						break;
+					case 1:
+						if ((questionTurn[3] && testfor == TestFor::BRAIN) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[3] || questionTurn[4]) && testfor == TestFor::LUNGS) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[2] || questionTurn[3] || questionTurn[4] || questionTurn[6]) && testfor == TestFor::HEART) ||
+							((questionTurn[5] || questionTurn[7]) && testfor == TestFor::REPRODUCTIVE) ||
+							((questionTurn[1] || questionTurn[5] || questionTurn[9]) && testfor == TestFor::NERVES) ||
+							((questionTurn[6] || questionTurn[8]) && testfor == TestFor::MUSCLE))
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 170 };
+						else if (questionTurn[5] && testfor == TestFor::LIVER)
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 170 };
+						else
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 120 };
+
+						checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
+						clickRecPos.x = question1[i].pos.x;
+						clickRecPos.y = question1[i].ans[j].pos.y;
+						clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
+						if (questionTurn[5] && testfor == TestFor::LIVER)
+							clickRecPos.height = 70;
+						else
+							clickRecPos.height = 30;
+						/*DrawRectangleRec(clickRecPos, BLACK);*/
+						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+							question1[i].ans[0].checked = false;
+							question1[i].ans[1].checked = true;
+							question1[i].ans[2].checked = false;
+							question1[i].ans[3].checked = false;
+						}
+
+						if (question1[i].ans[j].checked) {
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+						}
+						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+
+						DrawText(question1[i].ans[j].text, question1[i].ans[j].pos.x, question1[i].ans[j].pos.y, 30, BLACK);
+						break;
+					case 2:
+						if ((questionTurn[3] && testfor == TestFor::BRAIN) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[3] || questionTurn[4]) && testfor == TestFor::LUNGS) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[2] || questionTurn[3] || questionTurn[4] || questionTurn[6]) && testfor == TestFor::HEART) ||
+							((questionTurn[5] || questionTurn[7]) && testfor == TestFor::REPRODUCTIVE) ||
+							((questionTurn[1] || questionTurn[5] || questionTurn[9]) && testfor == TestFor::NERVES) ||
+							((questionTurn[6] || questionTurn[8]) && testfor == TestFor::MUSCLE))
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 220 };
+						else if (questionTurn[5] && testfor == TestFor::LIVER)
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 270 };
+						else
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 170 };
+
+						checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
+						clickRecPos.x = question1[i].pos.x;
+						clickRecPos.y = question1[i].ans[j].pos.y;
+						clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
+						if ((questionTurn[5] && testfor == TestFor::LIVER) || ((questionTurn[4] || questionTurn[5] || questionTurn[6] || questionTurn[7]) && testfor == TestFor::INTESTINES))
+							clickRecPos.height = 70;
+						else
+							clickRecPos.height = 30;
+						/*DrawRectangleRec(clickRecPos, BLACK);*/
+						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+							question1[i].ans[0].checked = false;
+							question1[i].ans[1].checked = false;
+							question1[i].ans[2].checked = true;
+							question1[i].ans[3].checked = false;
+						}
+
+						if (question1[i].ans[j].checked) {
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+						}
+						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+
+						DrawText(question1[i].ans[j].text, question1[i].ans[j].pos.x, question1[i].ans[j].pos.y, 30, BLACK);
+						break;
+					case 3:
+						if ((questionTurn[3] && testfor == TestFor::BRAIN) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[3] || questionTurn[4]) && testfor == TestFor::LUNGS) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[2] || questionTurn[3] || questionTurn[4] || questionTurn[6]) && testfor == TestFor::HEART) ||
+							((questionTurn[4] || questionTurn[5] || questionTurn[6] || questionTurn[7]) && testfor == TestFor::INTESTINES) ||
+							((questionTurn[5] || questionTurn[7]) && testfor == TestFor::REPRODUCTIVE) ||
+							((questionTurn[1] || questionTurn[5] || questionTurn[9]) && testfor == TestFor::NERVES) ||
+							((questionTurn[6] || questionTurn[8]) && testfor == TestFor::MUSCLE))
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 270 };
+						else if (questionTurn[5] && testfor == TestFor::LIVER)
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 370 };
+						else
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 220 };
+
+						checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
+						clickRecPos.x = question1[i].pos.x;
+						clickRecPos.y = question1[i].ans[j].pos.y;
+						clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
+						if (questionTurn[5] && testfor == TestFor::LIVER)
+							clickRecPos.height = 70;
+						else
+							clickRecPos.height = 30;
+						/*DrawRectangleRec(clickRecPos, BLACK);*/
+						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+							question1[i].ans[0].checked = false;
+							question1[i].ans[1].checked = false;
+							question1[i].ans[2].checked = false;
+							question1[i].ans[3].checked = true;
+						}
+
+						if (question1[i].ans[j].checked) {
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+						}
+						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+
+						DrawText(question1[i].ans[j].text, question1[i].ans[j].pos.x, question1[i].ans[j].pos.y, 30, BLACK);
+						break;
+					}
+				}
+			}
+			if (i == 1 && questionTurn[i]) {
+				DrawText(question1[i].question, question1[i].pos.x, question1[i].pos.y, testFontSize, BLACK);
+				for (int j = 0; j < 4; j++) {
+					switch (j) {
+					case 0:
+						if ((questionTurn[3] && testfor == TestFor::BRAIN) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[3] || questionTurn[4]) && testfor == TestFor::LUNGS) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[2] || questionTurn[3] || questionTurn[4] || questionTurn[6]) && testfor == TestFor::HEART) ||
+							((questionTurn[5] || questionTurn[7]) && testfor == TestFor::REPRODUCTIVE) ||
+							((questionTurn[1] || questionTurn[5] || questionTurn[9]) && testfor == TestFor::NERVES) ||
+							((questionTurn[6] || questionTurn[8]) && testfor == TestFor::MUSCLE))
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 120 };
+						else
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 70 };
+
+						checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
+						clickRecPos.x = question1[i].pos.x;
+						clickRecPos.y = question1[i].ans[j].pos.y;
+						clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
+						if (questionTurn[5] && testfor == TestFor::LIVER)
+							clickRecPos.height = 70;
+						else
+							clickRecPos.height = 30;
+						/*DrawRectangleRec(clickRecPos, BLACK);*/
+						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+							question1[i].ans[0].checked = true;
+							question1[i].ans[1].checked = false;
+							question1[i].ans[2].checked = false;
+							question1[i].ans[3].checked = false;
+						}
+
+						if (question1[i].ans[j].checked) {
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+						}
+						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+
+						DrawText(question1[i].ans[j].text, question1[i].ans[j].pos.x, question1[i].ans[j].pos.y, 30, BLACK);
+						break;
+					case 1:
+						if ((questionTurn[3] && testfor == TestFor::BRAIN) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[3] || questionTurn[4]) && testfor == TestFor::LUNGS) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[2] || questionTurn[3] || questionTurn[4] || questionTurn[6]) && testfor == TestFor::HEART) ||
+							((questionTurn[5] || questionTurn[7]) && testfor == TestFor::REPRODUCTIVE) ||
+							((questionTurn[1] || questionTurn[5] || questionTurn[9]) && testfor == TestFor::NERVES) ||
+							((questionTurn[6] || questionTurn[8]) && testfor == TestFor::MUSCLE))
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 170 };
+						else if (questionTurn[5] && testfor == TestFor::LIVER)
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 170 };
+						else
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 120 };
+
+						checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
+						clickRecPos.x = question1[i].pos.x;
+						clickRecPos.y = question1[i].ans[j].pos.y;
+						clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
+						if (questionTurn[5] && testfor == TestFor::LIVER)
+							clickRecPos.height = 70;
+						else
+							clickRecPos.height = 30;
+						/*DrawRectangleRec(clickRecPos, BLACK);*/
+						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+							question1[i].ans[0].checked = false;
+							question1[i].ans[1].checked = true;
+							question1[i].ans[2].checked = false;
+							question1[i].ans[3].checked = false;
+						}
+
+						if (question1[i].ans[j].checked) {
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+						}
+						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+
+						DrawText(question1[i].ans[j].text, question1[i].ans[j].pos.x, question1[i].ans[j].pos.y, 30, BLACK);
+						break;
+					case 2:
+						if ((questionTurn[3] && testfor == TestFor::BRAIN) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[3] || questionTurn[4]) && testfor == TestFor::LUNGS) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[2] || questionTurn[3] || questionTurn[4] || questionTurn[6]) && testfor == TestFor::HEART) ||
+							((questionTurn[5] || questionTurn[7]) && testfor == TestFor::REPRODUCTIVE) ||
+							((questionTurn[1] || questionTurn[5] || questionTurn[9]) && testfor == TestFor::NERVES) ||
+							((questionTurn[6] || questionTurn[8]) && testfor == TestFor::MUSCLE))
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 220 };
+						else if (questionTurn[5] && testfor == TestFor::LIVER)
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 270 };
+						else
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 170 };
+
+						checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
+						clickRecPos.x = question1[i].pos.x;
+						clickRecPos.y = question1[i].ans[j].pos.y;
+						clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
+						if ((questionTurn[5] && testfor == TestFor::LIVER) || ((questionTurn[4] || questionTurn[5] || questionTurn[6] || questionTurn[7]) && testfor == TestFor::INTESTINES))
+							clickRecPos.height = 70;
+						else
+							clickRecPos.height = 30;
+						/*DrawRectangleRec(clickRecPos, BLACK);*/
+						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+							question1[i].ans[0].checked = false;
+							question1[i].ans[1].checked = false;
+							question1[i].ans[2].checked = true;
+							question1[i].ans[3].checked = false;
+						}
+
+						if (question1[i].ans[j].checked) {
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+						}
+						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+
+						DrawText(question1[i].ans[j].text, question1[i].ans[j].pos.x, question1[i].ans[j].pos.y, 30, BLACK);
+						break;
+					case 3:
+						if ((questionTurn[3] && testfor == TestFor::BRAIN) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[3] || questionTurn[4]) && testfor == TestFor::LUNGS) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[2] || questionTurn[3] || questionTurn[4] || questionTurn[6]) && testfor == TestFor::HEART) ||
+							((questionTurn[4] || questionTurn[5] || questionTurn[6] || questionTurn[7]) && testfor == TestFor::INTESTINES) ||
+							((questionTurn[5] || questionTurn[7]) && testfor == TestFor::REPRODUCTIVE) ||
+							((questionTurn[1] || questionTurn[5] || questionTurn[9]) && testfor == TestFor::NERVES) ||
+							((questionTurn[6] || questionTurn[8]) && testfor == TestFor::MUSCLE))
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 270 };
+						else if (questionTurn[5] && testfor == TestFor::LIVER)
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 370 };
+						else
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 220 };
+
+						checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
+						clickRecPos.x = question1[i].pos.x;
+						clickRecPos.y = question1[i].ans[j].pos.y;
+						clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
+						if (questionTurn[5] && testfor == TestFor::LIVER)
+							clickRecPos.height = 70;
+						else
+							clickRecPos.height = 30;
+						/*DrawRectangleRec(clickRecPos, BLACK);*/
+						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+							question1[i].ans[0].checked = false;
+							question1[i].ans[1].checked = false;
+							question1[i].ans[2].checked = false;
+							question1[i].ans[3].checked = true;
+						}
+
+						if (question1[i].ans[j].checked) {
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+						}
+						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+
+						DrawText(question1[i].ans[j].text, question1[i].ans[j].pos.x, question1[i].ans[j].pos.y, 30, BLACK);
+						break;
+					}
+				}
+			}
+			if (i == 2 && questionTurn[i]) {
+				DrawText(question1[i].question, question1[i].pos.x, question1[i].pos.y, testFontSize, BLACK);
+				for (int j = 0; j < 4; j++) {
+					switch (j) {
+					case 0:
+						if ((questionTurn[3] && testfor == TestFor::BRAIN) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[3] || questionTurn[4]) && testfor == TestFor::LUNGS) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[2] || questionTurn[3] || questionTurn[4] || questionTurn[6]) && testfor == TestFor::HEART) ||
+							((questionTurn[5] || questionTurn[7]) && testfor == TestFor::REPRODUCTIVE) ||
+							((questionTurn[1] || questionTurn[5] || questionTurn[9]) && testfor == TestFor::NERVES) ||
+							((questionTurn[6] || questionTurn[8]) && testfor == TestFor::MUSCLE))
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 120 };
+						else
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 70 };
+
+						checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
+						clickRecPos.x = question1[i].pos.x;
+						clickRecPos.y = question1[i].ans[j].pos.y;
+						clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
+						if (questionTurn[5] && testfor == TestFor::LIVER)
+							clickRecPos.height = 70;
+						else
+							clickRecPos.height = 30;
+						/*DrawRectangleRec(clickRecPos, BLACK);*/
+						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+							question1[i].ans[0].checked = true;
+							question1[i].ans[1].checked = false;
+							question1[i].ans[2].checked = false;
+							question1[i].ans[3].checked = false;
+						}
+
+						if (question1[i].ans[j].checked) {
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+						}
+						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+
+						DrawText(question1[i].ans[j].text, question1[i].ans[j].pos.x, question1[i].ans[j].pos.y, 30, BLACK);
+						break;
+					case 1:
+						if ((questionTurn[3] && testfor == TestFor::BRAIN) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[3] || questionTurn[4]) && testfor == TestFor::LUNGS) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[2] || questionTurn[3] || questionTurn[4] || questionTurn[6]) && testfor == TestFor::HEART) ||
+							((questionTurn[5] || questionTurn[7]) && testfor == TestFor::REPRODUCTIVE) ||
+							((questionTurn[1] || questionTurn[5] || questionTurn[9]) && testfor == TestFor::NERVES) ||
+							((questionTurn[6] || questionTurn[8]) && testfor == TestFor::MUSCLE))
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 170 };
+						else if (questionTurn[5] && testfor == TestFor::LIVER)
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 170 };
+						else
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 120 };
+
+						checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
+						clickRecPos.x = question1[i].pos.x;
+						clickRecPos.y = question1[i].ans[j].pos.y;
+						clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
+						if (questionTurn[5] && testfor == TestFor::LIVER)
+							clickRecPos.height = 70;
+						else
+							clickRecPos.height = 30;
+						/*DrawRectangleRec(clickRecPos, BLACK);*/
+						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+							question1[i].ans[0].checked = false;
+							question1[i].ans[1].checked = true;
+							question1[i].ans[2].checked = false;
+							question1[i].ans[3].checked = false;
+						}
+
+						if (question1[i].ans[j].checked) {
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+						}
+						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+
+						DrawText(question1[i].ans[j].text, question1[i].ans[j].pos.x, question1[i].ans[j].pos.y, 30, BLACK);
+						break;
+					case 2:
+						if ((questionTurn[3] && testfor == TestFor::BRAIN) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[3] || questionTurn[4]) && testfor == TestFor::LUNGS) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[2] || questionTurn[3] || questionTurn[4] || questionTurn[6]) && testfor == TestFor::HEART) ||
+							((questionTurn[5] || questionTurn[7]) && testfor == TestFor::REPRODUCTIVE) ||
+							((questionTurn[1] || questionTurn[5] || questionTurn[9]) && testfor == TestFor::NERVES) ||
+							((questionTurn[6] || questionTurn[8]) && testfor == TestFor::MUSCLE))
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 220 };
+						else if (questionTurn[5] && testfor == TestFor::LIVER)
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 270 };
+						else
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 170 };
+
+						checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
+						clickRecPos.x = question1[i].pos.x;
+						clickRecPos.y = question1[i].ans[j].pos.y;
+						clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
+						if ((questionTurn[5] && testfor == TestFor::LIVER) || ((questionTurn[4] || questionTurn[5] || questionTurn[6] || questionTurn[7]) && testfor == TestFor::INTESTINES))
+							clickRecPos.height = 70;
+						else
+							clickRecPos.height = 30;
+						/*DrawRectangleRec(clickRecPos, BLACK);*/
+						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+							question1[i].ans[0].checked = false;
+							question1[i].ans[1].checked = false;
+							question1[i].ans[2].checked = true;
+							question1[i].ans[3].checked = false;
+						}
+
+						if (question1[i].ans[j].checked) {
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+						}
+						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+
+						DrawText(question1[i].ans[j].text, question1[i].ans[j].pos.x, question1[i].ans[j].pos.y, 30, BLACK);
+						break;
+					case 3:
+						if ((questionTurn[3] && testfor == TestFor::BRAIN) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[3] || questionTurn[4]) && testfor == TestFor::LUNGS) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[2] || questionTurn[3] || questionTurn[4] || questionTurn[6]) && testfor == TestFor::HEART) ||
+							((questionTurn[4] || questionTurn[5] || questionTurn[6] || questionTurn[7]) && testfor == TestFor::INTESTINES) ||
+							((questionTurn[5] || questionTurn[7]) && testfor == TestFor::REPRODUCTIVE) ||
+							((questionTurn[1] || questionTurn[5] || questionTurn[9]) && testfor == TestFor::NERVES) ||
+							((questionTurn[6] || questionTurn[8]) && testfor == TestFor::MUSCLE))
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 270 };
+						else if (questionTurn[5] && testfor == TestFor::LIVER)
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 370 };
+						else
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 220 };
+
+						checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
+						clickRecPos.x = question1[i].pos.x;
+						clickRecPos.y = question1[i].ans[j].pos.y;
+						clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
+						if (questionTurn[5] && testfor == TestFor::LIVER)
+							clickRecPos.height = 70;
+						else
+							clickRecPos.height = 30;
+						/*DrawRectangleRec(clickRecPos, BLACK);*/
+						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+							question1[i].ans[0].checked = false;
+							question1[i].ans[1].checked = false;
+							question1[i].ans[2].checked = false;
+							question1[i].ans[3].checked = true;
+						}
+
+						if (question1[i].ans[j].checked) {
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+						}
+						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+
+						DrawText(question1[i].ans[j].text, question1[i].ans[j].pos.x, question1[i].ans[j].pos.y, 30, BLACK);
+						break;
+					}
+				}
+			}
+			if (i == 3 && questionTurn[i]) {
+				DrawText(question1[i].question, question1[i].pos.x, question1[i].pos.y, testFontSize, BLACK);
+				for (int j = 0; j < 4; j++) {
+					switch (j) {
+					case 0:
+						if ((questionTurn[3] && testfor == TestFor::BRAIN) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[3] || questionTurn[4]) && testfor == TestFor::LUNGS) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[2] || questionTurn[3] || questionTurn[4] || questionTurn[6]) && testfor == TestFor::HEART) ||
+							((questionTurn[5] || questionTurn[7]) && testfor == TestFor::REPRODUCTIVE) ||
+							((questionTurn[1] || questionTurn[5] || questionTurn[9]) && testfor == TestFor::NERVES) ||
+							((questionTurn[6] || questionTurn[8]) && testfor == TestFor::MUSCLE))
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 120 };
+						else
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 70 };
+
+						checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
+						clickRecPos.x = question1[i].pos.x;
+						clickRecPos.y = question1[i].ans[j].pos.y;
+						clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
+						if (questionTurn[5] && testfor == TestFor::LIVER)
+							clickRecPos.height = 70;
+						else
+							clickRecPos.height = 30;
+						/*DrawRectangleRec(clickRecPos, BLACK);*/
+						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+							question1[i].ans[0].checked = true;
+							question1[i].ans[1].checked = false;
+							question1[i].ans[2].checked = false;
+							question1[i].ans[3].checked = false;
+						}
+
+						if (question1[i].ans[j].checked) {
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+						}
+						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+
+						DrawText(question1[i].ans[j].text, question1[i].ans[j].pos.x, question1[i].ans[j].pos.y, 30, BLACK);
+						break;
+					case 1:
+						if ((questionTurn[3] && testfor == TestFor::BRAIN) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[3] || questionTurn[4]) && testfor == TestFor::LUNGS) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[2] || questionTurn[3] || questionTurn[4] || questionTurn[6]) && testfor == TestFor::HEART) ||
+							((questionTurn[5] || questionTurn[7]) && testfor == TestFor::REPRODUCTIVE) ||
+							((questionTurn[1] || questionTurn[5] || questionTurn[9]) && testfor == TestFor::NERVES) ||
+							((questionTurn[6] || questionTurn[8]) && testfor == TestFor::MUSCLE))
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 170 };
+						else if (questionTurn[5] && testfor == TestFor::LIVER)
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 170 };
+						else
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 120 };
+
+						checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
+						clickRecPos.x = question1[i].pos.x;
+						clickRecPos.y = question1[i].ans[j].pos.y;
+						clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
+						if (questionTurn[5] && testfor == TestFor::LIVER)
+							clickRecPos.height = 70;
+						else
+							clickRecPos.height = 30;
+						/*DrawRectangleRec(clickRecPos, BLACK);*/
+						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+							question1[i].ans[0].checked = false;
+							question1[i].ans[1].checked = true;
+							question1[i].ans[2].checked = false;
+							question1[i].ans[3].checked = false;
+						}
+
+						if (question1[i].ans[j].checked) {
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+						}
+						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+
+						DrawText(question1[i].ans[j].text, question1[i].ans[j].pos.x, question1[i].ans[j].pos.y, 30, BLACK);
+						break;
+					case 2:
+						if ((questionTurn[3] && testfor == TestFor::BRAIN) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[3] || questionTurn[4]) && testfor == TestFor::LUNGS) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[2] || questionTurn[3] || questionTurn[4] || questionTurn[6]) && testfor == TestFor::HEART) ||
+							((questionTurn[5] || questionTurn[7]) && testfor == TestFor::REPRODUCTIVE) ||
+							((questionTurn[1] || questionTurn[5] || questionTurn[9]) && testfor == TestFor::NERVES) ||
+							((questionTurn[6] || questionTurn[8]) && testfor == TestFor::MUSCLE))
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 220 };
+						else if (questionTurn[5] && testfor == TestFor::LIVER)
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 270 };
+						else
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 170 };
+
+						checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
+						clickRecPos.x = question1[i].pos.x;
+						clickRecPos.y = question1[i].ans[j].pos.y;
+						clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
+						if ((questionTurn[5] && testfor == TestFor::LIVER) || ((questionTurn[4] || questionTurn[5] || questionTurn[6] || questionTurn[7]) && testfor == TestFor::INTESTINES))
+							clickRecPos.height = 70;
+						else
+							clickRecPos.height = 30;
+						/*DrawRectangleRec(clickRecPos, BLACK);*/
+						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+							question1[i].ans[0].checked = false;
+							question1[i].ans[1].checked = false;
+							question1[i].ans[2].checked = true;
+							question1[i].ans[3].checked = false;
+						}
+
+						if (question1[i].ans[j].checked) {
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+						}
+						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+
+						DrawText(question1[i].ans[j].text, question1[i].ans[j].pos.x, question1[i].ans[j].pos.y, 30, BLACK);
+						break;
+					case 3:
+						if ((questionTurn[3] && testfor == TestFor::BRAIN) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[3] || questionTurn[4]) && testfor == TestFor::LUNGS) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[2] || questionTurn[3] || questionTurn[4] || questionTurn[6]) && testfor == TestFor::HEART) ||
+							((questionTurn[4] || questionTurn[5] || questionTurn[6] || questionTurn[7]) && testfor == TestFor::INTESTINES) ||
+							((questionTurn[5] || questionTurn[7]) && testfor == TestFor::REPRODUCTIVE) ||
+							((questionTurn[1] || questionTurn[5] || questionTurn[9]) && testfor == TestFor::NERVES) ||
+							((questionTurn[6] || questionTurn[8]) && testfor == TestFor::MUSCLE))
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 270 };
+						else if (questionTurn[5] && testfor == TestFor::LIVER)
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 370 };
+						else
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 220 };
+
+						checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
+						clickRecPos.x = question1[i].pos.x;
+						clickRecPos.y = question1[i].ans[j].pos.y;
+						clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
+						if (questionTurn[5] && testfor == TestFor::LIVER)
+							clickRecPos.height = 70;
+						else
+							clickRecPos.height = 30;
+						/*DrawRectangleRec(clickRecPos, BLACK);*/
+						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+							question1[i].ans[0].checked = false;
+							question1[i].ans[1].checked = false;
+							question1[i].ans[2].checked = false;
+							question1[i].ans[3].checked = true;
+						}
+
+						if (question1[i].ans[j].checked) {
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+						}
+						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+
+						DrawText(question1[i].ans[j].text, question1[i].ans[j].pos.x, question1[i].ans[j].pos.y, 30, BLACK);
+						break;
+					}
+				}
+			}
+			if (i == 4 && questionTurn[i]) {
+				DrawText(question1[i].question, question1[i].pos.x, question1[i].pos.y, testFontSize, BLACK);
+				for (int j = 0; j < 4; j++) {
+					switch (j) {
+					case 0:
+						if ((questionTurn[3] && testfor == TestFor::BRAIN) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[3] || questionTurn[4]) && testfor == TestFor::LUNGS) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[2] || questionTurn[3] || questionTurn[4] || questionTurn[6]) && testfor == TestFor::HEART) ||
+							((questionTurn[5] || questionTurn[7]) && testfor == TestFor::REPRODUCTIVE) ||
+							((questionTurn[1] || questionTurn[5] || questionTurn[9]) && testfor == TestFor::NERVES) ||
+							((questionTurn[6] || questionTurn[8]) && testfor == TestFor::MUSCLE))
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 120 };
+						else
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 70 };
+
+						checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
+						clickRecPos.x = question1[i].pos.x;
+						clickRecPos.y = question1[i].ans[j].pos.y;
+						clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
+						if (questionTurn[5] && testfor == TestFor::LIVER)
+							clickRecPos.height = 70;
+						else
+							clickRecPos.height = 30;
+						/*DrawRectangleRec(clickRecPos, BLACK);*/
+						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+							question1[i].ans[0].checked = true;
+							question1[i].ans[1].checked = false;
+							question1[i].ans[2].checked = false;
+							question1[i].ans[3].checked = false;
+						}
+
+						if (question1[i].ans[j].checked) {
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+						}
+						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+
+						DrawText(question1[i].ans[j].text, question1[i].ans[j].pos.x, question1[i].ans[j].pos.y, 30, BLACK);
+						break;
+					case 1:
+						if ((questionTurn[3] && testfor == TestFor::BRAIN) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[3] || questionTurn[4]) && testfor == TestFor::LUNGS) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[2] || questionTurn[3] || questionTurn[4] || questionTurn[6]) && testfor == TestFor::HEART) ||
+							((questionTurn[5] || questionTurn[7]) && testfor == TestFor::REPRODUCTIVE) ||
+							((questionTurn[1] || questionTurn[5] || questionTurn[9]) && testfor == TestFor::NERVES) ||
+							((questionTurn[6] || questionTurn[8]) && testfor == TestFor::MUSCLE))
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 170 };
+						else if (questionTurn[5] && testfor == TestFor::LIVER)
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 170 };
+						else
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 120 };
+
+						checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
+						clickRecPos.x = question1[i].pos.x;
+						clickRecPos.y = question1[i].ans[j].pos.y;
+						clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
+						if (questionTurn[5] && testfor == TestFor::LIVER)
+							clickRecPos.height = 70;
+						else
+							clickRecPos.height = 30;
+						/*DrawRectangleRec(clickRecPos, BLACK);*/
+						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+							question1[i].ans[0].checked = false;
+							question1[i].ans[1].checked = true;
+							question1[i].ans[2].checked = false;
+							question1[i].ans[3].checked = false;
+						}
+
+						if (question1[i].ans[j].checked) {
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+						}
+						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+
+						DrawText(question1[i].ans[j].text, question1[i].ans[j].pos.x, question1[i].ans[j].pos.y, 30, BLACK);
+						break;
+					case 2:
+						if ((questionTurn[3] && testfor == TestFor::BRAIN) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[3] || questionTurn[4]) && testfor == TestFor::LUNGS) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[2] || questionTurn[3] || questionTurn[4] || questionTurn[6]) && testfor == TestFor::HEART) ||
+							((questionTurn[5] || questionTurn[7]) && testfor == TestFor::REPRODUCTIVE) ||
+							((questionTurn[1] || questionTurn[5] || questionTurn[9]) && testfor == TestFor::NERVES) ||
+							((questionTurn[6] || questionTurn[8]) && testfor == TestFor::MUSCLE))
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 220 };
+						else if (questionTurn[5] && testfor == TestFor::LIVER)
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 270 };
+						else
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 170 };
+
+						checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
+						clickRecPos.x = question1[i].pos.x;
+						clickRecPos.y = question1[i].ans[j].pos.y;
+						clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
+						if ((questionTurn[5] && testfor == TestFor::LIVER) || ((questionTurn[4] || questionTurn[5] || questionTurn[6] || questionTurn[7]) && testfor == TestFor::INTESTINES))
+							clickRecPos.height = 70;
+						else
+							clickRecPos.height = 30;
+						/*DrawRectangleRec(clickRecPos, BLACK);*/
+						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+							question1[i].ans[0].checked = false;
+							question1[i].ans[1].checked = false;
+							question1[i].ans[2].checked = true;
+							question1[i].ans[3].checked = false;
+						}
+
+						if (question1[i].ans[j].checked) {
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+						}
+						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+
+						DrawText(question1[i].ans[j].text, question1[i].ans[j].pos.x, question1[i].ans[j].pos.y, 30, BLACK);
+						break;
+					case 3:
+						if ((questionTurn[3] && testfor == TestFor::BRAIN) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[3] || questionTurn[4]) && testfor == TestFor::LUNGS) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[2] || questionTurn[3] || questionTurn[4] || questionTurn[6]) && testfor == TestFor::HEART) ||
+							((questionTurn[4] || questionTurn[5] || questionTurn[6] || questionTurn[7]) && testfor == TestFor::INTESTINES) ||
+							((questionTurn[5] || questionTurn[7]) && testfor == TestFor::REPRODUCTIVE) ||
+							((questionTurn[1] || questionTurn[5] || questionTurn[9]) && testfor == TestFor::NERVES) ||
+							((questionTurn[6] || questionTurn[8]) && testfor == TestFor::MUSCLE))
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 270 };
+						else if (questionTurn[5] && testfor == TestFor::LIVER)
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 370 };
+						else
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 220 };
+
+						checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
+						clickRecPos.x = question1[i].pos.x;
+						clickRecPos.y = question1[i].ans[j].pos.y;
+						clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
+						if (questionTurn[5] && testfor == TestFor::LIVER)
+							clickRecPos.height = 70;
+						else
+							clickRecPos.height = 30;
+						/*DrawRectangleRec(clickRecPos, BLACK);*/
+						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+							question1[i].ans[0].checked = false;
+							question1[i].ans[1].checked = false;
+							question1[i].ans[2].checked = false;
+							question1[i].ans[3].checked = true;
+						}
+
+						if (question1[i].ans[j].checked) {
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+						}
+						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+
+						DrawText(question1[i].ans[j].text, question1[i].ans[j].pos.x, question1[i].ans[j].pos.y, 30, BLACK);
+						break;
+					}
+				}
+			}
+			if (i == 5 && questionTurn[i]) {
+				DrawText(question1[i].question, question1[i].pos.x, question1[i].pos.y, testFontSize, BLACK);
+				for (int j = 0; j < 4; j++) {
+					switch (j) {
+					case 0:
+						if ((questionTurn[3] && testfor == TestFor::BRAIN) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[3] || questionTurn[4]) && testfor == TestFor::LUNGS) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[2] || questionTurn[3] || questionTurn[4] || questionTurn[6]) && testfor == TestFor::HEART) ||
+							((questionTurn[5] || questionTurn[7]) && testfor == TestFor::REPRODUCTIVE) ||
+							((questionTurn[1] || questionTurn[5] || questionTurn[9]) && testfor == TestFor::NERVES) ||
+							((questionTurn[6] || questionTurn[8]) && testfor == TestFor::MUSCLE))
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 120 };
+						else
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 70 };
+
+						checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
+						clickRecPos.x = question1[i].pos.x;
+						clickRecPos.y = question1[i].ans[j].pos.y;
+						clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
+						if (questionTurn[5] && testfor == TestFor::LIVER)
+							clickRecPos.height = 70;
+						else
+							clickRecPos.height = 30;
+						/*DrawRectangleRec(clickRecPos, BLACK);*/
+						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+							question1[i].ans[0].checked = true;
+							question1[i].ans[1].checked = false;
+							question1[i].ans[2].checked = false;
+							question1[i].ans[3].checked = false;
+						}
+
+						if (question1[i].ans[j].checked) {
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+						}
+						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+
+						DrawText(question1[i].ans[j].text, question1[i].ans[j].pos.x, question1[i].ans[j].pos.y, 30, BLACK);
+						break;
+					case 1:
+						if ((questionTurn[3] && testfor == TestFor::BRAIN) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[3] || questionTurn[4]) && testfor == TestFor::LUNGS) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[2] || questionTurn[3] || questionTurn[4] || questionTurn[6]) && testfor == TestFor::HEART) ||
+							((questionTurn[5] || questionTurn[7]) && testfor == TestFor::REPRODUCTIVE) ||
+							((questionTurn[1] || questionTurn[5] || questionTurn[9]) && testfor == TestFor::NERVES) ||
+							((questionTurn[6] || questionTurn[8]) && testfor == TestFor::MUSCLE))
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 170 };
+						else if (questionTurn[5] && testfor == TestFor::LIVER)
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 170 };
+						else
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 120 };
+
+						checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
+						clickRecPos.x = question1[i].pos.x;
+						clickRecPos.y = question1[i].ans[j].pos.y;
+						clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
+						if (questionTurn[5] && testfor == TestFor::LIVER)
+							clickRecPos.height = 70;
+						else
+							clickRecPos.height = 30;
+						/*DrawRectangleRec(clickRecPos, BLACK);*/
+						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+							question1[i].ans[0].checked = false;
+							question1[i].ans[1].checked = true;
+							question1[i].ans[2].checked = false;
+							question1[i].ans[3].checked = false;
+						}
+
+						if (question1[i].ans[j].checked) {
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+						}
+						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+
+						DrawText(question1[i].ans[j].text, question1[i].ans[j].pos.x, question1[i].ans[j].pos.y, 30, BLACK);
+						break;
+					case 2:
+						if ((questionTurn[3] && testfor == TestFor::BRAIN) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[3] || questionTurn[4]) && testfor == TestFor::LUNGS) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[2] || questionTurn[3] || questionTurn[4] || questionTurn[6]) && testfor == TestFor::HEART) ||
+							((questionTurn[5] || questionTurn[7]) && testfor == TestFor::REPRODUCTIVE) ||
+							((questionTurn[1] || questionTurn[5] || questionTurn[9]) && testfor == TestFor::NERVES) ||
+							((questionTurn[6] || questionTurn[8]) && testfor == TestFor::MUSCLE))
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 220 };
+						else if (questionTurn[5] && testfor == TestFor::LIVER)
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 270 };
+						else
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 170 };
+
+						checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
+						clickRecPos.x = question1[i].pos.x;
+						clickRecPos.y = question1[i].ans[j].pos.y;
+						clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
+						if ((questionTurn[5] && testfor == TestFor::LIVER) || ((questionTurn[4] || questionTurn[5] || questionTurn[6] || questionTurn[7]) && testfor == TestFor::INTESTINES))
+							clickRecPos.height = 70;
+						else
+							clickRecPos.height = 30;
+						/*DrawRectangleRec(clickRecPos, BLACK);*/
+						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+							question1[i].ans[0].checked = false;
+							question1[i].ans[1].checked = false;
+							question1[i].ans[2].checked = true;
+							question1[i].ans[3].checked = false;
+						}
+
+						if (question1[i].ans[j].checked) {
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+						}
+						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+
+						DrawText(question1[i].ans[j].text, question1[i].ans[j].pos.x, question1[i].ans[j].pos.y, 30, BLACK);
+						break;
+					case 3:
+						if ((questionTurn[3] && testfor == TestFor::BRAIN) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[3] || questionTurn[4]) && testfor == TestFor::LUNGS) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[2] || questionTurn[3] || questionTurn[4] || questionTurn[6]) && testfor == TestFor::HEART) ||
+							((questionTurn[4] || questionTurn[5] || questionTurn[6] || questionTurn[7]) && testfor == TestFor::INTESTINES) ||
+							((questionTurn[5] || questionTurn[7]) && testfor == TestFor::REPRODUCTIVE) ||
+							((questionTurn[1] || questionTurn[5] || questionTurn[9]) && testfor == TestFor::NERVES) ||
+							((questionTurn[6] || questionTurn[8]) && testfor == TestFor::MUSCLE))
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 270 };
+						else if (questionTurn[5] && testfor == TestFor::LIVER)
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 370 };
+						else
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 220 };
+
+						checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
+						clickRecPos.x = question1[i].pos.x;
+						clickRecPos.y = question1[i].ans[j].pos.y;
+						clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
+						if (questionTurn[5] && testfor == TestFor::LIVER)
+							clickRecPos.height = 70;
+						else
+							clickRecPos.height = 30;
+						/*DrawRectangleRec(clickRecPos, BLACK);*/
+						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+							question1[i].ans[0].checked = false;
+							question1[i].ans[1].checked = false;
+							question1[i].ans[2].checked = false;
+							question1[i].ans[3].checked = true;
+						}
+
+						if (question1[i].ans[j].checked) {
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+						}
+						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+
+						DrawText(question1[i].ans[j].text, question1[i].ans[j].pos.x, question1[i].ans[j].pos.y, 30, BLACK);
+						break;
+					}
+				}
+			}
+			if (i == 6 && questionTurn[i]) {
+				DrawText(question1[i].question, question1[i].pos.x, question1[i].pos.y, testFontSize, BLACK);
+				for (int j = 0; j < 4; j++) {
+					switch (j) {
+					case 0:
+						if ((questionTurn[3] && testfor == TestFor::BRAIN) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[3] || questionTurn[4]) && testfor == TestFor::LUNGS) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[2] || questionTurn[3] || questionTurn[4] || questionTurn[6]) && testfor == TestFor::HEART) ||
+							((questionTurn[5] || questionTurn[7]) && testfor == TestFor::REPRODUCTIVE) ||
+							((questionTurn[1] || questionTurn[5] || questionTurn[9]) && testfor == TestFor::NERVES) ||
+							((questionTurn[6] || questionTurn[8]) && testfor == TestFor::MUSCLE))
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 120 };
+						else
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 70 };
+
+						checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
+						clickRecPos.x = question1[i].pos.x;
+						clickRecPos.y = question1[i].ans[j].pos.y;
+						clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
+						if (questionTurn[5] && testfor == TestFor::LIVER)
+							clickRecPos.height = 70;
+						else
+							clickRecPos.height = 30;
+						/*DrawRectangleRec(clickRecPos, BLACK);*/
+						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+							question1[i].ans[0].checked = true;
+							question1[i].ans[1].checked = false;
+							question1[i].ans[2].checked = false;
+							question1[i].ans[3].checked = false;
+						}
+
+						if (question1[i].ans[j].checked) {
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+						}
+						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+
+						DrawText(question1[i].ans[j].text, question1[i].ans[j].pos.x, question1[i].ans[j].pos.y, 30, BLACK);
+						break;
+					case 1:
+						if ((questionTurn[3] && testfor == TestFor::BRAIN) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[3] || questionTurn[4]) && testfor == TestFor::LUNGS) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[2] || questionTurn[3] || questionTurn[4] || questionTurn[6]) && testfor == TestFor::HEART) ||
+							((questionTurn[5] || questionTurn[7]) && testfor == TestFor::REPRODUCTIVE) ||
+							((questionTurn[1] || questionTurn[5] || questionTurn[9]) && testfor == TestFor::NERVES) ||
+							((questionTurn[6] || questionTurn[8]) && testfor == TestFor::MUSCLE))
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 170 };
+						else if (questionTurn[5] && testfor == TestFor::LIVER)
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 170 };
+						else
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 120 };
+
+						checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
+						clickRecPos.x = question1[i].pos.x;
+						clickRecPos.y = question1[i].ans[j].pos.y;
+						clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
+						if (questionTurn[5] && testfor == TestFor::LIVER)
+							clickRecPos.height = 70;
+						else
+							clickRecPos.height = 30;
+						/*DrawRectangleRec(clickRecPos, BLACK);*/
+						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+							question1[i].ans[0].checked = false;
+							question1[i].ans[1].checked = true;
+							question1[i].ans[2].checked = false;
+							question1[i].ans[3].checked = false;
+						}
+
+						if (question1[i].ans[j].checked) {
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+						}
+						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+
+						DrawText(question1[i].ans[j].text, question1[i].ans[j].pos.x, question1[i].ans[j].pos.y, 30, BLACK);
+						break;
+					case 2:
+						if ((questionTurn[3] && testfor == TestFor::BRAIN) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[3] || questionTurn[4]) && testfor == TestFor::LUNGS) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[2] || questionTurn[3] || questionTurn[4] || questionTurn[6]) && testfor == TestFor::HEART) ||
+							((questionTurn[5] || questionTurn[7]) && testfor == TestFor::REPRODUCTIVE) ||
+							((questionTurn[1] || questionTurn[5] || questionTurn[9]) && testfor == TestFor::NERVES) ||
+							((questionTurn[6] || questionTurn[8]) && testfor == TestFor::MUSCLE))
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 220 };
+						else if (questionTurn[5] && testfor == TestFor::LIVER)
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 270 };
+						else
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 170 };
+
+						checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
+						clickRecPos.x = question1[i].pos.x;
+						clickRecPos.y = question1[i].ans[j].pos.y;
+						clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
+						if ((questionTurn[5] && testfor == TestFor::LIVER) || ((questionTurn[4] || questionTurn[5] || questionTurn[6] || questionTurn[7]) && testfor == TestFor::INTESTINES))
+							clickRecPos.height = 70;
+						else
+							clickRecPos.height = 30;
+						/*DrawRectangleRec(clickRecPos, BLACK);*/
+						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+							question1[i].ans[0].checked = false;
+							question1[i].ans[1].checked = false;
+							question1[i].ans[2].checked = true;
+							question1[i].ans[3].checked = false;
+						}
+
+						if (question1[i].ans[j].checked) {
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+						}
+						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+
+						DrawText(question1[i].ans[j].text, question1[i].ans[j].pos.x, question1[i].ans[j].pos.y, 30, BLACK);
+						break;
+					case 3:
+						if ((questionTurn[3] && testfor == TestFor::BRAIN) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[3] || questionTurn[4]) && testfor == TestFor::LUNGS) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[2] || questionTurn[3] || questionTurn[4] || questionTurn[6]) && testfor == TestFor::HEART) ||
+							((questionTurn[4] || questionTurn[5] || questionTurn[6] || questionTurn[7]) && testfor == TestFor::INTESTINES) ||
+							((questionTurn[5] || questionTurn[7]) && testfor == TestFor::REPRODUCTIVE) ||
+							((questionTurn[1] || questionTurn[5] || questionTurn[9]) && testfor == TestFor::NERVES) ||
+							((questionTurn[6] || questionTurn[8]) && testfor == TestFor::MUSCLE))
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 270 };
+						else if (questionTurn[5] && testfor == TestFor::LIVER)
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 370 };
+						else
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 220 };
+
+						checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
+						clickRecPos.x = question1[i].pos.x;
+						clickRecPos.y = question1[i].ans[j].pos.y;
+						clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
+						if (questionTurn[5] && testfor == TestFor::LIVER)
+							clickRecPos.height = 70;
+						else
+							clickRecPos.height = 30;
+						/*DrawRectangleRec(clickRecPos, BLACK);*/
+						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+							question1[i].ans[0].checked = false;
+							question1[i].ans[1].checked = false;
+							question1[i].ans[2].checked = false;
+							question1[i].ans[3].checked = true;
+						}
+
+						if (question1[i].ans[j].checked) {
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+						}
+						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+
+						DrawText(question1[i].ans[j].text, question1[i].ans[j].pos.x, question1[i].ans[j].pos.y, 30, BLACK);
+						break;
+					}
+				}
+			}
+			if (i == 7 && questionTurn[i]) {
+				DrawText(question1[i].question, question1[i].pos.x, question1[i].pos.y, testFontSize, BLACK);
+				for (int j = 0; j < 4; j++) {
+					switch (j) {
+					case 0:
+						if ((questionTurn[3] && testfor == TestFor::BRAIN) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[3] || questionTurn[4]) && testfor == TestFor::LUNGS) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[2] || questionTurn[3] || questionTurn[4] || questionTurn[6]) && testfor == TestFor::HEART) ||
+							((questionTurn[5] || questionTurn[7]) && testfor == TestFor::REPRODUCTIVE) ||
+							((questionTurn[1] || questionTurn[5] || questionTurn[9]) && testfor == TestFor::NERVES) ||
+							((questionTurn[6] || questionTurn[8]) && testfor == TestFor::MUSCLE))
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 120 };
+						else
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 70 };
+
+						checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
+						clickRecPos.x = question1[i].pos.x;
+						clickRecPos.y = question1[i].ans[j].pos.y;
+						clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
+						if (questionTurn[5] && testfor == TestFor::LIVER)
+							clickRecPos.height = 70;
+						else
+							clickRecPos.height = 30;
+						/*DrawRectangleRec(clickRecPos, BLACK);*/
+						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+							question1[i].ans[0].checked = true;
+							question1[i].ans[1].checked = false;
+							question1[i].ans[2].checked = false;
+							question1[i].ans[3].checked = false;
+						}
+
+						if (question1[i].ans[j].checked) {
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+						}
+						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+
+						DrawText(question1[i].ans[j].text, question1[i].ans[j].pos.x, question1[i].ans[j].pos.y, 30, BLACK);
+						break;
+					case 1:
+						if ((questionTurn[3] && testfor == TestFor::BRAIN) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[3] || questionTurn[4]) && testfor == TestFor::LUNGS) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[2] || questionTurn[3] || questionTurn[4] || questionTurn[6]) && testfor == TestFor::HEART) ||
+							((questionTurn[5] || questionTurn[7]) && testfor == TestFor::REPRODUCTIVE) ||
+							((questionTurn[1] || questionTurn[5] || questionTurn[9]) && testfor == TestFor::NERVES) ||
+							((questionTurn[6] || questionTurn[8]) && testfor == TestFor::MUSCLE))
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 170 };
+						else if (questionTurn[5] && testfor == TestFor::LIVER)
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 170 };
+						else
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 120 };
+
+						checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
+						clickRecPos.x = question1[i].pos.x;
+						clickRecPos.y = question1[i].ans[j].pos.y;
+						clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
+						if (questionTurn[5] && testfor == TestFor::LIVER)
+							clickRecPos.height = 70;
+						else
+							clickRecPos.height = 30;
+						/*DrawRectangleRec(clickRecPos, BLACK);*/
+						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+							question1[i].ans[0].checked = false;
+							question1[i].ans[1].checked = true;
+							question1[i].ans[2].checked = false;
+							question1[i].ans[3].checked = false;
+						}
+
+						if (question1[i].ans[j].checked) {
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+						}
+						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+
+						DrawText(question1[i].ans[j].text, question1[i].ans[j].pos.x, question1[i].ans[j].pos.y, 30, BLACK);
+						break;
+					case 2:
+						if ((questionTurn[3] && testfor == TestFor::BRAIN) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[3] || questionTurn[4]) && testfor == TestFor::LUNGS) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[2] || questionTurn[3] || questionTurn[4] || questionTurn[6]) && testfor == TestFor::HEART) ||
+							((questionTurn[5] || questionTurn[7]) && testfor == TestFor::REPRODUCTIVE) ||
+							((questionTurn[1] || questionTurn[5] || questionTurn[9]) && testfor == TestFor::NERVES) ||
+							((questionTurn[6] || questionTurn[8]) && testfor == TestFor::MUSCLE))
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 220 };
+						else if (questionTurn[5] && testfor == TestFor::LIVER)
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 270 };
+						else
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 170 };
+
+						checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
+						clickRecPos.x = question1[i].pos.x;
+						clickRecPos.y = question1[i].ans[j].pos.y;
+						clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
+						if ((questionTurn[5] && testfor == TestFor::LIVER) || ((questionTurn[4] || questionTurn[5] || questionTurn[6] || questionTurn[7]) && testfor == TestFor::INTESTINES))
+							clickRecPos.height = 70;
+						else
+							clickRecPos.height = 30;
+						/*DrawRectangleRec(clickRecPos, BLACK);*/
+						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+							question1[i].ans[0].checked = false;
+							question1[i].ans[1].checked = false;
+							question1[i].ans[2].checked = true;
+							question1[i].ans[3].checked = false;
+						}
+
+						if (question1[i].ans[j].checked) {
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+						}
+						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+
+						DrawText(question1[i].ans[j].text, question1[i].ans[j].pos.x, question1[i].ans[j].pos.y, 30, BLACK);
+						break;
+					case 3:
+						if ((questionTurn[3] && testfor == TestFor::BRAIN) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[3] || questionTurn[4]) && testfor == TestFor::LUNGS) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[2] || questionTurn[3] || questionTurn[4] || questionTurn[6]) && testfor == TestFor::HEART) ||
+							((questionTurn[4] || questionTurn[5] || questionTurn[6] || questionTurn[7]) && testfor == TestFor::INTESTINES) ||
+							((questionTurn[5] || questionTurn[7]) && testfor == TestFor::REPRODUCTIVE) ||
+							((questionTurn[1] || questionTurn[5] || questionTurn[9]) && testfor == TestFor::NERVES) ||
+							((questionTurn[6] || questionTurn[8]) && testfor == TestFor::MUSCLE))
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 270 };
+						else if (questionTurn[5] && testfor == TestFor::LIVER)
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 370 };
+						else
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 220 };
+
+						checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
+						clickRecPos.x = question1[i].pos.x;
+						clickRecPos.y = question1[i].ans[j].pos.y;
+						clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
+						if (questionTurn[5] && testfor == TestFor::LIVER)
+							clickRecPos.height = 70;
+						else
+							clickRecPos.height = 30;
+						/*DrawRectangleRec(clickRecPos, BLACK);*/
+						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+							question1[i].ans[0].checked = false;
+							question1[i].ans[1].checked = false;
+							question1[i].ans[2].checked = false;
+							question1[i].ans[3].checked = true;
+						}
+
+						if (question1[i].ans[j].checked) {
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+						}
+						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+
+						DrawText(question1[i].ans[j].text, question1[i].ans[j].pos.x, question1[i].ans[j].pos.y, 30, BLACK);
+						break;
+					}
+				}
+			}
+			if (i == 8 && questionTurn[i]) {
+				DrawText(question1[i].question, question1[i].pos.x, question1[i].pos.y, testFontSize, BLACK);
+				for (int j = 0; j < 4; j++) {
+					switch (j) {
+					case 0:
+						if ((questionTurn[3] && testfor == TestFor::BRAIN) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[3] || questionTurn[4]) && testfor == TestFor::LUNGS) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[2] || questionTurn[3] || questionTurn[4] || questionTurn[6]) && testfor == TestFor::HEART) ||
+							((questionTurn[5] || questionTurn[7]) && testfor == TestFor::REPRODUCTIVE) ||
+							((questionTurn[1] || questionTurn[5] || questionTurn[9]) && testfor == TestFor::NERVES) ||
+							((questionTurn[6] || questionTurn[8]) && testfor == TestFor::MUSCLE))
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 120 };
+						else
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 70 };
+
+						checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
+						clickRecPos.x = question1[i].pos.x;
+						clickRecPos.y = question1[i].ans[j].pos.y;
+						clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
+						if (questionTurn[5] && testfor == TestFor::LIVER)
+							clickRecPos.height = 70;
+						else
+							clickRecPos.height = 30;
+						/*DrawRectangleRec(clickRecPos, BLACK);*/
+						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+							question1[i].ans[0].checked = true;
+							question1[i].ans[1].checked = false;
+							question1[i].ans[2].checked = false;
+							question1[i].ans[3].checked = false;
+						}
+
+						if (question1[i].ans[j].checked) {
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+						}
+						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+
+						DrawText(question1[i].ans[j].text, question1[i].ans[j].pos.x, question1[i].ans[j].pos.y, 30, BLACK);
+						break;
+					case 1:
+						if ((questionTurn[3] && testfor == TestFor::BRAIN) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[3] || questionTurn[4]) && testfor == TestFor::LUNGS) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[2] || questionTurn[3] || questionTurn[4] || questionTurn[6]) && testfor == TestFor::HEART) ||
+							((questionTurn[5] || questionTurn[7]) && testfor == TestFor::REPRODUCTIVE) ||
+							((questionTurn[1] || questionTurn[5] || questionTurn[9]) && testfor == TestFor::NERVES) ||
+							((questionTurn[6] || questionTurn[8]) && testfor == TestFor::MUSCLE))
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 170 };
+						else if (questionTurn[5] && testfor == TestFor::LIVER)
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 170 };
+						else
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 120 };
+
+						checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
+						clickRecPos.x = question1[i].pos.x;
+						clickRecPos.y = question1[i].ans[j].pos.y;
+						clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
+						if (questionTurn[5] && testfor == TestFor::LIVER)
+							clickRecPos.height = 70;
+						else
+							clickRecPos.height = 30;
+						/*DrawRectangleRec(clickRecPos, BLACK);*/
+						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+							question1[i].ans[0].checked = false;
+							question1[i].ans[1].checked = true;
+							question1[i].ans[2].checked = false;
+							question1[i].ans[3].checked = false;
+						}
+
+						if (question1[i].ans[j].checked) {
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+						}
+						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+
+						DrawText(question1[i].ans[j].text, question1[i].ans[j].pos.x, question1[i].ans[j].pos.y, 30, BLACK);
+						break;
+					case 2:
+						if ((questionTurn[3] && testfor == TestFor::BRAIN) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[3] || questionTurn[4]) && testfor == TestFor::LUNGS) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[2] || questionTurn[3] || questionTurn[4] || questionTurn[6]) && testfor == TestFor::HEART) ||
+							((questionTurn[5] || questionTurn[7]) && testfor == TestFor::REPRODUCTIVE) ||
+							((questionTurn[1] || questionTurn[5] || questionTurn[9]) && testfor == TestFor::NERVES) ||
+							((questionTurn[6] || questionTurn[8]) && testfor == TestFor::MUSCLE))
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 220 };
+						else if (questionTurn[5] && testfor == TestFor::LIVER)
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 270 };
+						else
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 170 };
+
+						checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
+						clickRecPos.x = question1[i].pos.x;
+						clickRecPos.y = question1[i].ans[j].pos.y;
+						clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
+						if ((questionTurn[5] && testfor == TestFor::LIVER) || ((questionTurn[4] || questionTurn[5] || questionTurn[6] || questionTurn[7]) && testfor == TestFor::INTESTINES))
+							clickRecPos.height = 70;
+						else
+							clickRecPos.height = 30;
+						/*DrawRectangleRec(clickRecPos, BLACK);*/
+						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+							question1[i].ans[0].checked = false;
+							question1[i].ans[1].checked = false;
+							question1[i].ans[2].checked = true;
+							question1[i].ans[3].checked = false;
+						}
+
+						if (question1[i].ans[j].checked) {
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+						}
+						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+
+						DrawText(question1[i].ans[j].text, question1[i].ans[j].pos.x, question1[i].ans[j].pos.y, 30, BLACK);
+						break;
+					case 3:
+						if ((questionTurn[3] && testfor == TestFor::BRAIN) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[3] || questionTurn[4]) && testfor == TestFor::LUNGS) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[2] || questionTurn[3] || questionTurn[4] || questionTurn[6]) && testfor == TestFor::HEART) ||
+							((questionTurn[4] || questionTurn[5] || questionTurn[6] || questionTurn[7]) && testfor == TestFor::INTESTINES) ||
+							((questionTurn[5] || questionTurn[7]) && testfor == TestFor::REPRODUCTIVE) ||
+							((questionTurn[1] || questionTurn[5] || questionTurn[9]) && testfor == TestFor::NERVES) ||
+							((questionTurn[6] || questionTurn[8]) && testfor == TestFor::MUSCLE))
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 270 };
+						else if (questionTurn[5] && testfor == TestFor::LIVER)
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 370 };
+						else
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 220 };
+
+						checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
+						clickRecPos.x = question1[i].pos.x;
+						clickRecPos.y = question1[i].ans[j].pos.y;
+						clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
+						if (questionTurn[5] && testfor == TestFor::LIVER)
+							clickRecPos.height = 70;
+						else
+							clickRecPos.height = 30;
+						/*DrawRectangleRec(clickRecPos, BLACK);*/
+						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+							question1[i].ans[0].checked = false;
+							question1[i].ans[1].checked = false;
+							question1[i].ans[2].checked = false;
+							question1[i].ans[3].checked = true;
+						}
+
+						if (question1[i].ans[j].checked) {
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+						}
+						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+
+						DrawText(question1[i].ans[j].text, question1[i].ans[j].pos.x, question1[i].ans[j].pos.y, 30, BLACK);
+						break;
+					}
+				}
+			}
+			if (i == 9 && questionTurn[i]) {
+				DrawText(question1[i].question, question1[i].pos.x, question1[i].pos.y, testFontSize, BLACK);
+				for (int j = 0; j < 4; j++) {
+					switch (j) {
+					case 0:
+						if ((questionTurn[3] && testfor == TestFor::BRAIN) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[3] || questionTurn[4]) && testfor == TestFor::LUNGS) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[2] || questionTurn[3] || questionTurn[4] || questionTurn[6]) && testfor == TestFor::HEART) ||
+							((questionTurn[5] || questionTurn[7]) && testfor == TestFor::REPRODUCTIVE) ||
+							((questionTurn[1] || questionTurn[5] || questionTurn[9]) && testfor == TestFor::NERVES) ||
+							((questionTurn[6] || questionTurn[8]) && testfor == TestFor::MUSCLE))
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 120 };
+						else
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 70 };
+
+						checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
+						clickRecPos.x = question1[i].pos.x;
+						clickRecPos.y = question1[i].ans[j].pos.y;
+						clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
+						if (questionTurn[5] && testfor == TestFor::LIVER)
+							clickRecPos.height = 70;
+						else
+							clickRecPos.height = 30;
+						/*DrawRectangleRec(clickRecPos, BLACK);*/
+						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+							question1[i].ans[0].checked = true;
+							question1[i].ans[1].checked = false;
+							question1[i].ans[2].checked = false;
+							question1[i].ans[3].checked = false;
+						}
+
+						if (question1[i].ans[j].checked) {
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+						}
+						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+
+						DrawText(question1[i].ans[j].text, question1[i].ans[j].pos.x, question1[i].ans[j].pos.y, 30, BLACK);
+						break;
+					case 1:
+						if ((questionTurn[3] && testfor == TestFor::BRAIN) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[3] || questionTurn[4]) && testfor == TestFor::LUNGS) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[2] || questionTurn[3] || questionTurn[4] || questionTurn[6]) && testfor == TestFor::HEART) ||
+							((questionTurn[5] || questionTurn[7]) && testfor == TestFor::REPRODUCTIVE) ||
+							((questionTurn[1] || questionTurn[5] || questionTurn[9]) && testfor == TestFor::NERVES) ||
+							((questionTurn[6] || questionTurn[8]) && testfor == TestFor::MUSCLE))
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 170 };
+						else if (questionTurn[5] && testfor == TestFor::LIVER)
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 170 };
+						else
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 120 };
+
+						checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
+						clickRecPos.x = question1[i].pos.x;
+						clickRecPos.y = question1[i].ans[j].pos.y;
+						clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
+						if (questionTurn[5] && testfor == TestFor::LIVER)
+							clickRecPos.height = 70;
+						else
+							clickRecPos.height = 30;
+						/*DrawRectangleRec(clickRecPos, BLACK);*/
+						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+							question1[i].ans[0].checked = false;
+							question1[i].ans[1].checked = true;
+							question1[i].ans[2].checked = false;
+							question1[i].ans[3].checked = false;
+						}
+
+						if (question1[i].ans[j].checked) {
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+						}
+						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+
+						DrawText(question1[i].ans[j].text, question1[i].ans[j].pos.x, question1[i].ans[j].pos.y, 30, BLACK);
+						break;
+					case 2:
+						if ((questionTurn[3] && testfor == TestFor::BRAIN) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[3] || questionTurn[4]) && testfor == TestFor::LUNGS) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[2] || questionTurn[3] || questionTurn[4] || questionTurn[6]) && testfor == TestFor::HEART) ||
+							((questionTurn[5] || questionTurn[7]) && testfor == TestFor::REPRODUCTIVE) ||
+							((questionTurn[1] || questionTurn[5] || questionTurn[9]) && testfor == TestFor::NERVES) ||
+							((questionTurn[6] || questionTurn[8]) && testfor == TestFor::MUSCLE))
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 220 };
+						else if (questionTurn[5] && testfor == TestFor::LIVER)
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 270 };
+						else
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 170 };
+
+						checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
+						clickRecPos.x = question1[i].pos.x;
+						clickRecPos.y = question1[i].ans[j].pos.y;
+						clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
+						if ((questionTurn[5] && testfor == TestFor::LIVER) || ((questionTurn[4] || questionTurn[5] || questionTurn[6] || questionTurn[7]) && testfor == TestFor::INTESTINES))
+							clickRecPos.height = 70;
+						else
+							clickRecPos.height = 30;
+						/*DrawRectangleRec(clickRecPos, BLACK);*/
+						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+							question1[i].ans[0].checked = false;
+							question1[i].ans[1].checked = false;
+							question1[i].ans[2].checked = true;
+							question1[i].ans[3].checked = false;
+						}
+
+						if (question1[i].ans[j].checked) {
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+						}
+						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+
+						DrawText(question1[i].ans[j].text, question1[i].ans[j].pos.x, question1[i].ans[j].pos.y, 30, BLACK);
+						break;
+					case 3:
+						if ((questionTurn[3] && testfor == TestFor::BRAIN) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[3] || questionTurn[4]) && testfor == TestFor::LUNGS) ||
+							((questionTurn[0] || questionTurn[1] || questionTurn[2] || questionTurn[3] || questionTurn[4] || questionTurn[6]) && testfor == TestFor::HEART) ||
+							((questionTurn[4] || questionTurn[5] || questionTurn[6] || questionTurn[7]) && testfor == TestFor::INTESTINES) ||
+							((questionTurn[5] || questionTurn[7]) && testfor == TestFor::REPRODUCTIVE) ||
+							((questionTurn[1] || questionTurn[5] || questionTurn[9]) && testfor == TestFor::NERVES) ||
+							((questionTurn[6] || questionTurn[8]) && testfor == TestFor::MUSCLE))
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 270 };
+						else if (questionTurn[5] && testfor == TestFor::LIVER)
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 370 };
+						else
+							question1[i].ans[j].pos = { question1[i].pos.x + 30, question1[i].pos.y + 220 };
+
+						checkBoxPos = { question1[i].pos.x + 10, question1[i].ans[j].pos.y + 15 };
+						clickRecPos.x = question1[i].pos.x;
+						clickRecPos.y = question1[i].ans[j].pos.y;
+						clickRecPos.width = sWidth / 2 + sWidth / 5 + 50;
+						if (questionTurn[5] && testfor == TestFor::LIVER)
+							clickRecPos.height = 70;
+						else
+							clickRecPos.height = 30;
+						/*DrawRectangleRec(clickRecPos, BLACK);*/
+						if (CheckCollisionPointRec(GetMousePosition(), clickRecPos) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+							question1[i].ans[0].checked = false;
+							question1[i].ans[1].checked = false;
+							question1[i].ans[2].checked = false;
+							question1[i].ans[3].checked = true;
+						}
+
+						if (question1[i].ans[j].checked) {
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+							DrawCircle(checkBoxPos.x, checkBoxPos.y, 7, BLUE);
+						}
+						else DrawCircle(checkBoxPos.x, checkBoxPos.y, 10, DARKGRAY);
+
+						DrawText(question1[i].ans[j].text, question1[i].ans[j].pos.x, question1[i].ans[j].pos.y, 30, BLACK);
+						break;
+					}
+				}
+			}
 		}
-		else if (questionTurn[1]) {
-			question.question = question1[1].question;
-			question.ans[0].text = question1[1].ans[0].text;
-			question.ans[1].text = question1[1].ans[1].text;
-			question.ans[2].text = question1[1].ans[2].text;
-			question.ans[3].text = question1[1].ans[3].text;
-		}
-		else if (questionTurn[2]) {
-			question.question = question1[2].question;
-			question.ans[0].text = question1[2].ans[0].text;
-			question.ans[1].text = question1[2].ans[1].text;
-			question.ans[2].text = question1[2].ans[2].text;
-			question.ans[3].text = question1[2].ans[3].text;
-		}
-		else if (questionTurn[3]) {
-			question.question = question1[3].question;
-			question.ans[0].text = question1[3].ans[0].text;
-			question.ans[1].text = question1[3].ans[1].text;
-			question.ans[2].text = question1[3].ans[2].text;
-			question.ans[3].text = question1[3].ans[3].text;
-		}
-		else if (questionTurn[4]) {
-			question.question = question1[4].question;
-			question.ans[0].text = question1[4].ans[0].text;
-			question.ans[1].text = question1[4].ans[1].text;
-			question.ans[2].text = question1[4].ans[2].text;
-			question.ans[3].text = question1[4].ans[3].text;
-		}
-		else if (questionTurn[5]) {
-			question.question = question1[5].question;
-			question.ans[0].text = question1[5].ans[0].text;
-			question.ans[1].text = question1[5].ans[1].text;
-			question.ans[2].text = question1[5].ans[2].text;
-			question.ans[3].text = question1[5].ans[3].text;
-		}
-		else if (questionTurn[6]) {
-			question.question = question1[6].question;
-			question.ans[0].text = question1[6].ans[0].text;
-			question.ans[1].text = question1[6].ans[1].text;
-			question.ans[2].text = question1[6].ans[2].text;
-			question.ans[3].text = question1[6].ans[3].text;
-		}
-		else if (questionTurn[7]) {
-			question.question = question1[7].question;
-			question.ans[0].text = question1[7].ans[0].text;
-			question.ans[1].text = question1[7].ans[1].text;
-			question.ans[2].text = question1[7].ans[2].text;
-			question.ans[3].text = question1[7].ans[3].text;
-		}
-		else if (questionTurn[8]) {
-			question.question = question1[8].question;
-			question.ans[0].text = question1[8].ans[0].text;
-			question.ans[1].text = question1[8].ans[1].text;
-			question.ans[2].text = question1[8].ans[2].text;
-			question.ans[3].text = question1[8].ans[3].text;
-		}
-		else if (questionTurn[9]) {
-			question.question = question1[9].question;
-			question.ans[0].text = question1[9].ans[0].text;
-			question.ans[1].text = question1[9].ans[1].text;
-			question.ans[2].text = question1[9].ans[2].text;
-			question.ans[3].text = question1[9].ans[3].text;
-		}
-		drawAnswer(question);
+	
 		drawTestButtons();
-		drawQuestionNum(sWidth / 2 - sWidth / 45 * 7, sHeight - 75, question);
+		drawQuestionNum(sWidth / 2 - sWidth / 45 * 7, sHeight - 75, question1);
 	}
 	else drawAlertForEnd();
 }
-
 
 void Body::cancelBtn(float posX, float posY) {
 	cancel.bounds = { posX, posY, 125, 40};
