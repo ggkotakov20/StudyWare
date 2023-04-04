@@ -1,6 +1,4 @@
-﻿  AppManage.cpp
-  AppStatus.cpp
-  Body.cpp
+﻿  Body.cpp
 C:\Users\ggkotakov20\source\repos\StudyWare\StudyWare\StudyWare\Body.cpp(6,25): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
 C:\Users\ggkotakov20\source\repos\StudyWare\StudyWare\StudyWare\Body.cpp(7,27): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
 C:\Users\ggkotakov20\source\repos\StudyWare\StudyWare\StudyWare\Body.cpp(9,21): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
@@ -786,8 +784,6 @@ C:\Users\ggkotakov20\source\repos\StudyWare\StudyWare\StudyWare\Body.cpp(3061,48
 C:\Users\ggkotakov20\source\repos\StudyWare\StudyWare\StudyWare\Body.cpp(3061,34): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 C:\Users\ggkotakov20\source\repos\StudyWare\StudyWare\StudyWare\Body.cpp(3064,43): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 C:\Users\ggkotakov20\source\repos\StudyWare\StudyWare\StudyWare\Body.cpp(3064,32): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\ggkotakov20\source\repos\StudyWare\StudyWare\StudyWare\Body.cpp(3065,55): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\ggkotakov20\source\repos\StudyWare\StudyWare\StudyWare\Body.cpp(3066,53): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 C:\Users\ggkotakov20\source\repos\StudyWare\StudyWare\StudyWare\Body.cpp(3098,57): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 C:\Users\ggkotakov20\source\repos\StudyWare\StudyWare\StudyWare\Body.cpp(3098,40): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 C:\Users\ggkotakov20\source\repos\StudyWare\StudyWare\StudyWare\Body.cpp(3100,57): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
@@ -802,8 +798,6 @@ C:\Users\ggkotakov20\source\repos\StudyWare\StudyWare\StudyWare\Body.cpp(3139,69
 C:\Users\ggkotakov20\source\repos\StudyWare\StudyWare\StudyWare\Body.cpp(3139,48): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 C:\Users\ggkotakov20\source\repos\StudyWare\StudyWare\StudyWare\Body.cpp(3142,50): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 C:\Users\ggkotakov20\source\repos\StudyWare\StudyWare\StudyWare\Body.cpp(3142,39): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\ggkotakov20\source\repos\StudyWare\StudyWare\StudyWare\Body.cpp(3143,55): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\ggkotakov20\source\repos\StudyWare\StudyWare\StudyWare\Body.cpp(3144,53): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 C:\Users\ggkotakov20\source\repos\StudyWare\StudyWare\StudyWare\Body.cpp(3176,45): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 C:\Users\ggkotakov20\source\repos\StudyWare\StudyWare\StudyWare\Body.cpp(3176,32): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 C:\Users\ggkotakov20\source\repos\StudyWare\StudyWare\StudyWare\Body.cpp(3178,45): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
@@ -820,20 +814,4 @@ C:\Users\ggkotakov20\source\repos\StudyWare\StudyWare\StudyWare\Body.cpp(3221,55
 C:\Users\ggkotakov20\source\repos\StudyWare\StudyWare\StudyWare\Body.cpp(3222,53): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 C:\Users\ggkotakov20\source\repos\StudyWare\StudyWare\StudyWare\Body.cpp(3256,39): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 C:\Users\ggkotakov20\source\repos\StudyWare\StudyWare\StudyWare\Body.cpp(3256,28): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-  main.cpp
-  Menu.cpp
-C:\Users\ggkotakov20\source\repos\StudyWare\StudyWare\StudyWare\Menu.cpp(6,25): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\ggkotakov20\source\repos\StudyWare\StudyWare\StudyWare\Menu.cpp(7,27): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\ggkotakov20\source\repos\StudyWare\StudyWare\StudyWare\Menu.cpp(11,21): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\ggkotakov20\source\repos\StudyWare\StudyWare\StudyWare\Menu.cpp(18,78): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\ggkotakov20\source\repos\StudyWare\StudyWare\StudyWare\Menu.cpp(39,59): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\ggkotakov20\source\repos\StudyWare\StudyWare\StudyWare\Menu.cpp(39,47): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\ggkotakov20\source\repos\StudyWare\StudyWare\StudyWare\Menu.cpp(39,31): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\ggkotakov20\source\repos\StudyWare\StudyWare\StudyWare\Menu.cpp(46,27): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\ggkotakov20\source\repos\StudyWare\StudyWare\StudyWare\Menu.cpp(50,54): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\ggkotakov20\source\repos\StudyWare\StudyWare\StudyWare\Menu.cpp(50,39): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\ggkotakov20\source\repos\StudyWare\StudyWare\StudyWare\Menu.cpp(60,27): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\ggkotakov20\source\repos\StudyWare\StudyWare\StudyWare\Menu.cpp(63,47): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\ggkotakov20\source\repos\StudyWare\StudyWare\StudyWare\Menu.cpp(63,32): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-  Generating Code...
   StudyWare.vcxproj -> C:\Users\ggkotakov20\source\repos\StudyWare\StudyWare\x64\Debug\StudyWare.exe
