@@ -3,7 +3,7 @@
 AppManage* AppManage::instance = nullptr;
 
 AppManage::AppManage() {
-    InitWindow(1920, 1080, "StudyWare");
+    InitWindow(GetScreenWidth(), GetScreenHeight(), "StudyWare");
     ToggleFullscreen();
 }
 AppManage::~AppManage() {

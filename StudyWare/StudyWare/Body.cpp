@@ -23,8 +23,8 @@ Body::Body() {
 	nerves = LoadTexture("../Images/organs/nerves.png");
 	muscle = LoadTexture("../Images/organs/muscle.png");
 
-	bodySize = 2.5;
-	organSize = 2.5;
+	bodySize = sHeight / 300;
+	organSize = sHeight / 300;
 
 	// Set size of each organ
 	body.width /= bodySize;
@@ -2866,8 +2866,8 @@ void Body::drawBrain() {
 
 	if (brainIsActive) {
         DrawText(brainInfo, infoPos.x, infoPos.y, fontSize, BLACK);
-		cancelBtn(sWidth / 2 - body.width - 55, sHeight / 2 + body.height / 4 - 60);
-		testBtn(sWidth / 2 - body.width + 75, sHeight / 2 + body.height / 4 - 60, TestFor::BRAIN);
+		cancelBtn(sWidth / 2 - body.width - 55, sHeight / 2 + body.height / 5);
+		testBtn(sWidth / 2 - body.width + 75, sHeight / 2 + body.height / 5, TestFor::BRAIN);
 		if (CheckCollisionPointRec(GetMousePosition(), brainRec) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
 			brainIsActive = false;
 			lungsIsActive = false;
@@ -2905,8 +2905,8 @@ void Body::drawLungs() {
 
 	if (lungsIsActive) {
 		DrawText(lungsInfo, infoPos.x, infoPos.y, fontSize, BLACK);
-		cancelBtn(sWidth / 2 - body.width - 55, sHeight / 2 + body.height / 5 - 100);
-		testBtn(sWidth / 2 - body.width + 75, sHeight / 2 + body.height / 5 - 100, TestFor::LUNGS);
+		cancelBtn(sWidth / 2 - body.width - 55, sHeight / 2 + body.height / 9);
+		testBtn(sWidth / 2 - body.width + 75, sHeight / 2 + body.height / 9, TestFor::LUNGS);
 		if (CheckCollisionPointRec(GetMousePosition(), lungsRec) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
 			brainIsActive = false;
 			lungsIsActive = false;
@@ -2944,8 +2944,8 @@ void Body::drawLiver() {
 
 	if (liverIsActive) {
 		DrawText(liverInfo, infoPos.x, infoPos.y, fontSize, BLACK);
-		cancelBtn(sWidth / 2 - body.width - 55, sHeight / 2 + body.height / 7 - 100);
-		testBtn(sWidth / 2 - body.width + 75, sHeight / 2 + body.height / 7 - 100, TestFor::LIVER);
+		cancelBtn(sWidth / 2 - body.width - 55, sHeight / 2 + body.height / 20);
+		testBtn(sWidth / 2 - body.width + 75, sHeight / 2 + body.height / 20, TestFor::LIVER);
 		if (CheckCollisionPointRec(GetMousePosition(), liverRec) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
 			brainIsActive = false;
 			lungsIsActive = false;
@@ -2983,8 +2983,8 @@ void Body::drawHeart() {
 
 	if (heartIsActive) {
 		DrawText(heartInfo, infoPos.x, infoPos.y, fontSize, BLACK);
-		cancelBtn(sWidth / 2 - body.width - 55, sHeight / 2 + body.height / 6 - 100);
-		testBtn(sWidth / 2 - body.width + 75, sHeight / 2 + body.height / 6 - 100, TestFor::HEART);
+		cancelBtn(sWidth / 2 - body.width - 55, sHeight / 2 + body.height / 10);
+		testBtn(sWidth / 2 - body.width + 75, sHeight / 2 + body.height / 10, TestFor::HEART);
 		if (CheckCollisionPointRec(GetMousePosition(), heartRec) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
 			brainIsActive = false;
 			lungsIsActive = false;
@@ -3023,8 +3023,8 @@ void Body::drawKidney() {
 
 	if (kidneyIsActive) {
 		DrawText(kidneyInfo, infoPos.x, infoPos.y, fontSize, BLACK);
-		cancelBtn(sWidth / 2 - body.width - 10, sHeight / 2 + body.height / 2 - 100);
-		testBtn(sWidth / 2 - body.width + 120, sHeight / 2 + body.height / 2 - 100, TestFor::KIDNEY);
+		cancelBtn(sWidth / 2 - body.width - 10, sHeight / 2 + body.height / 2.3);
+		testBtn(sWidth / 2 - body.width + 120, sHeight / 2 + body.height / 2.3, TestFor::KIDNEY);
 		if (CheckCollisionPointRec(GetMousePosition(), kidneyRec) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
 			brainIsActive = false;
 			lungsIsActive = false;
@@ -3062,8 +3062,8 @@ void Body::drawStomach() {
 
 	if (stomachIsActive) {
 		DrawText(stomachInfo, infoPos.x, infoPos.y, fontSize, BLACK);
-		cancelBtn(sWidth / 2 - body.width - 55, sHeight / 2 + body.height / 2 - 130);
-		testBtn(sWidth / 2 - body.width + 75, sHeight / 2 + body.height / 2 - 130, TestFor::STOMACH);
+		cancelBtn(sWidth / 2 - body.width - 55, sHeight / 2 + body.height / 2.5);
+		testBtn(sWidth / 2 - body.width + 75, sHeight / 2 + body.height / 2.5, TestFor::STOMACH);
 		if (CheckCollisionPointRec(GetMousePosition(), stomachRec) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
 			brainIsActive = false;
 			lungsIsActive = false;
@@ -3101,8 +3101,8 @@ void Body::drawIntestines() {
 
 	if (intestinesIsActive) {
 		DrawText(intestinesInfo, infoPos.x, infoPos.y, fontSize, BLACK);
-		cancelBtn(sWidth / 2 - body.width - 55, sHeight / 2 + body.height / 4 - 120);
-		testBtn(sWidth / 2 - body.width + 75, sHeight / 2 + body.height / 4 - 120, TestFor::INTESTINES);
+		cancelBtn(sWidth / 2 - body.width - 55, sHeight / 2 + body.height / 6.8);
+		testBtn(sWidth / 2 - body.width + 75, sHeight / 2 + body.height / 6.8, TestFor::INTESTINES);
 		if (CheckCollisionPointRec(GetMousePosition(), intestinesRec) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
 			brainIsActive = false;
 			lungsIsActive = false;
@@ -3140,8 +3140,8 @@ void Body::drawReproductiveSM() {
 
 	if (reproductiveSMIsActive) {
 		DrawText(reproductiveSMInfo, infoPos.x, infoPos.y, fontSize, BLACK);
-		cancelBtn(sWidth / 2 - body.width - 55, sHeight / 2 + body.height / 3 - 80);
-		testBtn(sWidth / 2 - body.width + 75, sHeight / 2 + body.height / 3 - 80, TestFor::REPRODUCTIVE);
+		cancelBtn(sWidth / 2 - body.width - 55, sHeight / 2 + body.height / 3.8);
+		testBtn(sWidth / 2 - body.width + 75, sHeight / 2 + body.height / 3.8, TestFor::REPRODUCTIVE);
 		if (CheckCollisionPointRec(GetMousePosition(), reproductiveSMRec) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
 			brainIsActive = false;
 			lungsIsActive = false;
@@ -3179,8 +3179,8 @@ void Body::drawNerves() {
 
 	if (nervesIsActive) {
 		DrawText(nervesInfo, infoPos.x, infoPos.y, fontSize, BLACK);
-		cancelBtn(sWidth / 2 - body.width - 55, sHeight / 2 + body.height / 5 - 70);
-		testBtn(sWidth / 2 - body.width + 75, sHeight / 2 + body.height / 5 - 70, TestFor::NERVES);
+		cancelBtn(sWidth / 2 - body.width - 55, sHeight / 2 + body.height / 7);
+		testBtn(sWidth / 2 - body.width + 75, sHeight / 2 + body.height / 7, TestFor::NERVES);
 		if (CheckCollisionPointRec(GetMousePosition(), nervesRec) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
 			brainIsActive = false;
 			lungsIsActive = false;
@@ -3218,8 +3218,8 @@ void Body::drawMuscle() {
 
 	if (muscleIsActive) {
 		DrawText(muscleInfo, infoPos.x, infoPos.y, fontSize, BLACK);
-		cancelBtn(sWidth / 2 - body.width - 55, sHeight / 2 + body.height / 3 + 10);
-		testBtn(sWidth / 2 - body.width + 75, sHeight / 2 + body.height / 3 + 10, TestFor::MUSCLE);
+		cancelBtn(sWidth / 2 - body.width - 55, sHeight / 2 + body.height / 2.8);
+		testBtn(sWidth / 2 - body.width + 75, sHeight / 2 + body.height / 2.8, TestFor::MUSCLE);
 		if (CheckCollisionPointRec(GetMousePosition(), muscleRec) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
 			brainIsActive = false;
 			lungsIsActive = false;
